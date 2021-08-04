@@ -60,10 +60,3 @@ function getthetext(get){
    }
 }
 
-function date(dat)
-{
-    let date2 = dat.toString(dat)
-   let date = date2.slice(0, 16);
-    console.log(date);
-}
-date(new Date())
