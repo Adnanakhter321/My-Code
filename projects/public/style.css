@@ -1,0 +1,48 @@
+.chatdiv{
+    background-color: #948c8c;
+    height: 554px;
+    width: 705px;
+    margin-left: 266px;
+}
+.headingdiv{
+    color: #eae3e3;
+    height: 30px;
+    border-bottom: 1px solid white;
+    background-color: #545353;
+    width: 705px;
+    margin-left: 266px;
+}
+.heading{
+    font-size: 27px;
+    display: flex;
+    justify-content: center;
+    /* padding: 46px 0px 0px 0px; */
+}
+.inputtext{
+    background-color: #545353;
+    height: 40px;
+    width: 705px;
+    margin-left: 266px;
+}
+
+.text{
+    height: 537px;
+    width: 688px;
+    position: relative;
+    top: 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    left: 5px;
+    word-wrap: break-word;
+}
+#text{
+    outline: none;
+    height: 34px;
+    position: relative;
+    top: 0px;
+    width: 435px;
+}
+button{
+    position: relative;
+    bottom: 16px;
+}
