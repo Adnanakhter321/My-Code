@@ -1,0 +1,134 @@
+/* body{
+    padding: 0;
+    margin: 0;
+}
+.mainheader{
+    background-color: black;
+    width: 100%;
+}
+.head{
+    background-color: black;
+    height: 35px;
+    width: 40%;
+    position: relative;
+    left: 618px;
+}
+#img1{
+    width:5%;
+    height: 16px;
+}
+.img1 {
+padding-top: 8px;
+}
+.text{
+    color: #ffffff;
+    position: absolute;
+    margin-left: 6px;
+}
+.phone
+{
+    display: inline;
+    color: #ffffff;
+    position: absolute;
+    padding-left: 4px;
+    width: 40%;
+    left: 235px;
+    bottom: 9px;
+    border-left: white 1px solid;
+}
+#img2{
+    width: 5%;
+    height: 16px;
+    position: relative;
+    top: 2px;
+    left: 13px;
+    padding-right: 15px;
+} */
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.mainheader {
+    background-color: black;
+    height: 35px;
+}
+
+.contacts {
+    margin: 0 auto;
+    width: 738px;
+    height: 35px;
+}
+.email{
+    float: left;
+    position: relative;
+    left: 240px;
+    top: 4px;
+}
+.email>img{
+    width: 18px;
+    height: 12px;
+}
+.email>p{
+    display: inline;
+    color: white;
+    padding-left: 10px;
+}
+.phone{
+    float: right;
+    margin-top: 4px;
+    margin-right: 80px;
+    border-left: 1px solid white;
+    padding: 0px 13px 3px 12px;
+}
+.phone>img{
+    width: 18px;
+    height: 12px;
+}
+.phone>p{
+    display: inline;
+    color: white;
+ }
+
+ 
+.image>img{
+    height: 500px;
+    width: 100%;
+    /* filter: blur(2px); */
+}
+.input{
+    position: absolute;
+    top: 359px;
+    left: 375px;
+    background-color: hsla(0, 2%, 51%, 0.4);
+    width: 473px;
+    padding: 8px 0 9px 14px;
+}
+.input>input{
+outline: none;
+}
+.image>h1{
+    position: absolute;
+    display: inline;
+    color: yellow;
+    font-weight: 400;
+    top: 48px;
+    left: 56px;
+}
+.image>h2{
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    top: 175px;
+    left: 286px;
+    font-size: 54px;
+    transform: rotate(0.3deg);
+    font-family: serif;
+}
+.image>button{
+    position: absolute;
+    top: 270px;
+    left: 524px;
+    border: rgb(227 160 0) 3px solid;
+}
