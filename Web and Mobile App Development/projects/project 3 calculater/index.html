@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculater</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="box">
+        <div id="screen">
+            <span id="main-number">0</span>
+          
+        </div>
+        <div class="calculater-box">
+            <div>
+                <button onclick="passnumber(7)">7</button>
+                <button onclick="passnumber(8)">8</button>
+                <button onclick="passnumber(9)">9</button>
+                <button onclick="operatorvalue('+')">+</button>
+            </div>
+            <div>
+                <button onclick="passnumber(4)">4</button>
+                <button onclick="passnumber(5)">5</button>
+                <button onclick="passnumber(6)"> 6</button>
+                <button onclick="operatorvalue('-')">-</button>
+            </div>
+            <div>
+                <button onclick="passnumber(1)">1</button>
+                <button onclick="passnumber(2)">2</button>
+                <button onclick="passnumber(3)">3</button>
+                <button onclick="operatorvalue('÷')">÷</button>
+                <button onclick="passnumber(0)">0</button>
+            </div>
+            <div>
+                <button onclick="clearallvalue()">C</button>
+                <button onclick="dotvalue('.')">.</button>
+                <button onclick="resultvalue()">=</button>
+                <button onclick="operatorvalue('x')">x</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
