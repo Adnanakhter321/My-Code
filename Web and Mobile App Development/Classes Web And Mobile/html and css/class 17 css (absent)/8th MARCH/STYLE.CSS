@@ -1,0 +1,34 @@
+/*p{
+    border: 1px solid rgb(20, 50,200);
+   /*margin-top:px;
+    margin-left: 5px;
+    margin-right: 20px;
+    margin-bottom: 0;
+    margin:10,5,0,5;*/
+
+p{
+    width:80%;
+    /*text-align: center; it works only for container inside element*/
+    margin: 0 auto;/*the whole element will be centered 
+    padding-top: 5px;
+    padding-left: 5px;*/
+}
+h1{
+   background-color: rgb(200, 150,200);
+   color: rgb(114, 250, 166);
+   display: inline-block;/*only for block elements*/
+   width: 80%;
+}
+em{
+    background-color: yellow;
+}
+p{
+  /*  display: none; iska matlab k element exist hi nhi krta wajah ye k */
+  /*visibility: hidden;*/
+}
+#container{
+    background-color:rgb(26, 83, 3);
+    border: 10px solid;
+    border-image: url('images/border.png') 20 20 20 20 repeat;
+    /* border-image: url('images/border.png') 20 20 20 100 repeat; */
+}

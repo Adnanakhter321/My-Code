@@ -1,0 +1,76 @@
+body{
+    background-image: url(images/bg-img.jpg);
+    background-repeat: no-repeat;
+    padding: 0;
+    margin: 0;
+    height: 700px;
+}
+.mainheading{
+    width: 52%;
+    height: 97px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 5px 0 0px 166px;
+    font-size: 62px;
+    font-family: cursive;
+}
+.maindiv{
+    margin: 89px 0px 0px 43px;
+    height: 524px;
+}
+.scoreofit{
+    margin: 0 auto;
+    width: 385px;
+    float: right;
+    height: 524px;
+}
+.hreset{
+    border: none;
+    border-radius: 14px;
+    background-color: #bf9939;
+    font-size: 28px;
+    font-family: cursive;
+}
+.hreset:hover{
+    box-shadow: 1px 1px 4px black;
+    cursor: pointer;
+}
+
+.hreset:active{
+    box-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+.rscore{
+    text-shadow: 3px 0px 4px black;
+    font-size: 32px;
+    color: red;
+}
+.jscore{
+    text-shadow: 3px 0px 4px black;
+    font-size: 32px;
+    color: #e27d09;
+}
+.scoreheading{
+    font-style: italic;
+    font-weight: bold;
+    padding-left: 10px;
+    text-shadow: 4px 0px 5px black;
+}
+#img1 , #img2 , #img3 , #img4 {
+    width: 250px;
+    height: 233px;
+}
+.scoreofit>h1 , .scoreofit>h3>h1 {
+    display: inline;
+}
+
+#img1:hover , #img2:hover , #img3:hover , #img4:hover { 
+cursor: pointer;
+box-shadow: 1px 1px 10px black;
+}
+
+#img1:active, #img2:active , #img3:active , #img4:active { 
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgb(0, 0, 0);
+    }
+ 

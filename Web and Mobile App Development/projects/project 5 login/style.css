@@ -1,0 +1,26 @@
+body{
+    background-image: url(images/gradienta-bKESVqfxass-unsplash.jpg);
+    margin: 0;
+    padding: 0;
+    height: 200px;
+}
+
+.login{
+    margin: 0 auto;
+    width: 31%;
+    margin-top: 83px;
+    height: 151px;
+    border-radius: 13px;
+}
+#email:focus{
+    outline: none;
+    display: flex;
+ 
+}
+.heading1{
+    /* display: flex;
+    justify-content: center; */
+}
+.page{
+    background-image: url(images/img2.jpg);
+}

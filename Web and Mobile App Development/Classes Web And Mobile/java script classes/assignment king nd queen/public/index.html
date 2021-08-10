@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King Queen Game</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+    </style>
+</head> 
+
+<body>
+    <h1 class="mainheading">King Finding Game</h1>
+
+    <div class="maindiv">
+        <img src="images/back.png" alt="img1" id="img1" onclick="userpick(1)">
+        <img src="images/back.png" alt="img2" id="img2" onclick="userpick(2)">
+
+        <img src="images/back.png" alt="img3" id="img3" onclick="userpick(3)">
+        <!-- <img src="images/back.png" alt="img4" id="img4" onclick="img4click()"> -->
+
+
+        <div class="scoreofit">
+            <h1 class="scoreheading"><span style="color: white;">[ SCORE BOARD ]</span></h1>
+            <h2 class="rscore">Current Round win = <span id="score"> 0</span></h2> <h2 class="kscore"> Current Round Lose = <span id="score2">0</span> </h2>
+            <button onclick="reset()" class="hreset">Reset All Score</button>
+        </div>
+  <a href="kingandqueengame part2/public/index.html"> <button >2nd game</button></a>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

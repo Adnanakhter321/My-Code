@@ -1,0 +1,7 @@
+1. Make 10 stories in HTML
+2. Each story must cosist of title (h1), image (img), and story paragraphs (p).
+3. Only 1 story will be displayed on DOM at a time.
+4. Next and Back button will be made in HTML at bttom of story.
+5. Clicking on next will show next story and clicking on back will show previous story on DOM
+6. If user clicks on image then image will expand to whole screen and all others elements will be removed from screen including next and back button and story it self. Only image will be shown in full screen in this case.
+7. If user clicks on this image again, it will revert back the image to its original size and same story will appear again with next and back button

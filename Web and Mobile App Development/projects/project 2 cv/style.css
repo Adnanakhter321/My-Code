@@ -1,0 +1,16 @@
+body{
+background-color: 8027D8;    
+margin: 0%;    
+}
+.container{
+    border: 2px solid #131111;
+    width: 47%;
+    height: 96%;
+    margin-left: 26%;
+    margin-top: 24px;
+}
+.image{
+    width: 49%;
+    margin-left: 1px;
+    margin-top: 1px;
+}

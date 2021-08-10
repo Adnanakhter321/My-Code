@@ -1,0 +1,26 @@
+/* div{
+    background-color: blue;
+    /* width: 400px;
+    height: 200px; 
+    max-width: 300px;
+    min-width: 190px;
+    max-height: 700px;
+    min-height: 600px;
+
+}
+p{
+     background-color: #17ffa6;
+    width: 50%;
+    height: 80%; 
+} */
+p{
+    /* background-color: blue;
+    width: 400px;
+    height: 200px;
+    /* overflow: scroll , hidden ;
+    overflow: scroll; */
+    /* dashed , dotted , solid, double  ,groove*/
+    border-width:2px 3px ;
+    border-style: solid groove ;
+    border-color:red green blue pink ;
+}

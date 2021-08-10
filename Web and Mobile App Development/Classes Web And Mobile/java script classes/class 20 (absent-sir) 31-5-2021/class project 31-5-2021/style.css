@@ -1,0 +1,25 @@
+.story1{
+    margin: 0 auto;
+    width: 72%;
+    display: blc;
+}
+.story2{
+    margin: 0 auto;
+    width: 72%;
+}
+
+.story3{
+    margin: 0 auto;
+    width: 72%;
+}
+
+button{
+    background-color: grey;
+  
+    width: 9%;
+    height: 30px;
+    color: #0014ff;
+}
+button:hover{
+    cursor: pointer;
+}
