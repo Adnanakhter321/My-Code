@@ -1,0 +1,9 @@
+body{
+    background: url('../images/flower.webp') fixed center center no-repeat ;
+   background-color: green;
+    
+}
+.unique{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: #fd8700;
+}

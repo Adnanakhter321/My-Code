@@ -1,0 +1,86 @@
+body{
+    padding: 0;
+    margin: 0;  
+}
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+.header{
+    height: 110px;
+    background-color: #edecea;
+
+}
+.headofh{
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 30px 0 0 0px;
+}
+
+li{
+    display: inline;
+    padding: 30px;
+}
+ul .home{
+    color: #d23162;
+}
+a{
+    font-family: 'Rubik', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+.bot-img{   
+    
+    width: 1000px;
+    position: relative;
+    left: 17%;
+}
+.bottom{
+    background-color: #f8f8f8;
+}
+.anker{
+    float: right;
+    padding: 4px 0 0px 0px;
+}
+.last-bot{
+    font-family: 'Rubik', sans-serif;
+    background-color: #eae7e8;
+    margin: 0;
+    max-width: none;
+    padding: 0;
+    width: 100%;
+}
+.rtdiv{
+    margin: 0 auto;
+    max-width: 960px;
+    overflow: hidden;
+    padding: 0;
+}
+.imgtyu{
+    float: right;
+    
+}
+.new-pro{
+    color: #7A6666;
+    display: block;
+    font-family: lato-bold-webfont;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 46px 0px 0px 0px;
+}
+.twhy{
+    color: #E32A62;
+    display: block;
+    font-family: magra-bold-webfont;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: 0;
+    line-height: 40px;
+    padding: 0px 0 0px;
+    text-transform: none;
+    width: 560px;
+}
+.headings{
+    float:left;
+    margin: 0;
+    padding: 0 0 0 40px;
+    width: 560px;
+
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>layout</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1 class="hed"> <span class="sp1"> THE  </span> <br> <span class="sp2"> Adnan<br></span>  <span class="sp3"> Website </span> </h1>
+        <div class="line1"></div>
+        <div class="jabut">
+            <ul>
+                <li><a href> HOME</a></li>
+                <li><a href="assignment/assignment 7.1/index.html" class="asi1">Assignments 1</a></li>
+                 <li><a href="assignment/assignment 7.2/index.html" class="asi2">Assignments 2</a></li>
+                 <li><a href="assignment/assignment 7.3/index.html" class="asi3">Assignments 3</a></li>
+               <!-- <li><a href="#">ABOUT</a></li>
+                <li><a href="#">CONTACT</a></li> -->
+            </ul>
+            <div class="line2"></div>
+            <img src="images/Screenshot_1.png" alt="Analog SPECIALISTS">
+        </div>
+        <div class="para">
+            <p>Hello This Website IS Created By Adnan  </p>
+        </div>
+        
+    </div>
+   <div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+          </div>
+          <div class="col-sm shadow bg-white rounded" style="margin-top: 40px
+          ;">
+            <form method="POST" autocomplete="off" name="google-sheet">
+              <h1 style="text-align: center; font-size: 28px;">Contact Us</h1>
+              <div class="form-group">
+                <!-- <label for="name">Name</label> -->
+                <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name" name="name" required>
+              </div>
+    
+              <div class="form-group">
+                <!-- <label for="exampleInputEmail1">Email address</label> -->
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required name="email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+    
+              <div class="form-group">
+                <!-- <label for="phoneno">Phone Number</label> -->
+                <input type="text" class="form-control" id="phoneno" aria-describedby="emailHelp" placeholder="Enter phone number" required name="phone-number">
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+    
+              <div class="form-group">
+                <!-- <label for="exampleInputEmail1">Comment</label> -->
+              <textarea name="msg" id="msgtext" cols="70" rows="4" placeholder="Enter Your Message" required></textarea>
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+    
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <hr>
+            <h1>Adnan Created FOrm</h1> <h2 id="contacthahs">Contact : </h2>
+            <a href="https://facebook.com/adnanakhter321" target="_blank"> <img src="images/facebook.png" alt="FacebookContact" width="50px" height="50px" style="margin: 0px 0px 0px 7px;" class="img5g675"></a>
+            <a href="https://wa.me/923492025132" target="_blank"> <img src="images/whatsapp.png" alt="WhatsappContact" class="i5675"></a>
+          </div>
+          <div class="col-sm">
+          </div>
+        </div>
+      </div>
+        
+        
+    
+        <script>
+          const scriptURL = 'https://script.google.com/macros/s/AKfycbzJTc_NTircJFaL7wwK2RF7zdgNQ5It4117W3kpWpdzbCnuATOr2cQEOykfE5_d-uhU/exec'
+          const form = document.forms['google-sheet']
+        
+          form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+              .then(response => alert("Thanks for Contacting us..!Our team Will COntact u Soon"))
+              .catch(error => console.error('Error!', error.message))
+          })
+        </script>
+    </body>
+    </html>
+   </div>
+
+</body>
+</html>

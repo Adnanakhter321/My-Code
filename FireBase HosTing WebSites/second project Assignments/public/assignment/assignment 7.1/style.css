@@ -1,0 +1,81 @@
+*{
+  
+    
+    text-align: center;
+}
+@font-face{
+    font-family: akaya ;
+    src: url(fonts/AkayaTelivigala-Regular.ttf);
+}
+.container{ 
+    font-family:akaya, Verdana, Geneva, Tahoma, sans-serif;
+    border: 2px double black;    
+    background-color: rgb(241, 240, 240);
+    height: 762px;
+    
+    margin-top: 4px;
+}
+.hed{
+    margin-top: 110px;
+    border:url;
+}
+.home1:hover{
+ color: #8f2222;
+}
+.sp1{
+    line-height: 3px;
+    margin-top: 3px;
+}
+.sp2{
+    font-size: 57px;
+    line-height: 0px;
+    margin-top: -5px;
+    position: relative;
+    top: 8px;
+}
+.sp3{
+    margin-top: 3px;
+}
+
+.line1{
+    background-color: rgb(6, 6, 95);
+    height: 5px;
+    width: 46%;
+    margin-left: 27%;
+}
+a{
+    text-decoration: none;
+}
+ul,li ,a{
+    display: inline;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 17px;
+    position: relative;
+    top: 6px;
+    font-size: 20px;
+}
+.line2{
+    background-color: rgb(6, 6, 95);
+    height: 5px;
+    width: 46%;
+    margin-left: 27%;
+    margin-top: 33px;
+}
+img{
+   margin-top:  15px;
+}
+.para{
+    width: 46%;
+    padding-left: 27%;
+    padding-top: 23px;
+    font-family: akaya;
+}
+.gta{
+    font-family: sans-serif important;
+    position: relative;
+    display: inline;
+    top: 28px;
+    color: #ffffff;
+    background-color: #aab9c5;
+}

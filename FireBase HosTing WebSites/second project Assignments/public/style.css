@@ -1,0 +1,111 @@
+*{
+  
+    /* font-family:akaya, Verdana, Geneva, Tahoma, sans-serif; */
+    text-align: center;
+}
+@font-face{
+    font-family: akaya ;
+    src: url(fonts/AkayaTelivigala-Regular.ttf);
+}
+.container{
+    border: 2px double black;    
+    background-color: rgb(241, 240, 240);
+    height: 762px;
+    
+    margin-top: 4px;
+}
+.hed{
+    margin-top: 110px;
+}
+.sp1{
+    line-height: 3px;
+    margin-top: 3px;
+}
+.sp2{
+    font-size: 57px;
+    line-height: 0px;
+    margin-top: -5px;
+    position: relative;
+    top: 8px;
+}
+.sp3{
+    margin-top: 3px;
+}
+    .asi1:hover{
+    color: #8f2222 !important;
+    }
+
+.asi2:hover{
+    color: #8f2222  !important;
+   }
+
+   .asi3:hover{
+    color: #8f2222 !important;
+   }
+
+   .jabut>ul>li>a{
+       text-decoration: none;
+   }
+
+.line1{
+    background-color: rgb(6, 6, 95);
+    height: 5px;
+    width: 61%;
+    margin-left: 19%;
+}
+
+.jabut a{
+    text-decoration: none;
+}
+
+.jabut ul,li,a{
+    display: inline;
+    color: black !important;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 17px;
+    position: relative;
+    top: 6px;
+    font-size: 20px;
+}
+
+.line2{
+    background-color: rgb(6, 6, 95);
+    height: 5px;
+    width: 61%;
+    margin-left: 19%;
+    margin-top: 33px;
+}
+
+img{
+   margin-top:  15px;
+}
+
+.para p{
+    width: 46%;
+    padding-left: 22%;
+    padding-top: 24px;
+    font-family: akaya;
+    position: absolute;
+}
+
+.img5g675{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    left: 30px;
+    bottom: 43px;
+}
+
+.i5675{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    bottom: 50px;
+    left: 28px;
+}
+
+    #contacthahs{
+    position: relative;
+    right: 129px;
+    top: 22px;   
+}
