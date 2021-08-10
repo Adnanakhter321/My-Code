@@ -1,0 +1,7 @@
+.h1{
+    background-color: rgb(5, 63, 44);
+    border: 1px solid ;
+    color: chartreuse;
+    display: inline-block;
+    width: 80%;
+}
