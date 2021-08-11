@@ -23,14 +23,26 @@
 <body>
     <div class="container">
         <h1>Sign Up</h1>
-        <p>Please fill in this form to create an account.</p> <hr/>
+        <p>Please fill in this form to create an account.</p>
+        <hr />
         <img src="../supaari/images/img_avatar2.png" class="avatar avatar-custom" alt="">
-       <span><b>Upload Image</b></span> <input type="file" name="file" id="file">
-       <br>
+        <label for="file"><b>Upload Image: &nbsp;</b></label><input type="file" name="file" id="file">
+        <br>
 
 
-       <label for="user-name"><b>Username:</b></label> <br/>
-       <input type="text" placeholder="User Name" name="user-name" required id="user-name"> 
+        <label for="user-name"><b>Username:</b></label> <br />
+        <input type="text" placeholder="User Name" name="user-name" required id="user-name" class="input">
+
+        <label for="email"><b>Email:</b></label> <br />
+        <input type="email" placeholder="Email" name="Email" required id="email" class="input">
+
+        <label for="password"><b>Password:</b></label> <br />
+        <input type="password" placeholder="Password" name="Password" required id="password" class="input">
+
+        <label for="repeatp"><b>Repeat-Password:</b></label> <br />
+        <input type="password" placeholder="Repeat Password" name="Repeat-Password" required id="repeatp" class="input">
+
+
 
 
 
@@ -39,7 +51,7 @@
 
 
     </div>
-    
+
 
 
     <script src="jquery-3.6.0.js"></script>
