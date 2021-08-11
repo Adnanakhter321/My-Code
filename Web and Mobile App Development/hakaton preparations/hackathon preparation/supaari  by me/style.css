@@ -17,3 +17,21 @@
 .input:focus{
     background-color: #ddd;
 }
+.container2{
+    margin: 5px 0px 21px 2px;
+}
+.signupbtn{
+    width: 50%;
+    float: left;
+    background-color: #04AA6D;
+    padding: 10px 0 10px 0px;
+    outline: none;
+    color: white;
+    margin: 9px 0 20px 0;
+    border: none;
+    display: inline-block;
+}
+.signupbtn:focus{
+  
+    border: none;
+}
