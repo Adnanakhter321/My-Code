@@ -58,13 +58,18 @@ function uploadImageToStorage(UID) {
 }
 
 auth.onAuthStateChanged((user) => {
+    console.log(user);
     let pageLocArr = window.location.href.split('/');
+    console.log(pageLocArr);
     let pageName = pageLocArr[pageLocArr.length - 1];
     let authenticatedPages = ['home.html', 'findwork.html', 'myjob.html'];
-
+    console.log(authenticatedPages.indexOf(pageName));
     if (user && authenticatedPages.indexOf(pageName) === -1) {
         window.location = './findwork.html';
     }
+//     else if(user == null){
+//    window.location = './index.html';
+//   }
     else if (!user && pageName === 'home.html') {
         window.location = './index.html';
     }
@@ -79,7 +84,6 @@ async function signout() {
 async function signinUser() {
     await auth.signInWithEmailAndPassword(emailEl.value, passwordEl.value);
 }
-
 
 
 
