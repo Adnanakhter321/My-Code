@@ -1,8 +1,8 @@
 * {box-sizing: border-box}
 .avatar-custom{
     border-radius: 100%;
-    height: 100px;
-    width: 100px;
+    height: 140px;
+    width: 140px;
     margin: 0 auto;
     display: block;
 }
@@ -40,4 +40,11 @@
     outline: none;
     border: none;
     background-color: #1e8b63;
+}
+.imgcontainer{
+    width: 100%;
+    margin: 0 auto;
+}
+.imgcontainer>input{
+    display: none;
 }
