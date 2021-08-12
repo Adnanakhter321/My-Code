@@ -30,6 +30,5 @@ function checkrole(get) {
 }
 
 function updateimg() {
-       console.log(userImageEl.files[0].name);
-       randomimg[0].src = './userImageEl.files[0].name'
+       randomimg[0].src =  '../' + userImageEl.files[0].name
 }
