@@ -11,7 +11,7 @@ let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 let randomimg = document.getElementsByClassName('avatar');
 
-async function regiserUser() {
+async function registerUser() {
 
     let userCreated = await auth.createUserWithEmailAndPassword(emailEl.value, passwordEl.value);
     let UID = userCreated.user.uid;

@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document2</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Supaari</title>
 
 
 
@@ -51,62 +50,38 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
     </script>
+
 </head>
 
 <body>
+
+
+    <ul>
+        <li><a href="./findwork.html">Find Work</a></li>
+        <li><a href="./myjob.html">My Job</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+            <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </li>
+    </ul>
+
     <div class="container">
-        <h1>Sign Up</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr />
-        <label class="imgcontainer">
 
-            <label class="imgcontainer">
-                <img src="../supaari/images/img_avatar2.png" class="avatar avatar-custom" alt="">
-                <input type="file" name="file" id="file" onchange="updateimg()"></label>
-        </label>
-
-        <br>
-
-
-        <label for="user-name"><b>Username:</b></label> <br />
-        <input type="text" placeholder="User Name" name="user-name" required id="user-name" class="input">
-
-        <label for="email"><b>Email:</b></label> <br />
-        <input type="email" placeholder="Email" name="Email" required id="email" class="input">
-
-        <label for="password"><b>Password:</b></label> <br />
-        <input type="password" placeholder="Password" name="Password" required id="password" class="input">
-
-        <label for="repeatp"><b>Repeat-Password:</b></label> <br />
-        <input type="password" placeholder="Repeat Password" name="Repeat-Password" required id="repeatp" class="input">
-
-
-        <h1>Select your role:</h1>
-        <label class="container2">Killer
-            <input type="radio" checked="checked" name="user-role" value="Killer">
-            <span class="checkmark"></span>
-        </label> <br>
-        <label class="container2">Client
-            <input type="radio" name="user-role" value="Client">
-            <span class="checkmark"></span>
-        </label>
-
-
-        <p>If you already have an account <a href="signin.html" style="color:dodgerblue">Signin Here!</a>.</p>
-
-
-        <div class="clearfix">
-            <button class="signupbtn" onclick="registerUser()">Sign Up</button>
-        </div>
-
-
-
-
+        <h1>Find Work</h1>
+        <p>Our mission is to empower you.</p>
 
     </div>
 
 
 
+
+        <div class="clearfix">
+            <button class="signupbtn" onclick="signout()">Sign out</button>
+        </div>
     <script src="app.js"></script>
 </body>
 
