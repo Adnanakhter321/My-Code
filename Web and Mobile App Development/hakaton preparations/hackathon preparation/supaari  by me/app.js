@@ -5,7 +5,6 @@ let passwordRepeatEl = document.getElementById('repeatp');
 let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 let randomimg = document.getElementsByClassName('avatar');
-console.log(randomimg[0]);
 function registeruser() {
     let list = {
         username: userNameEl.value,
