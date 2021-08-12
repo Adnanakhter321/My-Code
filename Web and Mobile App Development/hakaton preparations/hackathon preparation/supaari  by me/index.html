@@ -10,14 +10,20 @@
 
 
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -26,7 +32,7 @@
         <p>Please fill in this form to create an account.</p>
         <hr />
         <img src="../supaari/images/img_avatar2.png" class="avatar avatar-custom" alt="">
-        <label for="file"><b>Upload Image: &nbsp;</b></label><input type="file" name="file" id="file">
+        <label for="file"><b>Upload Image: &nbsp;</b></label><input type="file" name="file" id="file" onchange="updateimg()">
         <br>
 
 
@@ -57,7 +63,7 @@
         <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
         <div class="clearfix">
-           <button class="signupbtn" onclick="registerUser()">Sign Up</button>
+           <button class="signupbtn" onclick="registeruser()">Sign Up</button>
         </div>
 
 
