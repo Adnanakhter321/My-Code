@@ -8,14 +8,14 @@ let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 let randomimg = document.getElementsByClassName('avatar');
 function registeruser() {
-    // let imageURL = uploadImageToStorage();
+    let imageURL = uploadImageToStorage();
     let list = {
         username: userNameEl.value,
         Email: emailEl.value,
         Password: passwordEl.value,
         RepeatPass: passwordRepeatEl.value,
         UserRole: checkrole(),
-        // userImage: userImageEl.files[0]
+        userImage: url
     }
     console.log(list); 
    let data =  db.collection('form').add(list)
@@ -24,7 +24,16 @@ function registeruser() {
                 console.log(data.data());
             });
 }
-
+let url;
+function uploadImageToStorage() {
+        let image = userImageEl.files[0];
+        let storageRef = storage.ref();
+        let imageRef = storageRef.child(`avatar/${imageuid}/${image.name}`);
+        imageRef.put(image);
+        url = imageRef.getDownloadURL();
+        resolve(url);
+   
+}
 
 function checkrole() {
     let checkrole;
@@ -39,7 +48,7 @@ function checkrole() {
 function updateimg() {
        randomimg[0].src =  '../' + userImageEl.files[0].name
 }
-
+let imageuid;
 function fetchall() {
     db.collection("form").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
@@ -49,6 +58,7 @@ function fetchall() {
                 taskobj.id = change.doc.data() 
                 // getthelist(change.doc.data(), change.doc.id)
                 console.log(change.doc.data(), change.doc.id);
+                imageuid = change.doc.id;
             }
             if (change.type === "removed") {
                 // console.log("Removed city: ", change.doc.id);
