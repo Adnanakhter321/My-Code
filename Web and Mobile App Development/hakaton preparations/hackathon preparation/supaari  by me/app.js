@@ -1,3 +1,4 @@
+let storage = firebase.storage();
 
 let db = firebase.firestore();
 let userNameEl = document.getElementById('user-name');
@@ -15,7 +16,7 @@ function registeruser() {
         Password: passwordEl.value,
         RepeatPass: passwordRepeatEl.value,
         UserRole: checkrole(),
-        userImage: url
+        userImage: uploadImageToStorage()
     }
     console.log(list); 
    let data =  db.collection('form').add(list)
@@ -31,7 +32,7 @@ function uploadImageToStorage() {
         let imageRef = storageRef.child(`avatar/${imageuid}/${image.name}`);
         imageRef.put(image);
         url = imageRef.getDownloadURL();
-        resolve(url);
+        return url;
    
 }
 
