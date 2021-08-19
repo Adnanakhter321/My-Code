@@ -1,3 +1,5 @@
+
+let db = firebase.firestore();
 let userNameEl = document.getElementById('user-name');
 let emailEl = document.getElementById('email');
 let passwordEl = document.getElementById('password');
@@ -6,15 +8,21 @@ let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 let randomimg = document.getElementsByClassName('avatar');
 function registeruser() {
+    // let imageURL = uploadImageToStorage();
     let list = {
         username: userNameEl.value,
         Email: emailEl.value,
         Password: passwordEl.value,
         RepeatPass: passwordRepeatEl.value,
         UserRole: checkrole(),
-        userImage: userImageEl.files[0]
+        // userImage: userImageEl.files[0]
     }
-    console.log(list);
+    console.log(list); 
+   let data =  db.collection('form').add(list)
+            .then((multipledocs) => {
+                console.log(multipledocs, 'none' );
+                console.log(data.data());
+            });
 }
 
 
@@ -30,4 +38,29 @@ function checkrole() {
 
 function updateimg() {
        randomimg[0].src =  '../' + userImageEl.files[0].name
+}
+
+function fetchall() {
+    db.collection("form").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                // console.log("New city: ",   change.doc.data());
+                let taskobj = change.doc.data()
+                taskobj.id = change.doc.data() 
+                // getthelist(change.doc.data(), change.doc.id)
+                console.log(change.doc.data(), change.doc.id);
+            }
+            if (change.type === "removed") {
+                // console.log("Removed city: ", change.doc.id);
+                // deleteindom(change.doc.id)
+            }
+            if (change.type === "modified") {
+                // console.log("Modified city: ", change.doc.data());
+                // let tasksObj = change.doc.data();
+                // console.log(change.doc.data());
+                // tasksObj.id = change.doc.id;
+                // updateindom(tasksObj);
+            }
+        })
+    });
 }
