@@ -8,8 +8,8 @@ let passwordRepeatEl = document.getElementById('repeatp');
 let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 let randomimg = document.getElementsByClassName('avatar');
-function registeruser() {
-    let imageURL = uploadImageToStorage();
+ function registeruser() {
+    // let imageURL = uploadImageToStorage();
     let list = {
         username: userNameEl.value,
         Email: emailEl.value,
@@ -22,16 +22,16 @@ function registeruser() {
    let data =  db.collection('form').add(list)
             .then((multipledocs) => {
                 console.log(multipledocs, 'none' );
-                console.log(data.data());
+               
             });
 }
 let url;
-function uploadImageToStorage() {
+async function uploadImageToStorage() {
         let image = userImageEl.files[0];
         let storageRef = storage.ref();
         let imageRef = storageRef.child(`avatar/${imageuid}/${image.name}`);
-        imageRef.put(image);
-        url = imageRef.getDownloadURL();
+      await  imageRef.put(image);
+        url = await imageRef.getDownloadURL();
         return url;
    
 }
