@@ -9,60 +9,62 @@ let country = document.getElementById('country');
 let storage = firebase.storage();
 
 async function registeruser() {
-        let db = firebase.firestore();
-        try {
+    let db = firebase.firestore();
+    try {
         var userCredential = await firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
-        }
-        catch (error) {
-            console.log(error);
-        }
-        
-        console.log('USER CREATED');
-        let user = userCredential.user;
+    }
+    catch (error) {
+        console.log(error);
+    }
+    let user = userCredential.user;
+
+    console.log('USER CREATED');
+   let url = await imageuploadtofirebase(user.uid);
+   console.log(url);
+    // let image = userImageEl.files[0];
+    // let storageRef = storage.ref();
+    // let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
+    // try {
+    //     await imageRef.put(image)
+    // }
+    // catch (error) {
+    //     console.log(error);
+    // }
+    // console.log('IMAGE UPLOADED');
+    // try {
+    //     var url = await imageRef.getDownloadURL()
+    // }
+    // catch (error) {
+    //     console.log(error);
+    // }
+    let users = {
+        username: userNameEl.value,
+        email: emailEl.value,
+        password: passwordEl.value,
+        Rpassword: passwordRepeatEl.value,
+        country: checkcountry(),
+        userRole: checkrole(),
+        userImage: url
+    }
+    try {
+        db.collection('users').doc(user.uid).set(users).then(() => { console.log('done'); })
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+async function imageuploadtofirebase(uid) {
+return new Promise(async (resolve, reject) => {
         let image = userImageEl.files[0];
         let storageRef = storage.ref();
-        let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
-        try {
+        let imageRef = storageRef.child(`userimages/${uid}/${image.name}`);
             await imageRef.put(image)
-        }
-        catch (error) {
-            console.log(error);
-        }
         console.log('IMAGE UPLOADED');
-        try {
-            var url = await imageRef.getDownloadURL()
-        }
-        catch (error) {
-            console.log(error);
-        }
-        let users = {
-            username: userNameEl.value,
-            email: emailEl.value,
-            password: passwordEl.value,
-            Rpassword: passwordRepeatEl.value,
-            country: checkcountry(),
-            userRole: checkrole(),
-            userImage: url
-        }
-        try {
-            db.collection('users').doc(user.uid).set(users).then(() => { console.log('done'); })
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
+        var url = await imageRef.getDownloadURL()
+        resolve(url)
+    })
+}
 
 
 
