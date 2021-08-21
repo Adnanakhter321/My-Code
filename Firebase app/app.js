@@ -5,8 +5,10 @@ let passwordRepeatEl = document.getElementById('repeatp');
 let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 // let randomimg = document.getElementsByClassName('avatar');
+let storage = firebase.storage();
 
 function registeruser() {
+    let db = firebase.firestore();
 
     let users = {
         username: userNameEl.value,
@@ -16,20 +18,34 @@ function registeruser() {
         userRole: checkrole(),
         userImage: userImageEl.files[0].name
     }
-    let db = firebase.firestore();
 
-     firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
-        .then((userCredential) => {
-            var user = userCredential.user;
-            console.log('done');
-            db.collection('users').doc(user.uid).set(users);
-        })
+    if (userImageEl) {
+        firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
+            .then((userCredential) => {
+                let user = userCredential.user;
+                let image = userImageEl.files[0];
+                let storageRef = storage.ref();
+                let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
+                let url = imageRef.getDownloadURL()
+                    .then((url) => {
+                        console.log(url);
+                    })
+                    .catch((error) => {
+                        var errorMessage = error.message;
+                        console.log(errorMessage);
+                    })
+                // console.log('done');
+                // db.collection('users').doc(user.uid).set(users);
+            })
 
 
-        .catch((error) => {
-            var errorMessage = error.message;
-           console.log(errorMessage);
-        });
+            .catch((error) => {
+                var errorMessage = error.message;
+                console.log(errorMessage);
+            });
+    }
+
+
 
 
 
