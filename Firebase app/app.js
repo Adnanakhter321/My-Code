@@ -4,7 +4,9 @@ let passwordEl = document.getElementById('password');
 let passwordRepeatEl = document.getElementById('repeatp');
 let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
+let country = document.getElementById('country');
 // let randomimg = document.getElementsByClassName('avatar');
+
 let storage = firebase.storage();
 
 function registeruser() {
@@ -26,6 +28,7 @@ function registeruser() {
                                     email: emailEl.value,
                                     password: passwordEl.value,
                                     Rpassword: passwordRepeatEl.value,
+                                    country : checkcountry(),
                                     userRole: checkrole(),
                                     userImage: url
                                 }
@@ -68,6 +71,15 @@ function checkrole() {
     for (var a = 0; a < userRoleEl.length; a++) {
         if (userRoleEl[a].checked) {
             checkrole = userRoleEl[a].value;
+        }
+    }
+    return checkrole;
+}
+function checkcountry() {
+    let checkrole;
+    for (var a = 0; a < country.length; a++) {
+        if (country[a].selected) {
+            checkrole = country[a].value;
         }
     }
     return checkrole;
