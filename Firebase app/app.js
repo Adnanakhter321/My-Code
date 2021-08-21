@@ -5,6 +5,11 @@ let passwordRepeatEl = document.getElementById('repeatp');
 let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 let country = document.getElementById('country');
+let imgEl  = document.getElementById('file');
+let imgEl2  = document.getElementById('image');
+function changeimage(){
+  imgEl2.src  = imgEl.files[0].name;
+}
 
 let storage = firebase.storage();
 
