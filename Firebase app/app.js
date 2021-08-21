@@ -5,66 +5,66 @@ let passwordRepeatEl = document.getElementById('repeatp');
 let userRoleEl = document.getElementsByName('user-role');
 let userImageEl = document.getElementById('file');
 let country = document.getElementById('country');
-// let randomimg = document.getElementsByClassName('avatar');
 
 let storage = firebase.storage();
 
-function registeruser() {
-    let db = firebase.firestore();
-        firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
-            .then((userCredential) => {
-                console.log('USER CREATED');
-                let user = userCredential.user;
-                let image = userImageEl.files[0];
-                let storageRef = storage.ref();
-                let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
-                imageRef.put(image)
-                    .then(() => {
-                        console.log('IMAGE UPLOADED');
-                        let url = imageRef.getDownloadURL()
-                            .then((url) => {
-                                let users = {
-                                    username: userNameEl.value,
-                                    email: emailEl.value,
-                                    password: passwordEl.value,
-                                    Rpassword: passwordRepeatEl.value,
-                                    country : checkcountry(),
-                                    userRole: checkrole(),
-                                    userImage: url
-                                }
+async function registeruser() {
+        let db = firebase.firestore();
+        try {
+        var userCredential = await firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
+        }
+        catch (error) {
+            console.log(error);
+        }
+        
+        console.log('USER CREATED');
+        let user = userCredential.user;
+        let image = userImageEl.files[0];
+        let storageRef = storage.ref();
+        let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
+        try {
+            await imageRef.put(image)
+        }
+        catch (error) {
+            console.log(error);
+        }
+        console.log('IMAGE UPLOADED');
+        try {
+            var url = await imageRef.getDownloadURL()
+        }
+        catch (error) {
+            console.log(error);
+        }
+        let users = {
+            username: userNameEl.value,
+            email: emailEl.value,
+            password: passwordEl.value,
+            Rpassword: passwordRepeatEl.value,
+            country: checkcountry(),
+            userRole: checkrole(),
+            userImage: url
+        }
+        try {
+            db.collection('users').doc(user.uid).set(users).then(() => { console.log('done'); })
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
-                                db.collection('users').doc(user.uid).set(users).then(()=>{console.log('done');})
-
-                            })
-                            .catch((error) => {
-                                var errorMessage = error.message;
-                                console.log(errorMessage);
-                            })
-                    })
-
-            })
-
-
-            .catch((error) => {
-                var errorMessage = error.message;
-                console.log(errorMessage);
-            });
-    
-
-   
 
 
 
-}
 
-// function Details(){
-//     this.username = userNameEl.value;
-//     this.email = emailEl.value;
-//     this.password = passwordEl.value;
-//     this.Rpassword = passwordRepeatEl.value;
-//     this.userRole = checkrole();
-//     this.userImage = userImageEl.files;
-// }
+
+
+
+
+
+
+
+
+
 
 function checkrole() {
     let checkrole;
