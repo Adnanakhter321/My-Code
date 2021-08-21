@@ -87,27 +87,15 @@ function checkcountry() {
 }
 
 firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        var uid = user.uid;
-        console.log(uid);
-        console.log(user);
-        if (user && window.location === './index.html' || window.location === './login.html' ) {
-            window.location = './home.html';
-        }
-        // ...
+    let pageLocArr = window.location.href.split('/');
+    let pageName = pageLocArr[pageLocArr.length - 1];
+    let authenticatedPages = ['home.html'];
+
+    if (user && authenticatedPages.indexOf(pageName) === -1) {
+        window.location = './home.html';
     }
-
-
-    else {
-
-        if (!user && window.location === './home.html') {
-            window.location = './index.html';
-        }
-
-        // User is signed out
-        // ...
+    else if (!user && pageName === 'home.html') {
+        window.location = './index.html';
     }
 });
 
