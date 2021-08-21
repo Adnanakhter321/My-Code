@@ -8,6 +8,24 @@ let userImageEl = document.getElementById('file');
 let storage = firebase.storage();
 
 function registeruser() {
+
+    // let image = userImageEl.files[0];
+    // let storageRef = storage.ref();
+    // let imageRef = storageRef.child(`avatar/${image.name}`);
+    // imageRef.put(image)
+    // .then(()=>{
+    //     let url = imageRef.getDownloadURL()
+    //     .then((url) => {
+    //         console.log(url);
+    //     })
+    //     .catch((error) => {
+    //         var errorMessage = error.message;
+    //         console.log(errorMessage);
+    //     })
+    // })
+
+
+
     let db = firebase.firestore();
 
     let users = {
@@ -16,9 +34,9 @@ function registeruser() {
         password: passwordEl.value,
         Rpassword: passwordRepeatEl.value,
         userRole: checkrole(),
-        userImage: userImageEl.files[0].name
+        userImage: imageurl
     }
-
+    let imageurl;
     if (userImageEl) {
         firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
             .then((userCredential) => {
@@ -26,16 +44,20 @@ function registeruser() {
                 let image = userImageEl.files[0];
                 let storageRef = storage.ref();
                 let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
-                let url = imageRef.getDownloadURL()
-                    .then((url) => {
-                        console.log(url);
+                imageRef.put(image)
+                    .then(() => {
+                        let url = imageRef.getDownloadURL()
+                            .then((url) => {
+                                console.log('done');
+                                imageurl = url;
+                                db.collection('users').doc(user.uid).set(users);
+                            })
+                            .catch((error) => {
+                                var errorMessage = error.message;
+                                console.log(errorMessage);
+                            })
                     })
-                    .catch((error) => {
-                        var errorMessage = error.message;
-                        console.log(errorMessage);
-                    })
-                // console.log('done');
-                // db.collection('users').doc(user.uid).set(users);
+
             })
 
 
