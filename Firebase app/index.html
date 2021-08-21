@@ -53,7 +53,7 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
+        // firebase.analytics();
     </script>
 </head>
 
@@ -64,24 +64,24 @@
         <hr />
         <label class="imgcontainer">
             
-            <label class="imgcontainer">
-                <img src="../supaari/images/img_avatar2.png" class="avatar avatar-custom" alt="">
-                <input type="file" name="file" id="file" onchange="updateimg()"></label>
-            </label>
+           <!-- <label class="imgcontainer"> -->
+                <!-- <img src="../supaari/images/img_avatar2.png" class="avatar avatar-custom" alt=""> -->
+                <input type="file" name="file" id="file"></label>
+            <!-- </label> -->
 
         <br>
 
 
-        <label for="user-name"><b>Username:</b></label> <br />
+        <label for="user-name"><b>Username:</b></label>
         <input type="text" placeholder="User Name" name="user-name" required id="user-name" class="input">
-
-        <label for="email"><b>Email:</b></label> <br />
+        <br />
+        <label for="email"><b>Email:</b></label>
         <input type="email" placeholder="Email" name="Email" required id="email" class="input">
-
-        <label for="password"><b>Password:</b></label> <br />
+        <br />
+        <label for="password"><b>Password:</b></label> 
         <input type="password" placeholder="Password" name="Password" required id="password" class="input">
-
-        <label for="repeatp"><b>Repeat-Password:</b></label> <br />
+        <br />
+        <label for="repeatp"><b>Repeat-Password:</b></label> 
         <input type="password" placeholder="Repeat Password" name="Repeat-Password" required id="repeatp" class="input">
 
 
