@@ -8,49 +8,30 @@ let userImageEl = document.getElementById('file');
 let storage = firebase.storage();
 
 function registeruser() {
-
-    // let image = userImageEl.files[0];
-    // let storageRef = storage.ref();
-    // let imageRef = storageRef.child(`avatar/${image.name}`);
-    // imageRef.put(image)
-    // .then(()=>{
-    //     let url = imageRef.getDownloadURL()
-    //     .then((url) => {
-    //         console.log(url);
-    //     })
-    //     .catch((error) => {
-    //         var errorMessage = error.message;
-    //         console.log(errorMessage);
-    //     })
-    // })
-
-
-
     let db = firebase.firestore();
-
-    let users = {
-        username: userNameEl.value,
-        email: emailEl.value,
-        password: passwordEl.value,
-        Rpassword: passwordRepeatEl.value,
-        userRole: checkrole(),
-        userImage: imageurl
-    }
-    let imageurl;
-    if (userImageEl) {
         firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
             .then((userCredential) => {
+                console.log('USER CREATED');
                 let user = userCredential.user;
                 let image = userImageEl.files[0];
                 let storageRef = storage.ref();
                 let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
                 imageRef.put(image)
                     .then(() => {
+                        console.log('IMAGE UPLOADED');
                         let url = imageRef.getDownloadURL()
                             .then((url) => {
-                                console.log('done');
-                                imageurl = url;
-                                db.collection('users').doc(user.uid).set(users);
+                                let users = {
+                                    username: userNameEl.value,
+                                    email: emailEl.value,
+                                    password: passwordEl.value,
+                                    Rpassword: passwordRepeatEl.value,
+                                    userRole: checkrole(),
+                                    userImage: url
+                                }
+
+                                db.collection('users').doc(user.uid).set(users).then(()=>{console.log('done');})
+
                             })
                             .catch((error) => {
                                 var errorMessage = error.message;
@@ -65,9 +46,9 @@ function registeruser() {
                 var errorMessage = error.message;
                 console.log(errorMessage);
             });
-    }
+    
 
-
+   
 
 
 
