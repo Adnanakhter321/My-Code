@@ -52,7 +52,7 @@ async function registeruser() {
         userImage: url
     }
     try {
-        db.collection('users').doc(user.uid).set(users).then(() => { console.log('done'); })
+        db.collection('users').doc(user.uid).set(users).then(() => { console.log('Data Submitted'); })
     }
     catch (error) {
         console.log(error);
