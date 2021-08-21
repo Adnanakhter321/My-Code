@@ -11,6 +11,16 @@ function changeimage(){
   imgEl2.src  = imgEl.files[0].name;
 }
 
+  async  function loginuser(){
+    try{
+        let login = await  firebase.auth().signInWithEmailAndPassword(emailEl.value, passwordEl.value)
+     
+    }catch(error){
+        console.log(error);
+    }
+}
+
+
 let storage = firebase.storage();
 
 async function registeruser() {
@@ -26,22 +36,6 @@ async function registeruser() {
     console.log('USER CREATED');
    let url = await imageuploadtofirebase(user.uid);
    console.log(url);
-    // let image = userImageEl.files[0];
-    // let storageRef = storage.ref();
-    // let imageRef = storageRef.child(`avatar/${user.uid}/${image.name}`);
-    // try {
-    //     await imageRef.put(image)
-    // }
-    // catch (error) {
-    //     console.log(error);
-    // }
-    // console.log('IMAGE UPLOADED');
-    // try {
-    //     var url = await imageRef.getDownloadURL()
-    // }
-    // catch (error) {
-    //     console.log(error);
-    // }
     let users = {
         username: userNameEl.value,
         email: emailEl.value,
@@ -91,3 +85,24 @@ function checkcountry() {
     }
     return checkrole;
 }
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      var uid = user.uid;
+      console.log(uid);
+      console.log(user);
+      if(uid &&  window.location == './index.html' &&  window.location == './login.html'){
+        window.location = './home.html';
+    }
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+
+  function logout(){
+      firebase.logout
+  }
