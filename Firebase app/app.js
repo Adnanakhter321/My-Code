@@ -96,13 +96,20 @@ firebase.auth().onAuthStateChanged((user) => {
       if(uid &&  window.location == './index.html' &&  window.location == './login.html'){
         window.location = './home.html';
     }
+    else{
+      
+    }
       // ...
     } else {
+    if(window.location == './index.html'){
+        window.location = './index.html';
+    }
+       
       // User is signed out
       // ...
     }
   });
 
   function logout(){
-      firebase.logout
+      firebase.auth().signOut();
   }
