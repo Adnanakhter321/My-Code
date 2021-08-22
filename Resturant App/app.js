@@ -8,7 +8,10 @@ let city = document.getElementById('City');
 
 
 let storage = firebase.storage();
-
+var  uid45;
+firebase.auth().onAuthStateChanged((user) => {
+    uid45 = user.uid;
+});
 async function registerres() {
     let db = firebase.firestore();
     try {
@@ -25,7 +28,8 @@ async function registerres() {
         Email: emailEl.value,
         Password: passwordEl.value,
         country: country.value,
-        city: city.value
+        city: city.value,
+        uid : uid45
     }
     let ResName = {
         RestaurantName: RestaurantName.value,
@@ -57,9 +61,23 @@ async function registerres() {
 //     })
 // }
 
-
+let user1;
 firebase.auth().onAuthStateChanged((user) => {
     console.log(user);
+    user1 = user.uid;
+
+
+    firebase.firestore().collection("dataadmin").orderBy(user.uid).onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                console.log("New city: ",   change.doc.data());
+                let taskobj = change.doc.data()
+                taskobj.id = change.doc.data() 
+                // getthelist(change.doc.data(), change.doc.id)
+               console.log(change.doc.data());
+            }
+        })
+    });
     // let pageLocArr = window.location.href.split('/');
     // let pageName = pageLocArr[pageLocArr.length - 1];
     // let authenticatedPages = ['home.html', 'findwork.html', 'myjob.html'];
@@ -149,6 +167,7 @@ let imgEl  = document.getElementById('file');
 let imgEl2  = document.getElementById('image');
 
 
+
 async function createdish(){
     const user = firebase.auth().currentUser;
     console.log(user.uid);
@@ -159,7 +178,8 @@ async function createdish(){
         Price : Price.value,
         dishtype : checkdish(),
         deliverytype : deliverytype(),
-        Imagelink : url
+        Imagelink : url,
+         RestaurantName : getthename()
     }
     try {
         let db = firebase.firestore();
@@ -169,6 +189,42 @@ async function createdish(){
         console.log(error);
     }
 }
+
+function getthename(){
+    firebase.auth().onAuthStateChanged((user) => {
+        console.log(user);
+        
+        return user.uid;
+    });
+}
+
+function fetchall() {
+    console.log(user1);
+    firebase.firestore().collection("dataadmin").where('uid' ,"==" , `${uid45}` ).onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                console.log("New city: ",   change.doc.data());
+                let taskobj = change.doc.data()
+                taskobj.id = change.doc.data() 
+                // getthelist(change.doc.data(), change.doc.id)
+               console.log(change.doc.data());
+            }
+            if (change.type === "removed") {
+                console.log("Removed city: ", change.doc.id);
+                deleteindom(change.doc.id)
+            }
+            if (change.type === "modified") {
+                console.log("Modified city: ", change.doc.data());
+                let tasksObj = change.doc.data();
+                console.log(change.doc.data());
+                tasksObj.id = change.doc.id;
+                updateindom(tasksObj);
+            }
+        })
+    });
+}
+
+
 async function imageuploadtofirebase() {
     return new Promise(async (resolve, reject) => {
             let image = imgEl.files[0];
@@ -205,9 +261,9 @@ function changeimage(){
     imgEl2.src  = imgEl.files[0].name;
 }
 
-let username2 = document.getElementById('user-name2');
-let emailinuser2 = document.getElementById('email2');
-let passwordinuser2 = document.getElementById('password2');
-let Phoneinuser2 = document.getElementById('Phone');
-let Cityinuser2  = document.getElementById('Cityinuser');
-let countryinuser2  = document.getElementById('countryinuser');
+// let username2 = document.getElementById('user-name2');
+// let emailinuser2 = document.getElementById('email2');
+// let passwordinuser2 = document.getElementById('password2');
+// let Phoneinuser2 = document.getElementById('Phone');
+// let Cityinuser2  = document.getElementById('Cityinuser');
+// let countryinuser2  = document.getElementById('countryinuser');

@@ -80,6 +80,30 @@ function fetchall() {
         })
     });
 }
+function fetchall() {
+    firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                console.log("New city: ",   change.doc.data());
+                let taskobj = change.doc.data()
+                taskobj.id = change.doc.data() 
+                // getthelist(change.doc.data(), change.doc.id)
+                showindom(change.doc.data())
+            }
+            if (change.type === "removed") {
+                console.log("Removed city: ", change.doc.id);
+                deleteindom(change.doc.id)
+            }
+            if (change.type === "modified") {
+                console.log("Modified city: ", change.doc.data());
+                let tasksObj = change.doc.data();
+                console.log(change.doc.data());
+                tasksObj.id = change.doc.id;
+                updateindom(tasksObj);
+            }
+        })
+    });
+}
 {/* <div class="card" style="width: 18rem;">
         <img src="https://source.unsplash.com/500x300/?restuarants,food" class="card-img-top" alt="...">
         <div class="card-body">
@@ -88,10 +112,10 @@ function fetchall() {
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div> */}
-function showindom(get){
-    console.log(get.RestaurantName);
+ function showindom(get){
+    console.log(get);
     let resdata = document.getElementById('resdata');
-    console.log(resdata);
+    
      let doc = document.createElement('div')
     doc.setAttribute("class" , 'card')
     doc.style.width = '18rem';
@@ -113,58 +137,43 @@ let h5 = document.createElement('h5')
     p.appendChild(ptext)
     div.appendChild(p)
     let a = document.createElement('a')
-    let atext = document.createTextNode("go SOmewhere Else")
+    let atext = document.createTextNode("CheckDishes")
     a.appendChild(atext)
     a.setAttribute('href' , "#")
     a.setAttribute('class' , "btn btn-primary")
+    a.setAttribute('onclick' , "showdishes(this)")
     div.appendChild(a)
     doc.appendChild(div)
-
-    // let h5 = document.createElement('h5')
-    // h5.setAttribute('class ' , "card-title")
-    // div.appendChild(h5)
-    // let p = document.createElement('p')
-    // p.setAttribute('class ' , "card-text")
-    // div.appendChild(p)
-    // let a = document.createElement('a')
-    // a.setAttribute('href ' , "#")
-    // a.setAttribute('class ' , "btn btn-primary")
-    // div.appendChild(a)
-    // doc.appendChild(div)
-
-   
     resdata.appendChild(doc)
-    // let doc = document.createElement('div')
-    // doc.setAttribute("class" , 'card')
-    // doc.style.width = '18rem';
-    // let img = document.createElement('img')
-    // let textdoc = document.createTextNode(img)
-    // img.setAttribute('src' , "https://source.unsplash.com/500x300/?restuarants,food")
-    // // img.setAttribute('class ' , "card-img-top")
-    // doc.appendChild(textdoc)
-    // let div = document.createElement('div')
-    // let h5 = document.createElement('h5')
-    // h5.setAttribute('class ' , "card-title")
-    // let p = document.createElement('p')
-    // img.setAttribute('class ' , "card-text")
-    // let a = document.createElement('a')
-    // a.setAttribute('href ' , "#")
-    // a.setAttribute('class ' , "btn btn-primary")
-    // div.setAttribute('class ' , "card-body")
-    // let divdoc1 = document.createTextNode(h5)
-    // let divdoc2 = document.createTextNode(p)
-    // let divdoc3 = document.createTextNode(a)
-    // div.appendChild(divdoc1)
-    // div.appendChild(divdoc2)
-    // div.appendChild(divdoc3)
-    // let divdoc1text = document.createTextNode(h5)
-    // let divdoc2text = document.createTextNode(p)
-    // let divdoc3text = document.createTextNode(a)
-    // h5.appendChild(divdoc1text)
-    // p.appendChild(divdoc2text)
-    // a.appendChild(divdoc3text)
-
-
-
 }
-// showindom();
+
+function showdishes(get){
+    let resdata = document.getElementById('resdata');
+    resdata.style.display = 'none'
+    console.log(get.parentNode.firstChild.innerHTML);
+
+
+
+    firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                console.log("New city: ",   change.doc.data());
+                let taskobj = change.doc.data()
+                taskobj.id = change.doc.data() 
+                // getthelist(change.doc.data(), change.doc.id)
+                showindom(change.doc.data())
+            }
+            if (change.type === "removed") {
+                console.log("Removed city: ", change.doc.id);
+                deleteindom(change.doc.id)
+            }
+            if (change.type === "modified") {
+                console.log("Modified city: ", change.doc.data());
+                let tasksObj = change.doc.data();
+                console.log(change.doc.data());
+                tasksObj.id = change.doc.id;
+                updateindom(tasksObj);
+            }
+        })
+    });
+}
