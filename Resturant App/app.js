@@ -31,6 +31,10 @@ async function registeruser() {
     try {
         await db.collection('dataadmin').doc(user.uid).set(Restaurantsadmin);
         console.log("Data Submitted");
+        if (user) {
+            // firebase.auth().signOut(); 
+            window.location = './login.html';
+        }
     }
     catch (error) {
         alert(error);
@@ -52,24 +56,30 @@ async function registeruser() {
 
 firebase.auth().onAuthStateChanged((user) => {
     console.log(user);
-   if(user){
-    window.location = './login.html';
-   }
-        firebase.auth().signOut(); 
-    
+    // let pageLocArr = window.location.href.split('/');
+    // let pageName = pageLocArr[pageLocArr.length - 1];
+    // let authenticatedPages = ['home.html', 'findwork.html', 'myjob.html'];
+
+    // if (user && authenticatedPages.indexOf(pageName) === -1) {
+    //     window.location = './login.html';
+    //     logout()
+
+    // }
+    // else if (!user && pageName === 'home.html') {
+    //     window.location = './resturantadminregister.html';
+    // }
 });
-
-
 
 async function loginuser() {
     try {
         let login = await firebase.auth().signInWithEmailAndPassword(emailEl.value, passwordEl.value);
-        // window.location = './home.html'
-
+        window.location = './home.html';
     } catch (error) {
         alert(error);
     }
 }
 function logout() {
     firebase.auth().signOut();
+    window.location = './login.html';
+
 }
