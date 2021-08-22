@@ -9,15 +9,15 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
       <!-- jQuery library -->
-      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   
       <!-- Popper JS -->
-      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   
       <!-- Latest compiled JavaScript -->
-      <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   
   
   
@@ -54,12 +54,123 @@
 
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Restaurant Admin Page</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+              <a class=" btn btn-secondary" href="#" onclick="logout()">Logout</a>
+              <!-- <a class="nav-link" href="#">Pricing</a> -->
+              <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="margin-top: 0 !important;margin-left: 0 !important;">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 fw-normal">Welcome Adnan</h1>
+          <p class="lead fw-normal">Fast delivery, deals & discounts and the best choice of restaurants. Order now! Simple, Fast and Tasty. All your favorite restaurants in one place. Order now! Secure Online Payment.</p>
+          <!-- <a class="btn btn-outline-secondary" href="#">Coming soon</a> -->
+        </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+      </div>
+    
+
+
+<!-- 
+    <div class="p-3 mb-2 bg-primary text-white">
+        <div class="col-md-6 px-0 text-center">
+          <h1 class="display-4 fst-italic" style=--"text-align: center;">Welcome Adnan</h1>
+          <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+           <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p> -->
+        </div>
+      </div>
+   <div class="container">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#" onclick="pending(this)">Pending</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="accepted(this)">Accepted</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="Delivered(this)">Delivered</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="adddishes(this)">Add Dishes</a>
+        </li>
+      </ul>
+      <div class="indata">
+          <h1>this is pending</h1>
+      </div>
+      <div class="indata">
+          <h1>this is accepted</h1>
+      </div>
+      <div class="indata">
+          <h1>this is Delivered</h1>
+      </div>
+      <div class="indata container shadow p-3 mb-5 bg-white rounded">
+        <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
+            Create Dish Menu
+            </div>
+        <hr />
         
+            
+            
+            <input class="form-control" type="text" placeholder="Item Name" name="Item Name" required id="ItemName" class="input">
+            <br />
+            <input class="form-control" type="email" placeholder="Price" name="Price" required id="Price" class="input">
+            <br /> 
+            <label for="repeatp"><b>Select Category</b></label>     
+            <select name="country" id="dishtype" class="btn btn-secondary btn-sm dropdown-toggle">
+               <div class="btn btn-danger dropdown-toggle">
+                <option  value="Chiniese Dish">Chiniese Dish</option>
+               </div>
+               <div class="dropdown-item"> 
+                   <option  value="Pakistani dish">Pakistani dish</option>
+                </div>
+                <div class="dropdown-item">
+                    <option  value="Chowmein">Chowmein</option>
+                </div>
+               <div class="dropdown-item">
+                <option  value="Singaporean Rice">Singaporean Rice</option>
+               </div>
+              </select>
+          <br/>  <br/>
+
+          <h5>Add Food Image: </h5>
+          <label for="file">  <img src="img_avatar2.png" class="rounded mx-auto d-block" alt="..." style="width: 300px; height: 200px;" id="image"></label> 
+          <input type="file" name="file" id="file" onchange="changeimage()">
+              <br/>
+              <br/>
+              
+          <label for="repeatp"><b>Delivery Type</b></label>     
+          <select name="country" id="deliverytype" class="btn btn-secondary btn-sm dropdown-toggle">
+             <div class="btn btn-danger dropdown-toggle">
+              <option  value="Paid">Paid</option>
+             </div>
+             <div class="dropdown-item"> 
+                 <option  value="Free">Free</option>
+              </div>
+            </select>
+            <br/><br/>
+
+        <div class="clearfix">
+            <button class="signupbtn btn-lg btn-primary" onclick="createdish()">Create Dish</button>
+        </div>
+      </div>
+
+
+   </div>
 
 
 
-
-    <button onclick="logout()">Logout</button>
+    <!-- <button onclick="logout()">Logout</button> -->
     <script src="app.js"></script>
 </body>
 </html>
