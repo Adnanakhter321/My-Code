@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document2</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <!-- Latest cmpiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+    <!-- Popper JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+
+    <!-- Latest compiled JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+
+
+
+
+    
+    <link rel="stylesheet" href="style.css">
+   
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
+ 
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBIispusaiosgxgfUIsBDoAVQLgSV0v5ZM",
+            authDomain: "getthedata-ce917.firebaseapp.com",
+            databaseURL: "https://getthedata-ce917-default-rtdb.firebaseio.com",
+            projectId: "getthedata-ce917",
+            storageBucket: "getthedata-ce917.appspot.com",
+            messagingSenderId: "238037825271",
+            appId: "1:238037825271:web:02d8680f92f3e3d3d485f2",
+            measurementId: "G-DY4QEEJXJ3"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // firebase.analytics();
+    </script>
+</head>
+
+<body>
+    <div class="container shadow p-3 mb-5 bg-white rounded" style="width: 900px;">
+        <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
+          Resturant  Sign-In
+          </div>
+        <p class="btn btn-primary text-center d-flex justify-content-center"
+        >Please fill in this form to create an account.</p>
+        <hr />
+        
+            
+           <!-- <label class="imgcontainer"> -->
+                <!-- <img src="../supaari/images/img_avatar2.png" class="avatar avatar-custom" alt=""> -->
+                <!-- <label for="file">  <img src="img2.jpeg" class="rounded mx-auto d-block" alt="..." style="width: 100px; height: 100px;" id="image"></label> 
+               <input type="file" name="file" id="file" onchange="changeimage()"> -->
+            <!-- </label> -->
+
+        <br>
+
+
+        <input class="form-control" type="text" placeholder="Restaurant Name" name="Restaurant-Name" required id="Restaurant-Name" class="input">
+        <br />
+        <input class="form-control" type="email" placeholder="Email" name="Email" required id="email" class="input">
+        <br />
+        <input class="form-control" type="password" placeholder="Password" name="Password" required id="password" class="input">
+        <br />
+        <input class="form-control" type="text" placeholder="Country" name="Country" required id="Country" class="input">
+            <br/>
+            <input class="form-control" type="text" placeholder="City" name="City" required id="City" class="input"> <br/>
+        <!-- <label for="repeatp"><b>Select Country</b></label>      -->
+        <!-- <select name="country" id="country" class="btn btn-secondary btn-sm dropdown-toggle">
+           <div class="btn btn-danger dropdown-toggle">
+            <option  value="Pakistan">Pakistan</option>
+           </div>
+           <div class="dropdown-item"> 
+               <option  value="India">India</option>
+            </div>
+            <div class="dropdown-item">
+                <option  value="Unites States">Unites States</option>
+            </div>
+           <div class="dropdown-item">
+            <option  value="Afghanistan">Afghanistan</option>
+           </div>
+          </select> -->
+
+          
+        <!-- <h3>Select your role:</h3> -->
+        <!-- <label class="container2">Killer
+            <input type="radio" checked="checked" name="user-role" value="Killer">
+            <span class="checkmark"></span>
+        </label> <br>
+        <label class="container2">Client
+            <input type="radio" name="user-role" value="Client">
+            <span class="checkmark"></span>
+        </label> -->
+
+
+        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+        <p>If You already Have a Account <a href="login.html" style="color:dodgerblue">Login Here</a>.</p>
+        <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
+
+            <button class="signupbtn btn-lg btn-primary" onclick="registeruser()">Sign Up</button>
+    </div>
+
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
