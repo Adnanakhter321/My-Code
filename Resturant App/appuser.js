@@ -56,35 +56,35 @@ function logout() {
 }
 
 
+// function fetchall() {
+//     firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
+//         snapshot.docChanges().forEach((change) => {
+//             if (change.type === "added") {
+//                 console.log("New city: ",   change.doc.data());
+//                 let taskobj = change.doc.data()
+//                 taskobj.id = change.doc.data() 
+//                 // getthelist(change.doc.data(), change.doc.id)
+//                 showindom(change.doc.data())
+//             }
+//             if (change.type === "removed") {
+//                 console.log("Removed city: ", change.doc.id);
+//                 deleteindom(change.doc.id)
+//             }
+//             if (change.type === "modified") {
+//                 console.log("Modified city: ", change.doc.data());
+//                 let tasksObj = change.doc.data();
+//                 console.log(change.doc.data());
+//                 tasksObj.id = change.doc.id;
+//                 updateindom(tasksObj);
+//             }
+//         })
+//     });
+// }
 function fetchall() {
     firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                console.log("New city: ",   change.doc.data());
-                let taskobj = change.doc.data()
-                taskobj.id = change.doc.data() 
-                // getthelist(change.doc.data(), change.doc.id)
-                showindom(change.doc.data())
-            }
-            if (change.type === "removed") {
-                console.log("Removed city: ", change.doc.id);
-                deleteindom(change.doc.id)
-            }
-            if (change.type === "modified") {
-                console.log("Modified city: ", change.doc.data());
-                let tasksObj = change.doc.data();
-                console.log(change.doc.data());
-                tasksObj.id = change.doc.id;
-                updateindom(tasksObj);
-            }
-        })
-    });
-}
-function fetchall() {
-    firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-                console.log("New city: ",   change.doc.data());
+                // console.log("New city: ",   change.doc.data());
                 let taskobj = change.doc.data()
                 taskobj.id = change.doc.data() 
                 // getthelist(change.doc.data(), change.doc.id)
@@ -113,7 +113,6 @@ function fetchall() {
         </div>
       </div> */}
  function showindom(get){
-    console.log(get);
     let resdata = document.getElementById('resdata');
     
      let doc = document.createElement('div')
@@ -154,25 +153,19 @@ function showdishes(get){
 
 
 
-    firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
+    firebase.firestore().collection("resturantdish").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                console.log("New city: ",   change.doc.data());
-                let taskobj = change.doc.data()
-                taskobj.id = change.doc.data() 
-                // getthelist(change.doc.data(), change.doc.id)
-                showindom(change.doc.data())
-            }
-            if (change.type === "removed") {
-                console.log("Removed city: ", change.doc.id);
-                deleteindom(change.doc.id)
-            }
-            if (change.type === "modified") {
-                console.log("Modified city: ", change.doc.data());
-                let tasksObj = change.doc.data();
+                // console.log("New city: ",   change.doc.data());
                 console.log(change.doc.data());
-                tasksObj.id = change.doc.id;
-                updateindom(tasksObj);
+                if(change.doc.data().resturantdish == get.parentNode.firstChild.innerHTML ){
+                    change.doc.data()
+                }
+
+                // let taskobj = change.doc.data()
+                // taskobj.id = change.doc.data() 
+                // getthelist(change.doc.data(), change.doc.id)
+                // showindom(change.doc.data())
             }
         })
     });

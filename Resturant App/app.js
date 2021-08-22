@@ -8,7 +8,7 @@ let city = document.getElementById('City');
 
 
 let storage = firebase.storage();
-var  uid45;
+var uid45;
 firebase.auth().onAuthStateChanged((user) => {
     uid45 = user.uid;
 });
@@ -29,7 +29,7 @@ async function registerres() {
         Password: passwordEl.value,
         country: country.value,
         city: city.value,
-        uid : uid45
+        uid: uid45
     }
     let ResName = {
         RestaurantName: RestaurantName.value,
@@ -70,11 +70,11 @@ firebase.auth().onAuthStateChanged((user) => {
     firebase.firestore().collection("dataadmin").orderBy(user.uid).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                console.log("New city: ",   change.doc.data());
+                console.log("New city: ", change.doc.data());
                 let taskobj = change.doc.data()
-                taskobj.id = change.doc.data() 
+                taskobj.id = change.doc.data()
                 // getthelist(change.doc.data(), change.doc.id)
-               console.log(change.doc.data());
+                console.log(change.doc.data());
             }
         })
     });
@@ -163,23 +163,23 @@ let ItemName = document.getElementById('ItemName');
 let Price = document.getElementById('Price');
 let dishtype = document.getElementById('dishtype');
 let deliveryt = document.getElementById('deliverytype');
-let imgEl  = document.getElementById('file');
-let imgEl2  = document.getElementById('image');
+let imgEl = document.getElementById('file');
+let imgEl2 = document.getElementById('image');
 
 
 
-async function createdish(){
+async function createdish() {
     const user = firebase.auth().currentUser;
     console.log(user.uid);
-    
-  let url =  await imageuploadtofirebase();
+
+    let url = await imageuploadtofirebase();
     let dish = {
-        Itemname : ItemName.value,
-        Price : Price.value,
-        dishtype : checkdish(),
-        deliverytype : deliverytype(),
-        Imagelink : url,
-         RestaurantName : getthename()
+        Itemname: ItemName.value,
+        Price: Price.value,
+        dishtype: checkdish(),
+        deliverytype: deliverytype(),
+        Imagelink: url,
+        RestaurantName: nameget
     }
     try {
         let db = firebase.firestore();
@@ -189,36 +189,40 @@ async function createdish(){
         console.log(error);
     }
 }
-
+var nameget;
 function getthename(){
+    console.log(user1);
+    var uid46;
     firebase.auth().onAuthStateChanged((user) => {
-        console.log(user);
-        
-        return user.uid;
+        uid46 = user.uid;
+        console.log(uid46);
+    });
+    firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                // console.log("New city: ", change.doc.data());
+                if(change.doc.data().uid == uid46){
+                    nameget = change.doc.data().RestaurantName;
+                }
+            }
+        })
     });
 }
 
 function fetchall() {
     console.log(user1);
-    firebase.firestore().collection("dataadmin").where('uid' ,"==" , `${uid45}` ).onSnapshot((snapshot) => {
+    var uid46;
+    firebase.auth().onAuthStateChanged((user) => {
+        uid46 = user.uid;
+        console.log(uid46);
+    });
+    firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                console.log("New city: ",   change.doc.data());
-                let taskobj = change.doc.data()
-                taskobj.id = change.doc.data() 
-                // getthelist(change.doc.data(), change.doc.id)
-               console.log(change.doc.data());
-            }
-            if (change.type === "removed") {
-                console.log("Removed city: ", change.doc.id);
-                deleteindom(change.doc.id)
-            }
-            if (change.type === "modified") {
-                console.log("Modified city: ", change.doc.data());
-                let tasksObj = change.doc.data();
-                console.log(change.doc.data());
-                tasksObj.id = change.doc.id;
-                updateindom(tasksObj);
+                // console.log("New city: ", change.doc.data());
+                if(change.doc.data().uid == uid46){
+                    nameget = change.doc.data().RestaurantName;
+                }
             }
         })
     });
@@ -227,15 +231,15 @@ function fetchall() {
 
 async function imageuploadtofirebase() {
     return new Promise(async (resolve, reject) => {
-            let image = imgEl.files[0];
-            let storageRef = storage.ref();
-            let imageRef = storageRef.child(`userimages/${image.name}`);
-                await imageRef.put(image)
-            console.log('IMAGE UPLOADED');
-            var url = await imageRef.getDownloadURL()
-            resolve(url)
-        })
-    }
+        let image = imgEl.files[0];
+        let storageRef = storage.ref();
+        let imageRef = storageRef.child(`userimages/${image.name}`);
+        await imageRef.put(image)
+        console.log('IMAGE UPLOADED');
+        var url = await imageRef.getDownloadURL()
+        resolve(url)
+    })
+}
 
 function checkdish() {
     let checkrole;
@@ -256,9 +260,9 @@ function deliverytype() {
     return checkrole;
 }
 
-function changeimage(){
+function changeimage() {
     console.log(imgEl.files[0].name);
-    imgEl2.src  = imgEl.files[0].name;
+    imgEl2.src = imgEl.files[0].name;
 }
 
 // let username2 = document.getElementById('user-name2');
