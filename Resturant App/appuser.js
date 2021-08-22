@@ -56,3 +56,37 @@ function logout() {
 }
 
 
+function fetchall() {
+    firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                console.log("New city: ",   change.doc.data());
+                let taskobj = change.doc.data()
+                taskobj.id = change.doc.data() 
+                // getthelist(change.doc.data(), change.doc.id)
+            }
+            if (change.type === "removed") {
+                console.log("Removed city: ", change.doc.id);
+                deleteindom(change.doc.id)
+            }
+            if (change.type === "modified") {
+                console.log("Modified city: ", change.doc.data());
+                let tasksObj = change.doc.data();
+                console.log(change.doc.data());
+                tasksObj.id = change.doc.id;
+                updateindom(tasksObj);
+            }
+        })
+    });
+}
+{/* <div class="card" style="width: 18rem;" style="display: flex; flex-direction: row;">
+        <img src="https://source.unsplash.com/500x300/?restuarants,food" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Restaurant Name</h5>
+          <p class="card-text">Best Restuarants</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div> */}
+function showindom(){
+    let doc = document.createElement('div')
+}

@@ -1,3 +1,9 @@
 #file{
     display: none;
 }
+
+
+.card{
+    float: left;
+    margin: 11px 28px;
+}
