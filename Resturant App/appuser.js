@@ -64,6 +64,7 @@ function fetchall() {
                 let taskobj = change.doc.data()
                 taskobj.id = change.doc.data() 
                 // getthelist(change.doc.data(), change.doc.id)
+                showindom(change.doc.data())
             }
             if (change.type === "removed") {
                 console.log("Removed city: ", change.doc.id);
@@ -79,7 +80,7 @@ function fetchall() {
         })
     });
 }
-{/* <div class="card" style="width: 18rem;" style="display: flex; flex-direction: row;">
+{/* <div class="card" style="width: 18rem;">
         <img src="https://source.unsplash.com/500x300/?restuarants,food" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Restaurant Name</h5>
@@ -87,6 +88,41 @@ function fetchall() {
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div> */}
-function showindom(){
-    let doc = document.createElement('div')
+function showindom(get){
+    console.log(get.RestaurantName);
+    let resdata = document.getElementById('resdata');
+    console.log(resdata);
+    // let doc = document.createElement('div')
+    // doc.setAttribute("class" , 'card')
+    // doc.style.width = '18rem';
+    // let img = document.createElement('img')
+    // let textdoc = document.createTextNode(img)
+    // img.setAttribute('src' , "https://source.unsplash.com/500x300/?restuarants,food")
+    // // img.setAttribute('class ' , "card-img-top")
+    // doc.appendChild(textdoc)
+    // let div = document.createElement('div')
+    // let h5 = document.createElement('h5')
+    // h5.setAttribute('class ' , "card-title")
+    // let p = document.createElement('p')
+    // img.setAttribute('class ' , "card-text")
+    // let a = document.createElement('a')
+    // a.setAttribute('href ' , "#")
+    // a.setAttribute('class ' , "btn btn-primary")
+    // div.setAttribute('class ' , "card-body")
+    // let divdoc1 = document.createTextNode(h5)
+    // let divdoc2 = document.createTextNode(p)
+    // let divdoc3 = document.createTextNode(a)
+    // div.appendChild(divdoc1)
+    // div.appendChild(divdoc2)
+    // div.appendChild(divdoc3)
+    // let divdoc1text = document.createTextNode(h5)
+    // let divdoc2text = document.createTextNode(p)
+    // let divdoc3text = document.createTextNode(a)
+    // h5.appendChild(divdoc1text)
+    // p.appendChild(divdoc2text)
+    // a.appendChild(divdoc3text)
+
+
+
 }
+// showindom();
