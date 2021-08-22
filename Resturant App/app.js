@@ -36,7 +36,8 @@ async function registeruser() {
     }   
     console.log(Restaurantsadmin);
     try {
-        db.collection('dataadmin').doc(user.uid).set(Restaurantsadmin).then(() => { console.log('Data Submitted'); })
+       await db.collection('dataadmin').doc(user.uid).set(Restaurantsadmin);
+       console.log("Data Submitted");
     }
     catch (error) {
         alert(error);
