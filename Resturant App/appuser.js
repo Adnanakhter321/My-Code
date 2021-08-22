@@ -92,6 +92,48 @@ function showindom(get){
     console.log(get.RestaurantName);
     let resdata = document.getElementById('resdata');
     console.log(resdata);
+     let doc = document.createElement('div')
+    doc.setAttribute("class" , 'card')
+    doc.style.width = '18rem';
+    let doctext = document.createTextNode(get.RestaurantName)
+    let img = document.createElement('img')
+    img.setAttribute('src' , "https://source.unsplash.com/500x300/?restuarants,food")
+    img.setAttribute('class' , "card-img-top")
+    doc.appendChild(img)
+    let div = document.createElement('div')
+    div.setAttribute("class" , 'card-body')
+let h5 = document.createElement('h5')
+    h5.setAttribute('class' , "card-title")
+    let h5text = document.createTextNode(get.RestaurantName)
+    h5.appendChild(h5text)
+    div.appendChild(h5)
+    let p = document.createElement('p')
+    p.setAttribute('class' , "card-text")
+    let ptext = document.createTextNode("Delivery In 30 Minutes")
+    p.appendChild(ptext)
+    div.appendChild(p)
+    let a = document.createElement('a')
+    let atext = document.createTextNode("go SOmewhere Else")
+    a.appendChild(atext)
+    a.setAttribute('href' , "#")
+    a.setAttribute('class' , "btn btn-primary")
+    div.appendChild(a)
+    doc.appendChild(div)
+
+    // let h5 = document.createElement('h5')
+    // h5.setAttribute('class ' , "card-title")
+    // div.appendChild(h5)
+    // let p = document.createElement('p')
+    // p.setAttribute('class ' , "card-text")
+    // div.appendChild(p)
+    // let a = document.createElement('a')
+    // a.setAttribute('href ' , "#")
+    // a.setAttribute('class ' , "btn btn-primary")
+    // div.appendChild(a)
+    // doc.appendChild(div)
+
+   
+    resdata.appendChild(doc)
     // let doc = document.createElement('div')
     // doc.setAttribute("class" , 'card')
     // doc.style.width = '18rem';
