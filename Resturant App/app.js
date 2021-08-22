@@ -4,17 +4,10 @@ let passwordEl = document.getElementById('password');
 let country = document.getElementById('Country');
 let city = document.getElementById('City');
 
-async function loginuser() {
-    try {
-        let login = await firebase.auth().signInWithEmailAndPassword(emailEl.value, passwordEl.value)
-
-    } catch (error) {
-        alert(error);
-    }
-}
 
 
-let storage = firebase.storage();
+
+// let storage = firebase.storage();
 
 async function registeruser() {
     let db = firebase.firestore();
@@ -29,15 +22,15 @@ async function registeruser() {
     console.log('USER CREATED');
     let Restaurantsadmin = {
         RestaurantName: RestaurantName.value,
-        Email : emailEl.value,
-        Password : passwordEl.value,
-        country : country.value,
-        city : city.value
-    }   
+        Email: emailEl.value,
+        Password: passwordEl.value,
+        country: country.value,
+        city: city.value
+    }
     console.log(Restaurantsadmin);
     try {
-       await db.collection('dataadmin').doc(user.uid).set(Restaurantsadmin);
-       console.log("Data Submitted");
+        await db.collection('dataadmin').doc(user.uid).set(Restaurantsadmin);
+        console.log("Data Submitted");
     }
     catch (error) {
         alert(error);
@@ -58,10 +51,25 @@ async function registeruser() {
 
 
 firebase.auth().onAuthStateChanged((user) => {
-   
     console.log(user);
+   if(user){
+    window.location = './login.html';
+   }
+        firebase.auth().signOut(); 
+    
 });
 
+
+
+async function loginuser() {
+    try {
+        let login = await firebase.auth().signInWithEmailAndPassword(emailEl.value, passwordEl.value);
+        // window.location = './home.html'
+
+    } catch (error) {
+        alert(error);
+    }
+}
 function logout() {
     firebase.auth().signOut();
 }
