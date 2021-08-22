@@ -42,8 +42,17 @@ async function registerinuser(){
 async function loginuser() {
     try {
         let login = await firebase.auth().signInWithEmailAndPassword(emailEl.value, passwordEl.value);
+       if(login){
         window.location = './userinterface.html';
+       }
     } catch (error) {
-        alert(error);
+        console.log(error);
     }
 }
+
+function logout() {
+    firebase.auth().signOut();
+    window.location = './userinterfacelogin.html';
+}
+
+

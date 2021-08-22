@@ -1,6 +1,6 @@
 let RestaurantName = document.getElementById('Restaurant-Name');
 let emailEl = document.getElementById('email');
-let passwordEl = document.getElementById('password2');
+let passwordEl = document.getElementById('password');
 let country = document.getElementById('Country');
 let city = document.getElementById('City');
 
@@ -9,7 +9,7 @@ let city = document.getElementById('City');
 
 let storage = firebase.storage();
 
-async function registeruser() {
+async function registerres() {
     let db = firebase.firestore();
     try {
         var userCredential = await firebase.auth().createUserWithEmailAndPassword(emailEl.value, passwordEl.value)
@@ -27,9 +27,13 @@ async function registeruser() {
         country: country.value,
         city: city.value
     }
+    let ResName = {
+        RestaurantName: RestaurantName.value,
+    }
     console.log(Restaurantsadmin);
     try {
         await db.collection('dataadmin').doc(user.uid).set(Restaurantsadmin);
+        await db.collection('ResName').doc(user.uid).set(ResName);
         console.log("Data Submitted");
         if (user) {
             // firebase.auth().signOut(); 
@@ -207,51 +211,3 @@ let passwordinuser2 = document.getElementById('password2');
 let Phoneinuser2 = document.getElementById('Phone');
 let Cityinuser2  = document.getElementById('Cityinuser');
 let countryinuser2  = document.getElementById('countryinuser');
-
-
-function registerinuser(){
-    console.log(passwordinuser2);
-    // let user2 = {
-    //                 Username : username2.value,
-    //                 Email : emailinuser2.value,
-    //                 password: passwordinuser2.value,
-    //                 Phone : Phoneinuser2.value,
-    //                 city: Cityinuser2.value,
-    //                 Country : countryinuser2.value
-    //             }
-    //             console.log(user2);
-}
-// async function registerinuser(){
-
-
-//     let db = firebase.firestore();
-//     try {
-//         var userCredential = await firebase.auth().createUserWithEmailAndPassword(emailinuser.value, passwordinuser.value)
-//     }
-//     catch (error) {
-//         console.log(error);
-//     }
-//     let user = userCredential.user;
-
-//     console.log('USER CREATED');
-//         let user2 = {
-//             Username : user.value,
-//             Email : emailinuser.value,
-//             password: passwordinuser.value,
-//             Phone : Phoneinuser,
-//             city: Cityinuser,
-//             Country : countyinuser
-//         }
-//         console.log(user);
-//         console.log(Restaurantsadmin);
-//         try {
-//             await db.collection('userdata').doc(user.uid).set(user2);
-//             console.log("Data Submitted");
-//             if (user) {
-//                 // window.location = './login.html';
-//             }
-//         }
-//         catch (error) {
-//             console.log(error);
-//         }
-// }
