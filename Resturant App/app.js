@@ -455,5 +455,93 @@ function acceptorder(data) {
 }
 
 function showinaccept(data){
-console.log(data);
+    console.log(data);
+    let doc = document.createElement('div')
+    doc.setAttribute("class", 'card')
+    doc.style.width = '18rem';
+    let div = document.createElement('div')
+    div.setAttribute("class", 'card-body')
+    let h5 = document.createElement('h5')
+    h5.setAttribute('class', "card-title")
+    let h5text = document.createTextNode("Accepeted Order")
+    h5.appendChild(h5text)
+    div.appendChild(h5)
+
+    let span11 = document.createElement("span")
+    let spantext = document.createTextNode("Dish: ")
+    span11.appendChild(spantext)
+
+    let p = document.createElement('p')
+    p.setAttribute('class', "card-text")
+    let ptext = document.createTextNode(data.Dish)
+    p.appendChild(span11)
+    p.appendChild(ptext)
+
+
+    let span12 = document.createElement("span")
+    let spantext2 = document.createTextNode("Price: ")
+    span12.appendChild(spantext2)
+    // let span13 = document.createElement("span")
+    // let spantext3 = document.createTextNode("PKR")
+    // span13.appendChild(spantext3)
+
+    let p2 = document.createElement('p')
+    p2.setAttribute('class', "card-text")
+    let p2text = document.createTextNode(data.Price)
+    p2.appendChild(span12)
+    p2.appendChild(p2text)
+    // p2.appendChild(span13)
+
+
+
+
+    let span14 = document.createElement("span")
+    let spantext4 = document.createTextNode("Deliverytype:  ")
+    span14.appendChild(spantext4)
+
+    let p3 = document.createElement('p')
+    p3.setAttribute('class', "card-text")
+    let p3text = document.createTextNode(data.Deliverytype)
+    p3.appendChild(span14)
+    p3.appendChild(p3text)
+
+
+    let span15 = document.createElement("span")
+    let spantext5 = document.createTextNode("Quantity: ")
+    span15.appendChild(spantext5)
+
+    let p4 = document.createElement('p')
+    p4.setAttribute('class', "card-text")
+    let p4text = document.createTextNode(data.Quantity)
+    p4.appendChild(span15)
+    p4.appendChild(p4text)
+
+    let span16 = document.createElement("span")
+    let spantext6 = document.createTextNode("RestaurantName: ")
+    span16.appendChild(spantext6)
+
+    let p5 = document.createElement('p')
+    p5.setAttribute('class', "card-text")
+    let p5text = document.createTextNode(data.RestaurantName)
+    p5.appendChild(span16)
+    p5.appendChild(p5text)
+
+    div.appendChild(p)
+    div.appendChild(p2)
+    div.appendChild(p3)
+    div.appendChild(p4)
+    div.appendChild(p5)
+
+    let span = document.createElement('span')
+    let atext = document.createTextNode("Deliver ORder")
+    span.appendChild(atext)
+    span.setAttribute('class', "btn btn-primary")
+    span.setAttribute('onclick', "deliverorder(this)")
+
+    
+
+   
+    div.appendChild(span)
+    doc.appendChild(div)
+    accepted2.appendChild(doc)
 }
