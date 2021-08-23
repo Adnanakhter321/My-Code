@@ -186,10 +186,12 @@ function showdishes2(data) {
     let doc = document.createElement('div')
     doc.setAttribute("class", 'card')
     doc.style.width = '18rem';
-    // let doctext = document.createTextNode(data.RestaurantName)
     let img = document.createElement('img')
     img.setAttribute('src', data.Imagelink)
-    img.setAttribute('class', "card-img-top")
+    // img.setAttribute('class', "card-img-top")
+    img.style.width = '286px'
+    img.style.height = '182px'
+    img.style.borderRadius = '7px'
     doc.appendChild(img)
     let div = document.createElement('div')
     div.setAttribute("class", 'card-body')
@@ -200,22 +202,22 @@ function showdishes2(data) {
     div.appendChild(h5)
     let p = document.createElement('p')
     p.setAttribute('class', "card-text")
-    let ptext = document.createTextNode(`item Name  ` + data.Itemname)
+    let ptext = document.createTextNode(`Name: ` + data.Itemname)
     p.appendChild(ptext)
 
     let p2 = document.createElement('p')
     p2.setAttribute('class', "card-text")
-    let p2text = document.createTextNode("Item Price:  " + data.Price + "PKR")
+    let p2text = document.createTextNode("Price:  " + data.Price + "PKR")
     p2.appendChild(p2text)
 
     let p3 = document.createElement('p')
     p3.setAttribute('class', "card-text")
-    let p3text = document.createTextNode("Item deliverytype:  " + data.deliverytype)
+    let p3text = document.createTextNode("Deliverytype:  " + data.deliverytype)
     p3.appendChild(p3text)
 
     let p4 = document.createElement('p')
     p4.setAttribute('class', "card-text")
-    let p4text = document.createTextNode("Item dishtype:  " + data.dishtype)
+    let p4text = document.createTextNode("Dishtype:  " + data.dishtype)
     p4.appendChild(p4text)
 
     div.appendChild(p)
@@ -242,5 +244,7 @@ function showallres() {
 }
 
 function addtocart(data){
+    let yourcart = document.getElementById('yourcart');
+    yourcart.innerHTML++
     console.log(data.parentNode);
 }
