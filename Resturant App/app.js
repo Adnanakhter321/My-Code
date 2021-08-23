@@ -301,12 +301,12 @@ function fetchall() {
             // }
         })
     });
+    fetchall2()
 }
 let pending2 = document.getElementById('pending');
 function pendingdata(data) {
     var a = "200PKR";
     let b = a.split("PKR")
-    // console.log(data);
 
     let doc = document.createElement('div')
     doc.setAttribute("class", 'card')
@@ -386,23 +386,11 @@ function pendingdata(data) {
     p5.appendChild(span16)
     p5.appendChild(p5text)
 
-
-    let span17 = document.createElement("span")
-    let spantext7 = document.createTextNode("Total Bill: ")
-    span17.appendChild(spantext7)
-    let spprice = data.Price.split("PKR")
-    let p7 = document.createElement('p')
-    p7.setAttribute('class', "card-text")
-    let p5text7 = document.createTextNode(spprice[0] * data.Quanity + "PKR")
-    p7.appendChild(span17)
-    p7.appendChild(p5text7)
-
     div.appendChild(p)
     div.appendChild(p2)
     div.appendChild(p3)
     div.appendChild(p4)
     div.appendChild(p5)
-    div.appendChild(p7)
 
     let span = document.createElement('span')
     let atext = document.createTextNode("Accept Order")
@@ -422,11 +410,10 @@ function pendingdata(data) {
     pending2.appendChild(doc)
 
 }
-function fetchall() {
+function fetchall2() {
     firebase.firestore().collection("acceptedorders").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-
                 let onlygetfood;
                 firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
                     snapshot.docChanges().forEach((change) => {
@@ -437,12 +424,10 @@ function fetchall() {
                         }
                     })
                     if (change.doc.data().RestaurantName == onlygetfood) {
-                        // console.log(change.doc.data());
                         showinaccept(change.doc.data())
+                        
                     }
                 });
-
-
             }
         })
     });
@@ -461,7 +446,7 @@ function acceptorder(data) {
     }
     try {
         let db = firebase.firestore();
-        db.collection('acceptedorders').add(acceptorder).then(() => { console.log('done'); alert('U have accepted order')})
+        db.collection('acceptedorders').add(acceptorder).then(() => { console.log('done'); alert('U have accepted ')})
     }
     catch (error) {
         console.log(error);
@@ -470,120 +455,5 @@ function acceptorder(data) {
 }
 
 function showinaccept(data){
-   
-    // let doc = document.createElement('div')
-    // doc.setAttribute("class", 'card')
-    // doc.style.width = '18rem';
-    // // let img = document.createElement('img')
-    // // img.setAttribute('src', data.Imagelink)
-    // // // img.setAttribute('class', "card-img-top")
-    // // img.style.width = '286px'
-    // // img.style.height = '182px'
-    // // img.style.borderRadius = '7px'
-    // // doc.appendChild(img)
-
-    // let div = document.createElement('div')
-    // div.setAttribute("class", 'card-body')
-    // let h5 = document.createElement('h5')
-    // h5.setAttribute('class', "card-title")
-    // let h5text = document.createTextNode("Accepted Orders")
-    // h5.appendChild(h5text)
-    // div.appendChild(h5)
-
-    // let span11 = document.createElement("span")
-    // let spantext = document.createTextNode("Dish: ")
-    // span11.appendChild(spantext)
-
-    // let p = document.createElement('p')
-    // p.setAttribute('class', "card-text")
-    // let ptext = document.createTextNode(data.DishName)
-    // p.appendChild(span11)
-    // p.appendChild(ptext)
-
-
-    // let span12 = document.createElement("span")
-    // let spantext2 = document.createTextNode("Price: ")
-    // span12.appendChild(spantext2)
-    // // let span13 = document.createElement("span")
-    // // let spantext3 = document.createTextNode("PKR")
-    // // span13.appendChild(spantext3)
-
-    // let p2 = document.createElement('p')
-    // p2.setAttribute('class', "card-text")
-    // let p2text = document.createTextNode(data.Price)
-    // p2.appendChild(span12)
-    // p2.appendChild(p2text)
-    // // p2.appendChild(span13)
-
-
-
-
-    // let span14 = document.createElement("span")
-    // let spantext4 = document.createTextNode("Deliverytype:  ")
-    // span14.appendChild(spantext4)
-
-    // let p3 = document.createElement('p')
-    // p3.setAttribute('class', "card-text")
-    // let p3text = document.createTextNode(data.DeliveryType)
-    // p3.appendChild(span14)
-    // p3.appendChild(p3text)
-
-
-    // let span15 = document.createElement("span")
-    // let spantext5 = document.createTextNode("Quantity: ")
-    // span15.appendChild(spantext5)
-
-    // let p4 = document.createElement('p')
-    // p4.setAttribute('class', "card-text")
-    // let p4text = document.createTextNode(data.Quanity)
-    // p4.appendChild(span15)
-    // p4.appendChild(p4text)
-
-    // let span16 = document.createElement("span")
-    // let spantext6 = document.createTextNode("RestaurantName: ")
-    // span16.appendChild(spantext6)
-
-    // let p5 = document.createElement('p')
-    // p5.setAttribute('class', "card-text")
-    // let p5text = document.createTextNode(data.RestaurantName)
-    // p5.appendChild(span16)
-    // p5.appendChild(p5text)
-
-
-    // let span17 = document.createElement("span")
-    // let spantext7 = document.createTextNode("Total Bill: ")
-    // span17.appendChild(spantext7)
-    // let spprice = data.Price.split("PKR")
-    // let p7 = document.createElement('p')
-    // p7.setAttribute('class', "card-text")
-    // let p5text7 = document.createTextNode(spprice[0] * data.Quanity + "PKR")
-    // p7.appendChild(span17)
-    // p7.appendChild(p5text7)
-
-    // div.appendChild(p)
-    // div.appendChild(p2)
-    // div.appendChild(p3)
-    // div.appendChild(p4)
-    // div.appendChild(p5)
-    // div.appendChild(p7)
-
-    // let span = document.createElement('span')
-    // let atext = document.createTextNode("Deliver Order")
-    // span.appendChild(atext)
-    // span.setAttribute('class', "btn btn-primary")
-    // span.setAttribute('onclick', "deliver(this)")
-
-    // // let span34 = document.createElement('span')
-    // // let atext23 = document.createTextNode("Reject Order")
-    // // span34.appendChild(atext23)
-    // // span34.setAttribute('class', "btn btn-primary")
-    // // span34.setAttribute('onclick', "")
-
-
-    // div.appendChild(span)
-    // // div.appendChild(span34)
-    // doc.appendChild(div)
-    // accepted2.appendChild(doc)
-
-
+console.log(data);
 }
