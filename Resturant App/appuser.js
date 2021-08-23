@@ -140,13 +140,18 @@ function showindom(get) {
     let span = document.createElement('span')
     let atext = document.createTextNode("CheckDishes")
     span.appendChild(atext)
-    span.setAttribute('href', "#")
+    // span.setAttribute('href', "#")
     span.setAttribute('class', "btn btn-primary")
     span.setAttribute('onclick', "showdishes(this)")
     div.appendChild(span)
     doc.appendChild(div)
     resdata.appendChild(doc)
 }
+
+let dishesshow = document.getElementById("dishesshow")
+dishesshow.style.display = 'none'
+let allres = document.getElementById("allres")
+allres.style.display = 'none'
 
 function showdishes(get) {
     let resdata = document.getElementById('resdata');
@@ -161,7 +166,7 @@ function showdishes(get) {
 
 
                 if (change.doc.data().RestaurantName == get.parentNode.firstChild.innerHTML) {
-                    console.log(change.doc.data());
+                    showdishes2(change.doc.data());
                 }
 
                 // console.log("New city: ",   change.doc.data());
@@ -173,4 +178,68 @@ function showdishes(get) {
             }
         })
     });
+}
+
+function showdishes2(data) {
+    dishesshow.style.display = 'inherit'
+    allres.style.display = 'inherit'
+
+    console.log(data)
+
+    let doc = document.createElement('div')
+    doc.setAttribute("class", 'card')
+    doc.style.width = '18rem';
+    // let doctext = document.createTextNode(data.RestaurantName)
+    let img = document.createElement('img')
+    img.setAttribute('src', data.Imagelink)
+    img.setAttribute('class', "card-img-top")
+    doc.appendChild(img)
+    let div = document.createElement('div')
+    div.setAttribute("class", 'card-body')
+    let h5 = document.createElement('h5')
+    h5.setAttribute('class', "card-title")
+    let h5text = document.createTextNode(data.RestaurantName + " Restaurant")
+    h5.appendChild(h5text)
+    div.appendChild(h5)
+    let p = document.createElement('p')
+    p.setAttribute('class', "card-text")
+    let ptext = document.createTextNode(`item Name  ` + data.Itemname)
+    p.appendChild(ptext)
+
+    let p2 = document.createElement('p')
+    p2.setAttribute('class', "card-text")
+    let p2text = document.createTextNode("Item Price:  " + data.Price + "PKR")
+    p2.appendChild(p2text)
+
+    let p3 = document.createElement('p')
+    p3.setAttribute('class', "card-text")
+    let p3text = document.createTextNode("Item deliverytype:  " + data.deliverytype)
+    p3.appendChild(p3text)
+
+    let p4 = document.createElement('p')
+    p4.setAttribute('class', "card-text")
+    let p4text = document.createTextNode("Item dishtype:  " + data.dishtype)
+    p4.appendChild(p4text)
+
+    div.appendChild(p)
+    div.appendChild(p2)
+    div.appendChild(p3)
+    div.appendChild(p4)
+
+    let span = document.createElement('span')
+    let atext = document.createTextNode("Add To Cart")
+    span.appendChild(atext)
+    span.setAttribute('class', "btn btn-primary")
+    span.setAttribute('onclick', "showdishes(this)")
+    div.appendChild(span)
+    doc.appendChild(div)
+    dishesshow.appendChild(doc)
+}
+
+function showallres() {
+    // dishesshow.style.display = 'none'
+    // allres.style.display = 'none'
+    // resdata.style.display = 'inherit'
+
+    location.reload();
 }
