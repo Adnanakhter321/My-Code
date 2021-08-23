@@ -294,8 +294,8 @@ function addtocart(data) {
 
     yourcart.innerHTML++;
     if (yourcart.innerHTML > 0) sendorder.style.display = 'inherit'
-
     order = {
+        DishName: data.parentNode.childNodes[1].childNodes[1].nodeValue,
         RestaurantName: data.parentNode.firstChild.innerHTML,
         Quanity: yourcart.innerHTML,
         Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
