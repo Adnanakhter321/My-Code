@@ -64,9 +64,11 @@ async function registerres() {
 
 let user1;
 firebase.auth().onAuthStateChanged((user) => {
-    // console.log(user);
+    console.log(user);
+    // if(user == null && window.location == './home.html'){
+    //     window.location = 'login.html'
+    // }
     user1 = user.uid;
-
 
     firebase.firestore().collection("dataadmin").orderBy(user.uid).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
