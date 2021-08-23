@@ -4,6 +4,6 @@
 
 
 .card{
-    float: left;
-    margin: 11px 28px;
+    display: inline-block;
+    margin: 11px 20px;
 }

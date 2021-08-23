@@ -120,7 +120,6 @@ function showindom(get) {
     let doc = document.createElement('div')
     doc.setAttribute("class", 'card')
     doc.style.width = '18rem';
-    let doctext = document.createTextNode(get.RestaurantName)
     let img = document.createElement('img')
     img.setAttribute('src', "https://source.unsplash.com/500x300/?restuarants,food")
     img.setAttribute('class', "card-img-top")
@@ -140,7 +139,6 @@ function showindom(get) {
     let span = document.createElement('span')
     let atext = document.createTextNode("CheckDishes")
     span.appendChild(atext)
-    // span.setAttribute('href', "#")
     span.setAttribute('class', "btn btn-primary")
     span.setAttribute('onclick', "showdishes(this)")
     div.appendChild(span)
@@ -184,7 +182,6 @@ function showdishes2(data) {
     dishesshow.style.display = 'inherit'
     allres.style.display = 'inherit'
 
-    console.log(data)
 
     let doc = document.createElement('div')
     doc.setAttribute("class", 'card')
@@ -230,7 +227,7 @@ function showdishes2(data) {
     let atext = document.createTextNode("Add To Cart")
     span.appendChild(atext)
     span.setAttribute('class', "btn btn-primary")
-    span.setAttribute('onclick', "showdishes(this)")
+    span.setAttribute('onclick', "addtocart(this)")
     div.appendChild(span)
     doc.appendChild(div)
     dishesshow.appendChild(doc)
@@ -242,4 +239,8 @@ function showallres() {
     // resdata.style.display = 'inherit'
 
     location.reload();
+}
+
+function addtocart(data){
+    console.log(data.parentNode);
 }
