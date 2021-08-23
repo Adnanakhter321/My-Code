@@ -182,7 +182,7 @@ async function createdish() {
         dishtype: checkdish(),
         deliverytype: deliverytype(),
         Imagelink: url,
-        RestaurantName: nameget
+        RestaurantName: localStorage.getItem("RestaurantName")
     }
     try {
         let db = firebase.firestore();
@@ -192,6 +192,22 @@ async function createdish() {
         console.log(error);
     }
 }
+firebase.auth().onAuthStateChanged((user) => {
+    uid46 = user.uid;
+    console.log(uid46);
+    firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                // console.log("New city: ", change.doc.data());
+                if (change.doc.data().uid == uid46) {
+                    nameget = change.doc.data().RestaurantName;
+                    console.log(nameget);
+                    localStorage.setItem('RestaurantName', nameget)
+                }
+            }
+        })
+    });
+});
 var nameget;
 function getthename() {
     console.log(user1);
@@ -235,7 +251,7 @@ function fetchall() {
 async function imageuploadtofirebase() {
     return new Promise(async (resolve, reject) => {
         let image = imgEl.files[0];
-        let storageRef = storage.ref();
+        let storageRef = storage.ref()  ;
         let imageRef = storageRef.child(`userimages/${image.name}`);
         await imageRef.put(image)
         console.log('IMAGE UPLOADED');
@@ -264,7 +280,7 @@ function deliverytype() {
 }
 
 function changeimage() {
-    console.log(imgEl.files[0].name);
+    // console.log(imgEl.files[0].name);
     imgEl2.src = imgEl.files[0].name;
 }
 
