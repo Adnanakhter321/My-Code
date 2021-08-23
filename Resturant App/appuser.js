@@ -197,27 +197,57 @@ function showdishes2(data) {
     div.setAttribute("class", 'card-body')
     let h5 = document.createElement('h5')
     h5.setAttribute('class', "card-title")
-    let h5text = document.createTextNode(data.RestaurantName + " Restaurant")
+    let h5text = document.createTextNode(data.RestaurantName)
     h5.appendChild(h5text)
     div.appendChild(h5)
+
+    let span11 = document.createElement("span")
+    let spantext = document.createTextNode("Dish: ")
+    span11.appendChild(spantext)
+
     let p = document.createElement('p')
     p.setAttribute('class', "card-text")
-    let ptext = document.createTextNode(`Name: ` + data.Itemname)
+    let ptext = document.createTextNode(data.Itemname)
+    p.appendChild(span11)
     p.appendChild(ptext)
+
+
+    let span12 = document.createElement("span")
+    let spantext2 = document.createTextNode("Price: ")
+    span12.appendChild(spantext2)
+    let span13 = document.createElement("span")
+    let spantext3 = document.createTextNode("PKR")
+    span13.appendChild(spantext3)
 
     let p2 = document.createElement('p')
     p2.setAttribute('class', "card-text")
-    let p2text = document.createTextNode("Price:  " + data.Price + "PKR")
+    let p2text = document.createTextNode(data.Price)
+    p2.appendChild(span12)
     p2.appendChild(p2text)
+    p2.appendChild(span13)
+
+
+
+
+    let span14 = document.createElement("span")
+    let spantext4 = document.createTextNode("Deliverytype:  ")
+    span14.appendChild(spantext4)
 
     let p3 = document.createElement('p')
     p3.setAttribute('class', "card-text")
-    let p3text = document.createTextNode("Deliverytype:  " + data.deliverytype)
+    let p3text = document.createTextNode(data.deliverytype)
+    p3.appendChild(span14)
     p3.appendChild(p3text)
+
+
+    let span15 = document.createElement("span")
+    let spantext5 = document.createTextNode("Dishtype: ")
+    span15.appendChild(spantext5)
 
     let p4 = document.createElement('p')
     p4.setAttribute('class', "card-text")
-    let p4text = document.createTextNode("Dishtype:  " + data.dishtype)
+    let p4text = document.createTextNode(data.dishtype)
+    p4.appendChild(span15)
     p4.appendChild(p4text)
 
     div.appendChild(p)
@@ -246,5 +276,6 @@ function showallres() {
 function addtocart(data){
     let yourcart = document.getElementById('yourcart');
     yourcart.innerHTML++
+    localStorage.setItem("lastname", "Smith");
     console.log(data.parentNode);
 }
