@@ -1,4 +1,6 @@
 
+let yourcart;
+yourcart = document.getElementById('yourcart');
 let username2 = document.getElementById('user-name2');
 let emailinuser2 = document.getElementById('email2');
 let passwordinuser2 = document.getElementById('password2');
@@ -7,6 +9,15 @@ let Cityinuser2 = document.getElementById('Cityinuser');
 let countryinuser2 = document.getElementById('countryinuser');
 let emailEl = document.getElementById('email');
 let passwordEl = document.getElementById('password2');
+
+
+let uid46;
+firebase.auth().onAuthStateChanged((user) => {
+    uid46 = user.uid;
+    if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
+
+    console.log(uid46);
+});
 
 async function registerinuser() {
     let db = firebase.firestore();
@@ -273,9 +284,79 @@ function showallres() {
     location.reload();
 }
 
-function addtocart(data){
-    let yourcart = document.getElementById('yourcart');
-    yourcart.innerHTML++
-    localStorage.setItem("lastname", "Smith");
-    console.log(data.parentNode);
+
+
+
+
+let order;
+function addtocart(data) {
+    // localStorage.clear();
+
+    yourcart.innerHTML++;
+    if (yourcart.innerHTML > 0) sendorder.style.display = 'inherit'
+
+    order = {
+        RestaurantName: data.parentNode.firstChild.innerHTML,
+        Quanity: yourcart.innerHTML,
+        Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
+        DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue
+    }
+    // console.log(order);
+
+    if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
+
+
+
+    // localStorage.setItem("RestaurantName", data.parentNode.firstChild.innerHTML);
+    // localStorage.setItem("Quanity", yourcart.innerHTML);
+    // localStorage.setItem("Price", data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR");
+    // localStorage.setItem('DeliveryType', data.parentNode.childNodes[3].childNodes[1].nodeValue);
 }
+
+function sendorder2() {
+    try {
+        let db = firebase.firestore();
+        db.collection('ordersbyuser').add(order).then(() => {
+            console.log('done');
+            alert("Your Order HAs been Placed")
+            yourcart.innerHTML = 0;
+            if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
+            order = null;
+        })
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function allStorage() {
+
+    var values = [],
+        keys = Object.keys(localStorage)
+    // console.log(keys);
+    i = keys.length;
+
+    while (i--) {
+        values.push(localStorage.getItem(keys[i]));
+    }
+
+    return values;
+}
+
+let value = allStorage()
+// console.log(value);
+
+

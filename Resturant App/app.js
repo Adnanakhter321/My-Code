@@ -11,6 +11,7 @@ let storage = firebase.storage();
 var uid45;
 firebase.auth().onAuthStateChanged((user) => {
     uid45 = user.uid;
+    console.log(uid45);
 });
 async function registerres() {
     let db = firebase.firestore();
@@ -63,7 +64,7 @@ async function registerres() {
 
 let user1;
 firebase.auth().onAuthStateChanged((user) => {
-    console.log(user);
+    // console.log(user);
     user1 = user.uid;
 
 
@@ -265,9 +266,43 @@ function changeimage() {
     imgEl2.src = imgEl.files[0].name;
 }
 
-// let username2 = document.getElementById('user-name2');
-// let emailinuser2 = document.getElementById('email2');
-// let passwordinuser2 = document.getElementById('password2');
-// let Phoneinuser2 = document.getElementById('Phone');
-// let Cityinuser2  = document.getElementById('Cityinuser');
-// let countryinuser2  = document.getElementById('countryinuser');
+
+function fetchall() {
+    firebase.firestore().collection("ordersbyuser").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                let onlygetfood;
+                firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            if(uid45 == change.doc.data().uid){
+                                onlygetfood = change.doc.data().RestaurantName;
+                            }
+                        }
+                    })
+                    if(change.doc.data().RestaurantName ==onlygetfood ){
+                        console.log(change.doc.data());
+                        pendingdata(change.doc.data())
+                    }
+                });
+                
+
+            }
+            // if (change.type === "removed") {
+            //     console.log("Removed city: ", change.doc.id);
+            //     deleteindom(change.doc.id)
+            // }
+            // if (change.type === "modified") {
+            //     console.log("Modified city: ", change.doc.data());
+            //     let tasksObj = change.doc.data();
+            //     console.log(change.doc.data());
+            //     tasksObj.id = change.doc.id;
+            //     updateindom(tasksObj);
+            // }
+        })
+    });
+}
+let pending2 = document.getElementById('pending');
+function pendingdata(){
+
+}
