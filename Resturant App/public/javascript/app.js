@@ -4,15 +4,15 @@ let passwordEl = document.getElementById('password');
 let country = document.getElementById('Country');
 let city = document.getElementById('City');
 
-
-
-
 let storage = firebase.storage();
+
+// ------------ Fetching currentUser USer ----------------
 var uid45;
 firebase.auth().onAuthStateChanged((user) => {
     uid45 = user.uid;
-    console.log(uid45);
 });
+// -------------------------------------------------------
+
 async function registerres() {
     let db = firebase.firestore();
     try {
@@ -21,8 +21,6 @@ async function registerres() {
     catch (error) {
         alert(error);
     }
-    let user = userCredential.user;
-
     console.log('USER CREATED');
     let Restaurantsadmin = {
         RestaurantName: RestaurantName.value,
@@ -30,7 +28,7 @@ async function registerres() {
         Password: passwordEl.value,
         country: country.value,
         city: city.value,
-        uid: uid45
+        uid: userCredential.user.uid
     }
     let ResName = {
         RestaurantName: RestaurantName.value,
@@ -64,7 +62,7 @@ async function registerres() {
 
 let user1;
 firebase.auth().onAuthStateChanged((user) => {
-    console.log(user);
+    // console.log(user);
     // if(user == null && window.location == './home.html'){
     //     window.location = 'login.html'
     // }
@@ -148,7 +146,8 @@ function pending(get) {
     get.parentNode.parentNode.children[3].childNodes[1].setAttribute('class', 'nav-link')
     cont45[0].style.display = 'inherit'
     cont45[1].style.display = 'none'
-
+    cont45[2].style.display = 'none'
+    cont45[3].style.display = 'none'
 }
 
 function Delivered(get) {
@@ -186,7 +185,7 @@ async function createdish() {
     }
     try {
         let db = firebase.firestore();
-        db.collection('resturantdish').add(dish).then(() => { console.log('done'); })
+        db.collection('resturantdish').add(dish).then(() => { console.log('done'); alert('Dish Added To restaurant'); location.reload(); })
     }
     catch (error) {
         console.log(error);
@@ -194,7 +193,7 @@ async function createdish() {
 }
 firebase.auth().onAuthStateChanged((user) => {
     uid46 = user.uid;
-    console.log(uid46);
+    // console.log(uid46);
     firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
@@ -246,11 +245,46 @@ function fetchall() {
         })
     });
 }
+window.addEventListener('load', function() {
+    document.querySelector('input[type="file"]').addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            var img = document.querySelector('img');
+            img.onload = () => {
+                URL.revokeObjectURL(img.src);  // no longer needed, free memory
+            }
+  
+            img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+        }
+    });
+  });
 
-
+// let a = "https://source.unsplash.com/600x400/?restuarants,food"
+// let b = window.location.href;
+// console.log(a , b);
+var  aaa;
+// imageuploadtofirebase()
 async function imageuploadtofirebase() {
     return new Promise(async (resolve, reject) => {
-        let image = imgEl.files[0];
+        
+        // console.log(image);
+        
+        window.addEventListener('load', function() {
+            document.querySelector('input[type="file"]').addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    var img = document.querySelector('img');
+                    img.onload = () => {
+                        URL.revokeObjectURL(imgEl.src);  
+                    }
+                    imgEl.src = this.files[0].name;  // set src to blob url
+                    console.log(img.src);
+                    localStorage.setItem('imagelink' , img.src)   
+                    console.log(localStorage.getItem('imagelink'));
+                }
+            });
+        });
+        // console.log(aaa);
+        let image = "https://images.unsplash.com/photo-1559660539-a772b1f755f4?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8YmlyeWFuaXx8fHx8fDE2Mjk4MDE0MDg&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600";
+        console.log(localStorage.getItem('imagelink'));
         let storageRef = storage.ref()  ;
         let imageRef = storageRef.child(`userimages/${image.name}`);
         await imageRef.put(image)
@@ -259,6 +293,8 @@ async function imageuploadtofirebase() {
         resolve(url)
     })
 }
+
+
 
 function checkdish() {
     let checkrole;
@@ -306,10 +342,12 @@ function fetchall() {
 
 
             }
-            // if (change.type === "removed") {
-            //     console.log("Removed city: ", change.doc.id);
-            //     deleteindom(change.doc.id)
-            // }
+            if (change.type === "removed") {
+                console.log("Removed city: ", change.doc.id);
+                let det = document.getElementById(change.doc.id);
+               setTimeout(function(){det.remove();}, 2000)
+                // deleteindom(change.doc.id)
+            }
             // if (change.type === "modified") {
             //     console.log("Modified city: ", change.doc.data());
             //     let tasksObj = change.doc.data();
@@ -323,11 +361,13 @@ function fetchall() {
 }
 let pending2 = document.getElementById('pending');
 function pendingdata(data) {
+
     var a = "200PKR";
     let b = a.split("PKR")
 
     let doc = document.createElement('div')
     doc.setAttribute("class", 'card')
+    doc.setAttribute("id",data.uid2 )
     doc.style.width = '18rem';
     // let img = document.createElement('img')
     // img.setAttribute('src', data.Imagelink)
@@ -354,6 +394,16 @@ function pendingdata(data) {
     let ptext = document.createTextNode(data.DishName)
     p.appendChild(span11)
     p.appendChild(ptext)
+
+
+    let span10 = document.createElement("span")
+    let spantext0 = document.createTextNode("Buyer-Name:  ")
+    span10.appendChild(spantext0)
+    let p1 = document.createElement('p')
+    p1.setAttribute('class', "card-text")
+    let ptext1 = document.createTextNode(data.usernameAddress)
+    p1.appendChild(span10)
+    p1.appendChild(ptext1)
 
 
     let span12 = document.createElement("span")
@@ -404,6 +454,7 @@ function pendingdata(data) {
     p5.appendChild(span16)
     p5.appendChild(p5text)
 
+    div.appendChild(p1)
     div.appendChild(p)
     div.appendChild(p2)
     div.appendChild(p3)
@@ -454,7 +505,11 @@ function fetchall2() {
 
 let accepted2 = document.getElementById('accepted')
 function acceptorder(data) {
-    
+    console.log(data.parentNode.parentNode);;
+    let db  = firebase.firestore();
+    db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
+       alert('Order Accepted , Sended To Accepted Section')
+    });
     let acceptorder = {
             Dish: data.parentNode.childNodes[1].childNodes[1].nodeValue,
             Price: data.parentNode.childNodes[2].childNodes[1].nodeValue,
@@ -464,16 +519,16 @@ function acceptorder(data) {
     }
     try {
         let db = firebase.firestore();
-        db.collection('acceptedorders').add(acceptorder).then(() => { console.log('done'); alert('U have accepted ')})
+        acceptorder.usernameAddress = localStorage.getItem("userlogin");
+        db.collection('acceptedorders').add(acceptorder);
     }
     catch (error) {
         console.log(error);
     }
     
 }
-
 function showinaccept(data){
-    console.log(data);
+    // console.log(data);
     let doc = document.createElement('div')
     doc.setAttribute("class", 'card')
     doc.style.width = '18rem';
@@ -510,7 +565,14 @@ function showinaccept(data){
     p2.appendChild(p2text)
     // p2.appendChild(span13)
 
-
+    let span10 = document.createElement("span")
+    let spantext0 = document.createTextNode("Buyer-Name:  ")
+    span10.appendChild(spantext0)
+    let p1 = document.createElement('p')
+    p1.setAttribute('class', "card-text")
+    let ptext1 = document.createTextNode(data.usernameAddress)
+    p1.appendChild(span10)
+    p1.appendChild(ptext1)
 
 
     let span14 = document.createElement("span")
@@ -544,6 +606,7 @@ function showinaccept(data){
     p5.appendChild(span16)
     p5.appendChild(p5text)
 
+    div.appendChild(p1)
     div.appendChild(p)
     div.appendChild(p2)
     div.appendChild(p3)

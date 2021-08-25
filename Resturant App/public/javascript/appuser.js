@@ -14,9 +14,18 @@ let passwordEl = document.getElementById('password2');
 let uid46;
 firebase.auth().onAuthStateChanged((user) => {
     uid46 = user.uid;
+    console.log(user.email);
     if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
-
-    console.log(uid46);
+    firebase.firestore().collection("userdetails").onSnapshot((snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === "added") {
+                        if(user.email == change.doc.data().Email){
+                            localStorage.setItem('userlogin' ,change.doc.data().Username)
+                        }
+                    }
+                   
+                })
+            });
 });
 
 async function registerinuser() {
@@ -55,11 +64,11 @@ async function registerinuser() {
 async function loginuser() {
     try {
         let login = await firebase.auth().signInWithEmailAndPassword(emailEl.value, passwordEl.value);
-        if (login) {
-            window.location = './userinterface.html';
-        }
+            if (login) {
+                window.location = './userinterface.html';
+            }
     } catch (error) {
-        console.log(error);
+       alert(error)
     }
 }
 
@@ -94,13 +103,9 @@ function logout() {
 //     });
 // }
 function fetchall() {
-    firebase.firestore().collection("ResName").onSnapshot((snapshot) => {
+    firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                // console.log("New city: ",   change.doc.data());
-                let taskobj = change.doc.data()
-                taskobj.id = change.doc.data()
-                // getthelist(change.doc.data(), change.doc.id)
                 showindom(change.doc.data())
             }
             // if (change.type === "removed") {
@@ -147,12 +152,13 @@ function showindom(get) {
     let ptext = document.createTextNode("Delivery In 30 Minutes")
     p.appendChild(ptext)
     div.appendChild(p)
-    let span = document.createElement('span')
+    let a = document.createElement('a')
     let atext = document.createTextNode("CheckDishes")
-    span.appendChild(atext)
-    span.setAttribute('class', "btn btn-primary")
-    span.setAttribute('onclick', "showdishes(this)")
-    div.appendChild(span)
+    a.appendChild(atext)
+    a.setAttribute('href', "#!")
+    a.setAttribute('class', "btn btn-primary")
+    a.setAttribute('onclick', "showdishes(this)")
+    div.appendChild(a)
     doc.appendChild(div)
     resdata.appendChild(doc)
 }
@@ -198,7 +204,8 @@ function showdishes2(data) {
     doc.setAttribute("class", 'card')
     doc.style.width = '18rem';
     let img = document.createElement('img')
-    img.setAttribute('src', data.Imagelink)
+    img.setAttribute('src', "https://source.unsplash.com/500x300/?restuarants,restuarants")
+    // img.setAttribute('src', data.Imagelink)
     // img.setAttribute('class', "card-img-top")
     img.style.width = '286px'
     img.style.height = '182px'
@@ -289,9 +296,9 @@ function showallres() {
 
 
 let order;
+
 function addtocart(data) {
     // localStorage.clear();
-
     yourcart.innerHTML++;
     if (yourcart.innerHTML > 0) sendorder.style.display = 'inherit'
     order = {
@@ -299,7 +306,7 @@ function addtocart(data) {
         RestaurantName: data.parentNode.firstChild.innerHTML,
         Quanity: yourcart.innerHTML,
         Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
-        DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue
+        DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue,
     }
     // console.log(order);
 
@@ -312,12 +319,21 @@ function addtocart(data) {
     // localStorage.setItem("Price", data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR");
     // localStorage.setItem('DeliveryType', data.parentNode.childNodes[3].childNodes[1].nodeValue);
 }
+function uuidv4() {
+    return 'xxxxxx2xxxxxx4xxxyxxxxxxxxx2'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
 
+//   console.log(uuidv4());
 function sendorder2() {
     try {
+        uid5463 = uuidv4();
+        order.uid2 = uid5463;
+        order.usernameAddress = localStorage.getItem('userlogin');
         let db = firebase.firestore();
-        db.collection('ordersbyuser').add(order).then(() => {
-            console.log('done');
+        db.collection('ordersbyuser').doc(uid5463).set(order).then((user12, i) => {
             alert("Your Order HAs been Placed")
             yourcart.innerHTML = 0;
             if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
