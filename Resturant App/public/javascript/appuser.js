@@ -17,15 +17,15 @@ firebase.auth().onAuthStateChanged((user) => {
     console.log(user.email);
     if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
     firebase.firestore().collection("userdetails").onSnapshot((snapshot) => {
-                snapshot.docChanges().forEach((change) => {
-                    if (change.type === "added") {
-                        if(user.email == change.doc.data().Email){
-                            localStorage.setItem('userlogin' ,change.doc.data().Username)
-                        }
-                    }
-                   
-                })
-            });
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                if (user.email == change.doc.data().Email) {
+                    localStorage.setItem('userlogin', change.doc.data().Username)
+                }
+            }
+
+        })
+    });
 });
 
 async function registerinuser() {
@@ -64,11 +64,11 @@ async function registerinuser() {
 async function loginuser() {
     try {
         let login = await firebase.auth().signInWithEmailAndPassword(emailEl.value, passwordEl.value);
-            if (login) {
-                window.location = './userinterface.html';
-            }
+        if (login) {
+            window.location = './userinterface.html';
+        }
     } catch (error) {
-       alert(error)
+        alert(error)
     }
 }
 
@@ -123,13 +123,13 @@ function fetchall() {
     });
 }
 {/* <div class="card" style="width: 18rem;">
-        <img src="https://source.unsplash.com/500x300/?restuarants,food" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Restaurant Name</h5>
-          <p class="card-text">Best Restuarants</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div> */}
+<img src="https://source.unsplash.com/500x300/?restuarants,food" class="card-img-top" alt="...">
+<div class="card-body">
+<h5 class="card-title">Restaurant Name</h5>
+<p class="card-text">Best Restuarants</p>
+<a href="#" class="btn btn-primary">Go somewhere</a>
+</div>
+</div> */}
 function showindom(get) {
     let resdata = document.getElementById('resdata');
 
@@ -168,7 +168,11 @@ dishesshow.style.display = 'none'
 let allres = document.getElementById("allres")
 allres.style.display = 'none'
 
+let order;
 function showdishes(get) {
+    if (order) {
+        order = null;
+    }
     let resdata = document.getElementById('resdata');
     resdata.style.display = 'none'
     console.log(get.parentNode.firstChild.innerHTML);
@@ -204,7 +208,7 @@ function showdishes2(data) {
     doc.setAttribute("class", 'card')
     doc.style.width = '18rem';
     let img = document.createElement('img')
-    img.setAttribute('src', "https://source.unsplash.com/500x300/?restuarants,restuarants")
+    img.setAttribute('src', "https://source.unsplash.com/500x300/?restuarants,food")
     // img.setAttribute('src', data.Imagelink)
     // img.setAttribute('class', "card-img-top")
     img.style.width = '286px'
@@ -295,7 +299,6 @@ function showallres() {
 
 
 
-let order;
 
 function addtocart(data) {
     // localStorage.clear();
