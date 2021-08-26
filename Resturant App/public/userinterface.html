@@ -117,7 +117,17 @@
     <!-- https://source.unsplash.com/1200x500/?restuarants,food -->
     <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
         <button class="btn btn-primary btn-lg" id="allres" onclick="showallres()">See All Resturants</button>  See Restaurants And Order Now 
-        <div >Your Cart: <span id="yourcart">0</span><button id="sendorder" class="btn btn-primary" type="button" onclick="sendorder2()">Send Order</button></div>
+        <div id="overlay">  
+            
+         <div class="container" style="min-height: 20rem;background-color: white; max-width: 400px;margin-top: 10rem;">
+            <h1>Your Cart Items</h1>
+            <button class="btn btn-primary" onclick="closecart()">Close</button>
+            
+         </div>
+        
+        
+        </div>
+        <div onclick="viewcart()" >Your Cart: <span id="yourcart">0</span></div><button id="sendorder" class="btn btn-primary" type="button" onclick="sendorder2()">Send Order</button>
     </div>
 
 

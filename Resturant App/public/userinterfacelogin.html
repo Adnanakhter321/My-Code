@@ -1,20 +1,20 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
 <!DOCTYPE html>
 <html>
     <head>
     <title>User Login Page</title>
-   <!--Made with love by Mutiullah Samim -->
-   
+   <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!------ Include the above in your HEAD tag ---------->
 	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
     
     <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
 
+
+    
 	<!--Custom styles-->
     <link rel="stylesheet" href="Styles/style.css">
 
@@ -63,29 +63,24 @@
 </head>
 <body>
     
-    <div class="container shadow p-4" style="max-width: 500px;">
-        <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
-            FOoDHuB Login
-          </div>
-        <!-- <span class="btn btn-primary">Please fill in this form to Login</span> -->
-        <hr/>
-        <!-- <label for="email"><b>Email:</b></label> -->
-        <input class="form-control" type="email" placeholder="Email" name="Email" required id="email" class="input">
-        <br />
-        <!-- <label for="password"><b>Password:</b></label>  -->
-        <input class="form-control" type="password" placeholder="Password" name="Password" required id="password2" class="input"> <br/>
-        <p>New ? Register User Account  Here <a href="userinterfacereg.html" style="color:dodgerblue">User Register Here</a>.</p>
-        <p>Want To Register Resturant  <a href="resturantadminregister.html" style="color:dodgerblue">Restaurant Register Here</a>.</p>
-      
+   
+   <div class="container shadow p-4" style="margin: 0 auto;max-width: 500px;">
 
-        <div class="clearfix">
-            <button class="signupbtn btn-lg btn-primary" onclick="loginuser()">Login</button>
-        </div>
+    <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
+        FOoDHuB Login
+      </div>
+    <input class="form-control" type="email" placeholder="Email" name="Email" required id="email" class="input">
+    <br />
+    <input class="form-control" type="password" placeholder="Password" name="Password" required id="password2" class="input"> <br/>
+    <p>New ? Register User Account  Here <a href="userinterfacereg.html" style="color:dodgerblue">User Register Here</a></p>
+    <p>Want To Register Resturant  <a href="resturantadminregister.html" style="color:dodgerblue">Restaurant Register Here</a></p>
+  
+
+    <div >
+        <button class="signupbtn btn-lg btn-primary" onclick="loginuser()">Login</button>
     </div>
 
-
-
-      </div>
+   </div>
       <script src="javascript/appuser.js"></script>
 
 </body>

@@ -164,9 +164,13 @@ function showindom(get) {
 }
 
 let dishesshow = document.getElementById("dishesshow")
+if(uid46){
 dishesshow.style.display = 'none'
+}
 let allres = document.getElementById("allres")
-allres.style.display = 'none'
+if(uid46){
+    allres.style.display = 'none'
+}
 
 let order;
 function showdishes(get) {
@@ -297,31 +301,73 @@ function showallres() {
 
 
 
-
-
-
+var quan = 1;
 function addtocart(data) {
-    // localStorage.clear();
-    yourcart.innerHTML++;
+
+if(JSON.parse(localStorage.getItem("items"))){
+    if(JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] == data.parentNode.childNodes[1].childNodes[1].nodeValue){
+       order.DishName = JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] + " x " + quan++
+       localStorage.setItem('items' , JSON.stringify(order))
+    }
+    else if(JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] !== data.parentNode.childNodes[1].childNodes[1].nodeValue){
+        console.log('hi');
+    }
+}
+
+
+else if(!JSON.parse(localStorage.getItem("items"))){
     if (yourcart.innerHTML > 0) sendorder.style.display = 'inherit'
     order = {
-        DishName: data.parentNode.childNodes[1].childNodes[1].nodeValue,
-        RestaurantName: data.parentNode.firstChild.innerHTML,
-        Quanity: yourcart.innerHTML,
-        Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
-        DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue,
-    }
-    // console.log(order);
-
-    if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
-
-
-
-    // localStorage.setItem("RestaurantName", data.parentNode.firstChild.innerHTML);
-    // localStorage.setItem("Quanity", yourcart.innerHTML);
-    // localStorage.setItem("Price", data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR");
-    // localStorage.setItem('DeliveryType', data.parentNode.childNodes[3].childNodes[1].nodeValue);
+            DishName: data.parentNode.childNodes[1].childNodes[1].nodeValue + " x " + quan ,
+            RestaurantName: data.parentNode.firstChild.innerHTML,
+            Quanity: quan++,
+            Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
+            DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue,
+            usernameAddress:localStorage.getItem('userlogin'),
+            uid : uuidv4(),
+        }
+        console.log(order);
+        localStorage.setItem('items' , JSON.stringify(order))
 }
+
+
+
+
+
+
+
+
+
+
+
+    // localStorage.clear();
+    // yourcart.innerHTML++;
+    // if (yourcart.innerHTML > 0) sendorder.style.display = 'inherit'
+    // order = {
+    //     DishName: data.parentNode.childNodes[1].childNodes[1].nodeValue + " x " + yourcart.innerHTML ,
+    //     RestaurantName: data.parentNode.firstChild.innerHTML,
+    //     Quanity: yourcart.innerHTML,
+    //     Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
+    //     DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue,
+    //     usernameAddress:localStorage.getItem('userlogin'),
+    //     uid : uuidv4(),
+    // }
+    // if(JSON.parse(localStorage.getItem("items"))){
+    //     localStorage.setItem("items" ,JSON.stringify(order));
+    // }
+    // if(JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] == data.parentNode.childNodes[1].childNodes[1].nodeValue){
+    //     JSON.parse(localStorage.getItem("items")).DishName.split(" ")[2]++;
+    // }
+    
+
+
+
+//  if(JSON.parse(localStorage.getItem("items")).DeliveryType == data.parentNode.childNodes[3].childNodes[1].nodeValue && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] == data.parentNode.childNodes[1].childNodes[1].nodeValue ){
+// console.log('same');
+//  }  
+}
+console.log(JSON.parse(localStorage.getItem("items")).DishName.split(" ")[2]);
+
 function uuidv4() {
     return 'xxxxxx2xxxxxx4xxxyxxxxxxxxx2'.replace(/[xy]/g, function (c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -331,25 +377,29 @@ function uuidv4() {
 
 //   console.log(uuidv4());
 function sendorder2() {
-    try {
-        uid5463 = uuidv4();
-        order.uid2 = uid5463;
-        order.usernameAddress = localStorage.getItem('userlogin');
-        let db = firebase.firestore();
-        db.collection('ordersbyuser').doc(uid5463).set(order).then((user12, i) => {
-            alert("Your Order HAs been Placed")
-            yourcart.innerHTML = 0;
-            if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
-            order = null;
-        })
-    }
-    catch (error) {
-        console.log(error);
-    }
+    // try {
+    //     uid5463 = uuidv4();
+    //     order.uid2 = uid5463;
+    //     order.usernameAddress = localStorage.getItem('userlogin');
+    //     let db = firebase.firestore();
+    //     db.collection('ordersbyuser').doc(uid5463).set(order).then((user12, i) => {
+    //         alert("Your Order HAs been Placed")
+    //         yourcart.innerHTML = 0;
+    //         if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
+    //         order = null;
+    //     })
+    // }
+    // catch (error) {
+    //     console.log(error);
+    // }
 }
 
-
-
+function viewcart(){
+    document.getElementById("overlay").style.display = "block";
+}
+function closecart(){
+    document.getElementById("overlay").style.display = "none";
+}
 
 
 

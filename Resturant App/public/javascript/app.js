@@ -11,6 +11,11 @@ let storage = firebase.storage();
 var uid45;
 firebase.auth().onAuthStateChanged((user) => {
     uid45 = user.uid;
+    if(uid45){
+        cont45[1].style.display = 'none'
+        cont45[2].style.display = 'none'
+        cont45[3].style.display = 'none'
+        }
 });
 // -------------------------------------------------------
 
@@ -103,9 +108,7 @@ function logout() {
 }
 
 let cont45 = document.getElementsByClassName('indata')
-cont45[1].style.display = 'none'
-cont45[2].style.display = 'none'
-cont45[3].style.display = 'none'
+
 function accepted(get) {
     // console.log(get);
     get.setAttribute("class", "nav-link active");
