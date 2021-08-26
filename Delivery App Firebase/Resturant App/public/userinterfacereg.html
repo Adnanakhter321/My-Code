@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome To GetFood</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <!-- Latest cmpiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+    <!-- Popper JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+
+    <!-- Latest compiled JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+
+
+
+
+    
+    <link rel="stylesheet" href="style.css">
+   
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
+ 
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBIispusaiosgxgfUIsBDoAVQLgSV0v5ZM",
+            authDomain: "getthedata-ce917.firebaseapp.com",
+            databaseURL: "https://getthedata-ce917-default-rtdb.firebaseio.com",
+            projectId: "getthedata-ce917",
+            storageBucket: "getthedata-ce917.appspot.com",
+            messagingSenderId: "238037825271",
+            appId: "1:238037825271:web:02d8680f92f3e3d3d485f2",
+            measurementId: "G-DY4QEEJXJ3"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // firebase.analytics();
+    </script>
+</head>
+
+<body>
+    <div class="container shadow p-5 " style="width: 900px; height: 44rem;">
+        <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
+        GetFood   Sign-In
+          </div>
+        <p class="btn btn-primary text-center d-flex justify-content-center"
+        >Please fill in this form to create an account.</p>
+        <hr />
+    
+            <input class="form-control" type="text" placeholder="User Name" name="user-name" required id="user-name2" >
+            <br />
+            <input class="form-control" type="email" placeholder="Email" name="Email" required id="email2" >
+            <br />
+            <input class="form-control" type="password" placeholder="Password" name="Password" required id="password2" >
+            <br />
+            <input class="form-control" type="text" placeholder="Phone" name="Phone" required id="Phone" x> <br/>
+            <input class="form-control" type="text" placeholder="City" name="City" required id="Cityinuser" x>
+                <br/>
+                <input class="form-control" type="text" placeholder="Country" name="Countryinuser" required id="countryinuser">
+                <br/>
+              
+            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+            <p>If You already Have a Account <a href="userinterfacelogin.html" style="color:dodgerblue">Login Here</a>.</p>
+            <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
+            <p>Want To Register / Make Resturant ?? <a href="resturantadminregister.html" style="color:dodgerblue">Restaurant Register Here</a>.</p>
+            <div class="clearfix">
+                <button class="signupbtn btn-lg btn-primary" onclick="registerinuser()">Sign Up</button>
+            </div>
+        </div>
+    
+
+
+
+    <script src="javascript/appuser.js"></script>
+</body>
+
+</html>

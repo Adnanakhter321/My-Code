@@ -1,0 +1,26 @@
+#file{
+    display: none;
+}
+body{
+    background-color: #ffffff;
+}
+.card{
+    display: inline-block;
+    margin: 11px 20px;
+}
+.p-lg-5 {
+    padding: 0rem!important;
+}
+.p-md-5 {
+    padding: 0rem!important;
+}
+.mb-5, .my-5 {
+    margin-bottom: 2rem!important;
+}
+.mt-5, .my-5 {
+    margin-top: 2rem!important;
+}
+@media (min-width: 768px){
+.m-md-3 {
+    margin: 0rem!important;}
+}

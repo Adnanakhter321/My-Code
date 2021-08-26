@@ -1,0 +1,91 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Admin Login Page</title>
+   <!--Made with love by Mutiullah Samim -->
+   
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+    
+    <!-- Latest cmpiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+    <!-- Popper JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+
+    <!-- Latest compiled JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
+ 
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBIispusaiosgxgfUIsBDoAVQLgSV0v5ZM",
+            authDomain: "getthedata-ce917.firebaseapp.com",
+            databaseURL: "https://getthedata-ce917-default-rtdb.firebaseio.com",
+            projectId: "getthedata-ce917",
+            storageBucket: "getthedata-ce917.appspot.com",
+            messagingSenderId: "238037825271",
+            appId: "1:238037825271:web:02d8680f92f3e3d3d485f2",
+            measurementId: "G-DY4QEEJXJ3"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // firebase.analytics();
+    </script>
+</head>
+<body>
+    
+    <div class="container shadow p-4" style="width: 500px; margin-top: 9rem;">
+        <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
+            Admin Login Page 
+          </div>
+        <!-- <span class="btn btn-primary">Please fill in this form to Login</span> -->
+        <hr/>
+        <!-- <label for="email"><b>Email:</b></label> -->
+        <input class="form-control" type="email" placeholder="Email" name="Email" required id="email" class="input">
+        <br />
+        <!-- <label for="password"><b>Password:</b></label>  -->
+        <input class="form-control" type="password" placeholder="Password" name="Password" required id="password" class="input"> <br/>
+        <p>New ? Register Here <a href="resturantadminregister.html" style="color:dodgerblue">Register Here</a>.</p>
+        <p>If You are a user Regiter Here <a href="userinterfacereg.html">USer Register Here</a>.</p>
+
+        <div class="clearfix">
+            <button class="signupbtn btn-lg btn-primary" onclick="loginuser()">Login</button>
+        </div>
+    </div>
+
+
+
+      </div>
+      <script src="javascript/app.js"></script>
+
+</body>
+</html>
