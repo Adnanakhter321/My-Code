@@ -302,6 +302,8 @@ function showallres() {
 
 
 var quan = 1;
+var cartdish1 = document.getElementById('cartitem')
+console.log(cartdish1.childNodes[1].childNodes[1]);
 function addtocart(data) {
 
 if(JSON.parse(localStorage.getItem("items"))){
@@ -366,7 +368,7 @@ else if(!JSON.parse(localStorage.getItem("items"))){
 // console.log('same');
 //  }  
 }
-console.log(JSON.parse(localStorage.getItem("items")).DishName.split(" ")[2]);
+// console.log(JSON.parse(localStorage.getItem("items")).DishName.split(" ")[2]);
 
 function uuidv4() {
     return 'xxxxxx2xxxxxx4xxxyxxxxxxxxx2'.replace(/[xy]/g, function (c) {
