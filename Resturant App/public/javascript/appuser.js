@@ -372,7 +372,7 @@ function addtocart(data) {
     </div>
     <div class="col">
     Quantity
-    <ul>
+    <ul> 
     <input type="number" size="7" value="1">
     </ul>
     </div>
