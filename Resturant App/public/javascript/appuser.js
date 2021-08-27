@@ -9,10 +9,19 @@ let Cityinuser2 = document.getElementById('Cityinuser');
 let countryinuser2 = document.getElementById('countryinuser');
 let emailEl = document.getElementById('email');
 let passwordEl = document.getElementById('password2');
-
+var cartdish1 = document.getElementById('cartitem');
 
 let uid46;
 firebase.auth().onAuthStateChanged((user) => {
+    if(cartdish1.children.length == 0){
+        let id = document.getElementsByClassName('offoron');
+        console.log(id);
+        // id.disabled = 'true'
+    }
+    else if(cartdish1.children.length > 0){
+        let id = document.getElementsByClassName('offoron')[0];
+        id.disabled = 'false'
+    }
     uid46 = user.uid;
     console.log(user.email);
     if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
@@ -131,6 +140,7 @@ function fetchall() {
 </div>
 </div> */}
 function showindom(get) {
+    
     let resdata = document.getElementById('resdata');
 
     let doc = document.createElement('div')
@@ -164,11 +174,11 @@ function showindom(get) {
 }
 
 let dishesshow = document.getElementById("dishesshow")
-if(uid46){
-dishesshow.style.display = 'none'
+if (uid46) {
+    dishesshow.style.display = 'none'
 }
 let allres = document.getElementById("allres")
-if(uid46){
+if (uid46) {
     allres.style.display = 'none'
 }
 
@@ -286,9 +296,21 @@ function showdishes2(data) {
     span.appendChild(atext)
     span.setAttribute('class', "btn btn-primary")
     span.setAttribute('onclick', "addtocart(this)")
+    let span2 = document.createElement('span')
+    let atext2 = document.createTextNode("View Cart")
+    span2.appendChild(atext2)
+    span2.setAttribute('class', "btn btn-primary offoron")
+    span2.setAttribute('onclick', "viewcart()")
     div.appendChild(span)
+    div.appendChild(span2)
     doc.appendChild(div)
     dishesshow.appendChild(doc)
+    if(cartdish1.children.length == 0){
+        let id = document.getElementsByClassName('offoron');
+        for(i = 0 ; i < id.length ; i ++){
+            id[i].disabled = 'true'
+        }
+    }
 }
 
 function showallres() {
@@ -302,73 +324,67 @@ function showallres() {
 
 
 var quan = 1;
-var cartdish1 = document.getElementById('cartitem')
-console.log(cartdish1.childNodes[1].childNodes[1]);
 function addtocart(data) {
-
-if(JSON.parse(localStorage.getItem("items"))){
-    if(JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] == data.parentNode.childNodes[1].childNodes[1].nodeValue){
-       order.DishName = JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] + " x " + quan++
-       localStorage.setItem('items' , JSON.stringify(order))
+    if(cartdish1.children.length == 0){
+    var div = document.createElement("div")
+    div.setAttribute("id", "row")
+    div.style.display = 'flex'
+    div.style.flexDirection = 'row'
+    let el = `<div class="col">
+    Dish Name
+    <ul>
+    <li>${data.parentNode.childNodes[1].childNodes[1].nodeValue}</li>
+    </ul>
+    </div>
+    <div class="col">
+    Quantity
+    <ul>
+    <input type="number" size="7" value="1">
+    </ul>
+    </div>
+    <div class="col">
+    Price
+    <ul>
+    <li>${data.parentNode.childNodes[2].childNodes[1].nodeValue + 'PKR'}</li>
+    </ul>
+    </div>`
+    div.innerHTML = el;
+    cartdish1.appendChild(div);
+    return
     }
-    else if(JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] !== data.parentNode.childNodes[1].childNodes[1].nodeValue){
-        console.log('hi');
-    }
-}
+    // console.log(cartdish1.childNodes[0].childNodes[1].childNodes[1].childNodes[1].innerText);
 
-
-else if(!JSON.parse(localStorage.getItem("items"))){
-    if (yourcart.innerHTML > 0) sendorder.style.display = 'inherit'
-    order = {
-            DishName: data.parentNode.childNodes[1].childNodes[1].nodeValue + " x " + quan ,
-            RestaurantName: data.parentNode.firstChild.innerHTML,
-            Quanity: quan++,
-            Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
-            DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue,
-            usernameAddress:localStorage.getItem('userlogin'),
-            uid : uuidv4(),
+    for(var i = 0 ; i < cartdish1.children.length ; i++ ){
+        if(cartdish1.children[i].children[0].children[0].children[0].innerText == data.parentNode.childNodes[1].childNodes[1].nodeValue){
+            alert(`You Have already Added "${data.parentNode.childNodes[1].childNodes[1].nodeValue}" in Your Cart`)
+            return
         }
-        console.log(order);
-        localStorage.setItem('items' , JSON.stringify(order))
+    }
+    var div = document.createElement("div")
+    div.setAttribute("id", "row")
+    div.style.display = 'flex'
+    div.style.flexDirection = 'row'
+    let el = `<div class="col">
+    Dish Name
+    <ul>
+    <li>${data.parentNode.childNodes[1].childNodes[1].nodeValue}</li>
+    </ul>
+    </div>
+    <div class="col">
+    Quantity
+    <ul>
+    <input type="number" size="7" value="1">
+    </ul>
+    </div>
+    <div class="col">
+    Price
+    <ul>
+    <li>${data.parentNode.childNodes[2].childNodes[1].nodeValue + 'PKR'}</li>
+    </ul>
+    </div>`
+    div.innerHTML = el;
+    cartdish1.appendChild(div);
 }
-
-
-
-
-
-
-
-
-
-
-
-    // localStorage.clear();
-    // yourcart.innerHTML++;
-    // if (yourcart.innerHTML > 0) sendorder.style.display = 'inherit'
-    // order = {
-    //     DishName: data.parentNode.childNodes[1].childNodes[1].nodeValue + " x " + yourcart.innerHTML ,
-    //     RestaurantName: data.parentNode.firstChild.innerHTML,
-    //     Quanity: yourcart.innerHTML,
-    //     Price: data.parentNode.childNodes[2].childNodes[1].nodeValue + "PKR",
-    //     DeliveryType: data.parentNode.childNodes[3].childNodes[1].nodeValue,
-    //     usernameAddress:localStorage.getItem('userlogin'),
-    //     uid : uuidv4(),
-    // }
-    // if(JSON.parse(localStorage.getItem("items"))){
-    //     localStorage.setItem("items" ,JSON.stringify(order));
-    // }
-    // if(JSON.parse(localStorage.getItem("items")) && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] == data.parentNode.childNodes[1].childNodes[1].nodeValue){
-    //     JSON.parse(localStorage.getItem("items")).DishName.split(" ")[2]++;
-    // }
-    
-
-
-
-//  if(JSON.parse(localStorage.getItem("items")).DeliveryType == data.parentNode.childNodes[3].childNodes[1].nodeValue && JSON.parse(localStorage.getItem("items")).DishName.split(" ")[0] == data.parentNode.childNodes[1].childNodes[1].nodeValue ){
-// console.log('same');
-//  }  
-}
-// console.log(JSON.parse(localStorage.getItem("items")).DishName.split(" ")[2]);
 
 function uuidv4() {
     return 'xxxxxx2xxxxxx4xxxyxxxxxxxxx2'.replace(/[xy]/g, function (c) {
@@ -377,7 +393,6 @@ function uuidv4() {
     });
 }
 
-//   console.log(uuidv4());
 function sendorder2() {
     // try {
     //     uid5463 = uuidv4();
@@ -396,10 +411,10 @@ function sendorder2() {
     // }
 }
 
-function viewcart(){
+function viewcart() {
     document.getElementById("overlay").style.display = "block";
 }
-function closecart(){
+function closecart() {
     document.getElementById("overlay").style.display = "none";
 }
 
