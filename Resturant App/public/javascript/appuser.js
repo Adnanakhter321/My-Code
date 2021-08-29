@@ -13,12 +13,12 @@ var cartdish1 = document.getElementById('cartitem');
 
 let uid46;
 firebase.auth().onAuthStateChanged((user) => {
-    if(cartdish1.children.length == 0){
+    if (cartdish1.children.length == 0) {
         let id = document.getElementsByClassName('offoron');
         console.log(id);
         // id.disabled = 'true'
     }
-    else if(cartdish1.children.length > 0){
+    else if (cartdish1.children.length > 0) {
         let id = document.getElementsByClassName('offoron')[0];
         id.disabled = 'false'
     }
@@ -140,7 +140,7 @@ function fetchall() {
 </div>
 </div> */}
 function showindom(get) {
-    
+
     let resdata = document.getElementById('resdata');
 
     let doc = document.createElement('div')
@@ -190,6 +190,7 @@ function showdishes(get) {
     let resdata = document.getElementById('resdata');
     resdata.style.display = 'none'
     console.log(get.parentNode.firstChild.innerHTML);
+    localStorage.setItem('RestaurantName', get.parentNode.firstChild.innerHTML)
 
 
 
@@ -305,9 +306,9 @@ function showdishes2(data) {
     div.appendChild(span2)
     doc.appendChild(div)
     dishesshow.appendChild(doc)
-    if(cartdish1.children.length == 0){
+    if (cartdish1.children.length == 0) {
         let id = document.getElementsByClassName('offoron');
-        for(i = 0 ; i < id.length ; i ++){
+        for (i = 0; i < id.length; i++) {
             id[i].disabled = 'true'
         }
     }
@@ -324,66 +325,132 @@ function showallres() {
 
 
 var quan = 1;
+function deletethis(el) {
+    el.parentNode.parentNode.parentNode.remove();
+    updatecart();
+}
+
+let totalp = document.getElementById('totalprice');
+
+async function cartsendorder() {
+    let num = 1;
+    let num2 = 1;
+    let num3 = 1;
+    let order = {
+        RestaurantName: localStorage.getItem('RestaurantName'),
+        BuyerName: localStorage.getItem('userlogin'),
+        TotalPrice: totalp.innerText,
+    }
+    for (let i = 0; i < cartdish1.children.length; i++) {
+        order[`DishName${num}`] = cartdish1.children[i].children[0].children[0].children[0].innerText;
+        num++
+    }
+    for (let i = 0; i < cartdish1.children.length; i++) {
+        order[`DishName${num2}`] = (order[`DishName${num2}`]) + " x " + cartdish1.children[i].children[1].children[0].children[0].value;
+        num2++;
+    }
+    for (let i = 0; i < cartdish1.children.length; i++) {
+        order[`DishName${num3}`] = (order[`DishName${num3}`]) + " x " + cartdish1.children[i].children[2].children[0].children[0].innerText;
+        num3++;
+    }
+    console.log(order);
+    try {
+        uid5463 = uuidv4();
+        order.uid2 = uid5463;
+        let db = firebase.firestore();
+        await db.collection('ordersbyuser').doc(uid5463).set(order).then((user12, i) => {
+            document.getElementById("overlay").style.display = "none";
+            yourcart.innerHTML = 0;
+            order = null;
+        })
+        alert("Your Order HAs been Placed")
+        for (let i = 0; i < cartdish1.children.length; i++) {
+            cartdish1.children[i].remove();
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+function updatecart() {
+    totalp.innerText = '0PKR'
+    for (i = 0; i < cartdish1.children.length; i++) {
+        totalp.innerText = parseFloat(totalp.innerText.replace("PKR", "")) + parseFloat(cartdish1.children[i].children[1].children[0].children[0].value) * parseFloat(cartdish1.children[i].children[2].children[0].children[0].innerText.replace("PKR", "")) + "PKR"
+    }
+}
+
 function addtocart(data) {
-    if(cartdish1.children.length == 0){
-    var div = document.createElement("div")
-    div.setAttribute("id", "row")
-    div.style.display = 'flex'
-    div.style.flexDirection = 'row'
-    let el = `<div class="col">
-    Dish Name
+
+
+    if (cartdish1.children.length == 0) {
+        var div = document.createElement("div")
+        div.setAttribute("id", "row")
+        div.style.display = 'flex'
+        div.style.flexDirection = 'row'
+        let el = `<div class="col">
     <ul>
     <li>${data.parentNode.childNodes[1].childNodes[1].nodeValue}</li>
     </ul>
     </div>
     <div class="col">
-    Quantity
     <ul>
-    <input type="number" size="7" value="1">
+    <input type="phone" size="2" maxlength="2" value="1" onchange='updatecart()'>
     </ul>
     </div>
     <div class="col">
-    Price
     <ul>
     <li>${data.parentNode.childNodes[2].childNodes[1].nodeValue + 'PKR'}</li>
     </ul>
-    </div>`
-    div.innerHTML = el;
-    cartdish1.appendChild(div);
-    return
+    </div>
+
+    <div class="col">
+    <ul>
+    <button class="btn btn-primary btn-sm" onclick='deletethis(this)'>Delete</button>
+    </ul>
+    </div>
+    `
+        div.innerHTML = el;
+        cartdish1.appendChild(div);
+        yourcart.innerHTML++;
+        updatecart();
+        return
     }
     // console.log(cartdish1.childNodes[0].childNodes[1].childNodes[1].childNodes[1].innerText);
 
-    for(var i = 0 ; i < cartdish1.children.length ; i++ ){
-        if(cartdish1.children[i].children[0].children[0].children[0].innerText == data.parentNode.childNodes[1].childNodes[1].nodeValue){
+    for (var i = 0; i < cartdish1.children.length; i++) {
+        if (cartdish1.children[i].children[0].children[0].children[0].innerText == data.parentNode.childNodes[1].childNodes[1].nodeValue) {
             alert(`You Have already Added "${data.parentNode.childNodes[1].childNodes[1].nodeValue}" in Your Cart`)
             return
         }
     }
+    yourcart.innerHTML++;
     var div = document.createElement("div")
     div.setAttribute("id", "row")
     div.style.display = 'flex'
     div.style.flexDirection = 'row'
     let el = `<div class="col">
-    Dish Name
     <ul>
     <li>${data.parentNode.childNodes[1].childNodes[1].nodeValue}</li>
     </ul>
     </div>
     <div class="col">
-    Quantity
     <ul> 
-    <input type="number" size="7" value="1">
+    <input type="phone" size="2" maxlength="2" value="1" onchange='updatecart()'>
     </ul>
     </div>
     <div class="col">
-    Price
     <ul>
     <li>${data.parentNode.childNodes[2].childNodes[1].nodeValue + 'PKR'}</li>
+    </ul>
+    </div>
+    <div class="col">
+    <ul>
+    <button class="btn btn-primary btn-sm" onclick='deletethis(this)'>Delete</button>
     </ul>
     </div>`
     div.innerHTML = el;
     cartdish1.appendChild(div);
+    updatecart();
 }
 
 function uuidv4() {

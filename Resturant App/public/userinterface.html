@@ -122,29 +122,47 @@
     <div class="alert alert-primary text-center" role="alert" style="font-size: 2rem;">
         <button class="btn btn-primary btn-lg" id="allres" onclick="showallres()">See All Resturants</button> See
         Restaurants And Order Now
+
+        <!-- --------------------- Overlay Cart --------------------------- -->
         <div id="overlay">
 
             <div class="container" style="background-color: white; max-width: 800px;margin-top: 2rem;">
 
                 <h1>Your Cart Items</h1>
+                <div class="container"
+                    style="font-size: 25px; display: flex; flex-direction: row;position: relative; right:0rem;">
+                    <div class="col"
+                        style="border-top:1px solid black ;border-bottom:1px solid black ; max-width: 12rem;">
+                        Dish Name
+                    </div>
+                    <div class="col"
+                        style="border-top:1px solid black ;border-bottom:1px solid black ; max-width: 12rem;">
+                        Quantity
+                    </div>
+                    <div class="col"
+                        style="border-top:1px solid black ;border-bottom:1px solid black ; max-width: 12rem;">
+                        Price
+                    </div>
+                </div>
 
                 <div class="container"
                     style="font-size: 19px; min-height: 20rem;max-height: 510px;overflow-y: auto; overflow-x: hidden;z-index: 100;"
                     id="cartitem">
-                    
+
                 </div>
 
-                <button class="btn btn-primary">Send Order</button>
+                <button class="btn btn-primary" onclick="cartsendorder()">Send Order</button>
                 <button class="btn btn-primary" onclick="closecart()">Close</button>
                 <div style="display: inline-block;">
                     Total Price :
-                    <span>100PKR</span>
+                    <span id="totalprice">0PKR</span>
                 </div>
 
             </div>
 
 
         </div>
+<!-- ----------------------------- Overlay Cart End  --------------------------- ---->
         <div onclick="viewcart()">Your Cart: <span id="yourcart">0</span></div><button id="sendorder"
             class="btn btn-primary" type="button" onclick="sendorder2()">Send Order</button>
     </div>

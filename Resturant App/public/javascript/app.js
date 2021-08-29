@@ -11,11 +11,11 @@ let storage = firebase.storage();
 var uid45;
 firebase.auth().onAuthStateChanged((user) => {
     uid45 = user.uid;
-    if(uid45){
+    if (uid45) {
         cont45[1].style.display = 'none'
         cont45[2].style.display = 'none'
         cont45[3].style.display = 'none'
-        }
+    }
 });
 // -------------------------------------------------------
 
@@ -318,7 +318,7 @@ function changeimage() {
 
 
 function fetchall() {
-    fetchall2() 
+    fetchall2()
     firebase.firestore().collection("ordersbyuser").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
@@ -332,7 +332,6 @@ function fetchall() {
                         }
                     })
                     if (change.doc.data().RestaurantName == onlygetfood) {
-                        // console.log(change.doc.data());
                         pendingdata(change.doc.data())
                     }
                 });
@@ -354,134 +353,68 @@ function fetchall() {
             // }
         })
     });
-    
+
 }
 let pending2 = document.getElementById('pending');
+
 function pendingdata(data) {
+    let div98 = document.createElement('div')
+    div98.setAttribute('class', 'card-body')
+    let el1 = `<h5 class="card-title">
+    You Have An Order
+    </h5>`
 
-    var a = "200PKR";
-    let b = a.split("PKR")
+    let el2 = `<p class="card-text">
+    <span style="font-weight: 600;">
+    RestaurantName:
+    </span>
+    Adnan FOodies
+    </p>`
+    div98.innerHTML = el1 + el2;
 
-    let doc = document.createElement('div')
-    doc.setAttribute("class", 'card')
-    doc.setAttribute("id", data.uid2)
-    doc.style.width = '18rem';
-    // let img = document.createElement('img')
-    // img.setAttribute('src', data.Imagelink)
-    // // img.setAttribute('class', "card-img-top")
-    // img.style.width = '286px'
-    // img.style.height = '182px'
-    // img.style.borderRadius = '7px'
-    // doc.appendChild(img)
+    let el54 = `<span class="btn btn-primary" onclick="acceptorder(this)">
+    Accept Order
+    </span>
+    <span class="btn btn-primary" onclick="rejectorder(this)">
+    Reject Order
+    </span>`
 
-    let div = document.createElement('div')
-    div.setAttribute("class", 'card-body')
-    let h5 = document.createElement('h5')
-    h5.setAttribute('class', "card-title")
-    let h5text = document.createTextNode("You Have An Order")
-    h5.appendChild(h5text)
-    div.appendChild(h5)
+    let elbyer = `<p class="card-text">
+    <span style="font-weight: 600;">
+    Buyer-Name:
+    </span>
+    ${data.BuyerName}
+    </p>`
 
-    let span11 = document.createElement("span")
-    let spantext = document.createTextNode("Dish: ")
-    span11.style.fontWeight = '600'
-    span11.appendChild(spantext)
+    let eltotalP = `<p class="card-text">
+    <span style="font-weight: 600;">
+    Total Price:
+    </span>${data.TotalPrice}
+    </p>`
 
-    let p = document.createElement('p')
-    p.setAttribute('class', "card-text")
-    let ptext = document.createTextNode(data.DishName)
-    p.appendChild(span11)
-    p.appendChild(ptext)
-
-
-    let span10 = document.createElement("span")
-    let spantext0 = document.createTextNode("Buyer-Name:  ")
-    span10.style.fontWeight = '600'
-    span10.appendChild(spantext0)
-    let p1 = document.createElement('p')
-    p1.setAttribute('class', "card-text")
-    let ptext1 = document.createTextNode(data.usernameAddress)
-    p1.appendChild(span10)
-    p1.appendChild(ptext1)
-
-
-    let span12 = document.createElement("span")
-    let spantext2 = document.createTextNode("Price: ")
-    span12.style.fontWeight = '600'
-    span12.appendChild(spantext2)
-    // let span13 = document.createElement("span")
-    // let spantext3 = document.createTextNode("PKR")
-    // span13.appendChild(spantext3)
-
-    let p2 = document.createElement('p')
-    p2.setAttribute('class', "card-text")
-    let p2text = document.createTextNode(data.Price)
-    p2.appendChild(span12)
-    p2.appendChild(p2text)
-    // p2.appendChild(span13)
-
-
-
-
-    let span14 = document.createElement("span")
-    let spantext4 = document.createTextNode("Deliverytype:  ")
-    span14.style.fontWeight = '600'
-    span14.appendChild(spantext4)
-
-    let p3 = document.createElement('p')
-    p3.setAttribute('class', "card-text")
-    let p3text = document.createTextNode(data.DeliveryType)
-    p3.appendChild(span14)
-    p3.appendChild(p3text)
-
-
-    let span15 = document.createElement("span")
-    let spantext5 = document.createTextNode("Quantity: ")
-    span15.style.fontWeight = '600'
-    span15.appendChild(spantext5)
-
-    let p4 = document.createElement('p')
-    p4.setAttribute('class', "card-text")
-    let p4text = document.createTextNode(data.Quanity)
-    p4.appendChild(span15)
-    p4.appendChild(p4text)
-
-    let span16 = document.createElement("span")
-    let spantext6 = document.createTextNode("RestaurantName: ")
-    span16.style.fontWeight = '600'
-    span16.appendChild(spantext6)
-
-    let p5 = document.createElement('p')
-    p5.setAttribute('class', "card-text")
-    let p5text = document.createTextNode(data.RestaurantName)
-    p5.appendChild(span16)
-    p5.appendChild(p5text)
-
-    div.appendChild(p1)
-    div.appendChild(p)
-    div.appendChild(p2)
-    div.appendChild(p3)
-    div.appendChild(p4)
-    div.appendChild(p5)
-
-    let span = document.createElement('span')
-    let atext = document.createTextNode("Accept Order")
-    span.appendChild(atext)
-    span.setAttribute('class', "btn btn-primary")
-    span.setAttribute('onclick', "acceptorder(this)")
-
-    let span34 = document.createElement('span')
-    let atext23 = document.createTextNode("Reject Order")
-    span34.appendChild(atext23)
-
-    span34.setAttribute('class', "btn btn-primary")
-    span34.setAttribute('onclick', "rejectorder(this)")
-    div.appendChild(span)
-    div.appendChild(span34)
-    doc.appendChild(div)
-    pending2.appendChild(doc)
-
+    let d = 1
+    for (var i = 0; i < Object.entries(data).sort().length; i++) {
+        if (Object.entries(data).sort()[i][0] === `DishName${[d]}`) {
+            // console.log(Object.entries(data).sort()[i][0] + ' : ' + Object.entries(data).sort()[i][1]);
+            let el2 = `<p class="card-text">
+            <span style="font-weight: 600;">
+            ${Object.entries(data).sort()[i][0]}:
+            </span>${Object.entries(data).sort()[i][1]}
+            </p>`
+            div98.innerHTML = div98.innerHTML + el2;
+            d++;
+        }
+    }
+    div98.innerHTML = div98.innerHTML + eltotalP + elbyer + el54;
+    let div54 = document.createElement('div');
+    div54.setAttribute('id', data.uid2)
+    div54.setAttribute('class', 'card')
+    div54.style.width = '18rem'
+    div54.appendChild(div98)
+    pending2.appendChild(div54)
 }
+
+
 function fetchall2() {
     fetchall3();
     firebase.firestore().collection("acceptedorders").onSnapshot((snapshot) => {
@@ -491,7 +424,7 @@ function fetchall2() {
                     // console.log(change.doc.data());
                     showinaccept(change.doc.data())
                 }
-                
+
             }
             if (change.type === "removed") {
                 let det = document.getElementById(change.doc.id);
@@ -519,7 +452,7 @@ function acceptorder(data) {
         let db = firebase.firestore();
         acceptorder.uid = uuidv4();
         acceptorder.usernameAddress = localStorage.getItem("userlogin");
-        db.collection('acceptedorders').doc(acceptorder.uid).set(acceptorder);  
+        db.collection('acceptedorders').doc(acceptorder.uid).set(acceptorder);
         db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
             alert('Order Accepted , Sended To Accepted Section')
         });
@@ -529,7 +462,7 @@ function acceptorder(data) {
     }
 
 }
-function rejectorder(data){
+function rejectorder(data) {
     let rejectorder = {
         Dish: data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue,
         Price: data.parentNode.parentNode.childNodes[0].childNodes[3].childNodes[1].nodeValue,
@@ -540,7 +473,7 @@ function rejectorder(data){
     let db = firebase.firestore();
     rejectorder.uid = uuidv4();
     rejectorder.usernameAddress = localStorage.getItem("userlogin");
-    db.collection('Rejectedorders').doc(rejectorder.uid).set(rejectorder);  
+    db.collection('Rejectedorders').doc(rejectorder.uid).set(rejectorder);
     db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
         alert('Order Rejected')
     });
@@ -652,7 +585,7 @@ function showinaccept(data) {
     accepted2.appendChild(doc)
 }
 
-function deliverorder(data){
+function deliverorder(data) {
     let deliverorder = {
         Dish: data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue,
         Price: data.parentNode.parentNode.childNodes[0].childNodes[3].childNodes[1].nodeValue,
@@ -663,7 +596,7 @@ function deliverorder(data){
     let db = firebase.firestore();
     deliverorder.uid = uuidv4();
     deliverorder.usernameAddress = localStorage.getItem("userlogin");
-    db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);  
+    db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);
     db.collection("acceptedorders").doc(data.parentNode.parentNode.id).delete().then(() => {
         alert('Order Delivered')
     });
@@ -676,7 +609,7 @@ function fetchall3() {
                     // console.log(change.doc.data());
                     showindomdeliverorders(change.doc.data())
                 }
-                
+
             }
             // if (change.type === "removed") {
             //     let det = document.getElementById(change.doc.id);
@@ -686,8 +619,8 @@ function fetchall3() {
     });
 }
 
-function showindomdeliverorders(data){
-    console.log(data);
+function showindomdeliverorders(data) {
+    // console.log(data);
     let delivered = document.getElementById('delivered')
 
     let doc = document.createElement('div')
