@@ -342,15 +342,7 @@ function fetchall() {
                 console.log("Removed city: ", change.doc.id);
                 let det = document.getElementById(change.doc.id);
                 setTimeout(function () { det.remove(); }, 2000)
-                // deleteindom(change.doc.id)
             }
-            // if (change.type === "modified") {
-            //     console.log("Modified city: ", change.doc.data());
-            //     let tasksObj = change.doc.data();
-            //     console.log(change.doc.data());
-            //     tasksObj.id = change.doc.id;
-            //     updateindom(tasksObj);
-            // }
         })
     });
 
@@ -450,7 +442,6 @@ function acceptorder(data) {
             d++;
         }
     }
-    let db  = firebase.firestore();
     try {
         let db = firebase.firestore();
         acceptedorder.uid = uuidv4();
@@ -465,20 +456,32 @@ function acceptorder(data) {
 
 }
 function rejectorder(data) {
+    console.log(data.previousSibling);
+    console.log(data.previousSibling.previousSibling.previousSibling);
     let rejectorder = {
-        Dish: data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue,
-        Price: data.parentNode.parentNode.childNodes[0].childNodes[3].childNodes[1].nodeValue,
-        Deliverytype: data.parentNode.parentNode.childNodes[0].childNodes[4].childNodes[1].nodeValue,
-        Quantity: data.parentNode.parentNode.childNodes[0].childNodes[5].childNodes[1].nodeValue,
-        RestaurantName: data.parentNode.parentNode.childNodes[0].childNodes[6].childNodes[1].nodeValue
+        RestaurantName: data.parentNode.parentNode.firstChild.children[1].innerText.split(':')[1].replace(' ', ""),
+        TotalPrice: data.previousSibling.previousSibling.previousSibling.previousSibling.innerText.split(':')[1].replace(' ', ""),
+        BuyerName_Address: data.previousSibling.previousSibling.previousSibling.innerText.split(':')[1].replace(' ', ""),
     }
-    let db = firebase.firestore();
-    rejectorder.uid = uuidv4();
-    rejectorder.usernameAddress = localStorage.getItem("userlogin");
-    db.collection('Rejectedorders').doc(rejectorder.uid).set(rejectorder);
-    db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
-        alert('Order Rejected')
-    });
+
+    let d = 1
+    for (i = 0; i < data.parentNode.parentNode.children[0].children.length; i++) {
+        if (data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[0] == `DishName${d}`) {
+            rejectorder[data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[0]] = data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[1].replace(" ", "")
+            d++;
+        }
+    }
+    try {
+        let db = firebase.firestore();
+        rejectorder.uid = uuidv4();
+        db.collection('Rejectedorders').doc(rejectorder.uid).set(rejectorder);
+        db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
+            alert('Order Rejected')
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
 }
 function uuidv4() {
     return 'xxxxxx2xxxxxx4xxxyxxxxxxxxx2'.replace(/[xy]/g, function (c) {
@@ -565,23 +568,6 @@ function deliverorder(data) {
     catch (error) {
         console.log(error);
     }
-
-
-
-    // let deliverorder = {
-    //     Dish: data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue,
-    //     Price: data.parentNode.parentNode.childNodes[0].childNodes[3].childNodes[1].nodeValue,
-    //     Deliverytype: data.parentNode.parentNode.childNodes[0].childNodes[4].childNodes[1].nodeValue,
-    //     Quantity: data.parentNode.parentNode.childNodes[0].childNodes[5].childNodes[1].nodeValue,
-    //     RestaurantName: data.parentNode.parentNode.childNodes[0].childNodes[6].childNodes[1].nodeValue
-    // }
-    // let db = firebase.firestore();
-    // deliverorder.uid = uuidv4();
-    // deliverorder.usernameAddress = localStorage.getItem("userlogin");
-    // db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);
-    // db.collection("acceptedorders").doc(data.parentNode.parentNode.id).delete().then(() => {
-    //     alert('Order Delivered')
-    // });
 }
 function fetchall3() {
     firebase.firestore().collection("Deliveredorders").onSnapshot((snapshot) => {
