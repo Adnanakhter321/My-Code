@@ -368,7 +368,7 @@ function pendingdata(data) {
     <span style="font-weight: 600;">
     RestaurantName:
     </span>
-    Adnan FOodies
+    ${data.RestaurantName}
     </p>`
     div98.innerHTML = el1 + el2;
 
@@ -421,7 +421,6 @@ function fetchall2() {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
                 if (change.doc.data().RestaurantName == nameget) {
-                    // console.log(change.doc.data());
                     showinaccept(change.doc.data())
                 }
 
@@ -437,22 +436,25 @@ function fetchall2() {
 
 let accepted2 = document.getElementById('accepted')
 function acceptorder(data) {
-    // console.log(data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue);;
-
-    // let db  = firebase.firestore();
-    let acceptorder = {
-        Dish: data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue,
-        Price: data.parentNode.parentNode.childNodes[0].childNodes[3].childNodes[1].nodeValue,
-        Deliverytype: data.parentNode.parentNode.childNodes[0].childNodes[4].childNodes[1].nodeValue,
-        Quantity: data.parentNode.parentNode.childNodes[0].childNodes[5].childNodes[1].nodeValue,
-        RestaurantName: data.parentNode.parentNode.childNodes[0].childNodes[6].childNodes[1].nodeValue
+    let acceptedorder = {
+        RestaurantName: data.parentNode.parentNode.firstChild.children[1].innerText.split(':')[1].replace(' ', ""),
+        TotalPrice: data.previousSibling.previousSibling.innerText.split(':')[1].replace(' ', ""),
+        BuyerName_Address: data.previousSibling.innerText.split(':')[1].replace(' ', ""),
     }
-    // console.log(acceptorder);
+
+
+    let d = 1
+    for (i = 0; i < data.parentNode.parentNode.children[0].children.length; i++) {
+        if (data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[0] == `DishName${d}`) {
+            acceptedorder[data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[0]] = data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[1].replace(" ", "")
+            d++;
+        }
+    }
+    let db  = firebase.firestore();
     try {
         let db = firebase.firestore();
-        acceptorder.uid = uuidv4();
-        acceptorder.usernameAddress = localStorage.getItem("userlogin");
-        db.collection('acceptedorders').doc(acceptorder.uid).set(acceptorder);
+        acceptedorder.uid = uuidv4();
+        db.collection('acceptedorders').doc(acceptedorder.uid).set(acceptedorder);
         db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
             alert('Order Accepted , Sended To Accepted Section')
         });
@@ -485,121 +487,101 @@ function uuidv4() {
     });
 }
 function showinaccept(data) {
-    // console.log(data);
-    let doc = document.createElement('div')
-    doc.setAttribute("class", 'card')
-    doc.setAttribute("id", data.uid)
-    doc.style.width = '18rem';
-    let div = document.createElement('div')
-    div.setAttribute("class", 'card-body')
-    let h5 = document.createElement('h5')
-    h5.setAttribute('class', "card-title")
-    let h5text = document.createTextNode("Accepeted Order")
-    h5.appendChild(h5text)
-    div.appendChild(h5)
+    let div98 = document.createElement('div')
+    div98.setAttribute('class', 'card-body')
+    let el1 = `<h5 class="card-title">
+    Accepted Orders
+    </h5>`
 
-    let span11 = document.createElement("span")
-    let spantext = document.createTextNode("Dish: ")
-    span11.appendChild(spantext)
+    let el2 = `<p class="card-text">
+    <span style="font-weight: 600;">
+    RestaurantName:
+    </span>
+    ${data.RestaurantName}
+    </p>`
+    div98.innerHTML = el1 + el2;
 
-    let p = document.createElement('p')
-    p.setAttribute('class', "card-text")
-    let ptext = document.createTextNode(data.Dish)
-    p.appendChild(span11)
-    p.appendChild(ptext)
+    let el54 = `<span class="btn btn-primary" onclick="deliverorder(this)">
+    Deliver Order
+    </span>`
 
+    let elbyer = `<p class="card-text">
+    <span style="font-weight: 600;">
+    Buyer-Name:
+    </span>
+    ${data.BuyerName_Address}
+    </p>`
 
-    let span12 = document.createElement("span")
-    let spantext2 = document.createTextNode("Price: ")
-    span12.appendChild(spantext2)
-    // let span13 = document.createElement("span")
-    // let spantext3 = document.createTextNode("PKR")
-    // span13.appendChild(spantext3)
+    let eltotalP = `<p class="card-text">
+    <span style="font-weight: 600;">
+    Total Price:
+    </span>${data.TotalPrice}
+    </p>`
 
-    let p2 = document.createElement('p')
-    p2.setAttribute('class', "card-text")
-    let p2text = document.createTextNode(data.Price)
-    p2.appendChild(span12)
-    p2.appendChild(p2text)
-    // p2.appendChild(span13)
-
-    let span10 = document.createElement("span")
-    let spantext0 = document.createTextNode("Buyer-Name:  ")
-    span10.appendChild(spantext0)
-    let p1 = document.createElement('p')
-    p1.setAttribute('class', "card-text")
-    let ptext1 = document.createTextNode(data.usernameAddress)
-    p1.appendChild(span10)
-    p1.appendChild(ptext1)
-
-
-    let span14 = document.createElement("span")
-    let spantext4 = document.createTextNode("Deliverytype:  ")
-    span14.appendChild(spantext4)
-
-    let p3 = document.createElement('p')
-    p3.setAttribute('class', "card-text")
-    let p3text = document.createTextNode(data.Deliverytype)
-    p3.appendChild(span14)
-    p3.appendChild(p3text)
-
-
-    let span15 = document.createElement("span")
-    let spantext5 = document.createTextNode("Quantity: ")
-    span15.appendChild(spantext5)
-
-    let p4 = document.createElement('p')
-    p4.setAttribute('class', "card-text")
-    let p4text = document.createTextNode(data.Quantity)
-    p4.appendChild(span15)
-    p4.appendChild(p4text)
-
-    let span16 = document.createElement("span")
-    let spantext6 = document.createTextNode("RestaurantName: ")
-    span16.appendChild(spantext6)
-
-    let p5 = document.createElement('p')
-    p5.setAttribute('class', "card-text")
-    let p5text = document.createTextNode(data.RestaurantName)
-    p5.appendChild(span16)
-    p5.appendChild(p5text)
-
-    div.appendChild(p1)
-    div.appendChild(p)
-    div.appendChild(p2)
-    div.appendChild(p3)
-    div.appendChild(p4)
-    div.appendChild(p5)
-
-    let span = document.createElement('span')
-    let atext = document.createTextNode("Deliver ORder")
-    span.appendChild(atext)
-    span.setAttribute('class', "btn btn-primary")
-    span.setAttribute('onclick', "deliverorder(this)")
-
-
-
-
-    div.appendChild(span)
-    doc.appendChild(div)
-    accepted2.appendChild(doc)
+    let d = 1
+    for (var i = 0; i < Object.entries(data).sort().length; i++) {
+        if (Object.entries(data).sort()[i][0] === `DishName${[d]}`) {
+            // console.log(Object.entries(data).sort()[i][0] + ' : ' + Object.entries(data).sort()[i][1]);
+            let el2 = `<p class="card-text">
+            <span style="font-weight: 600;">
+            ${Object.entries(data).sort()[i][0]}:
+            </span>${Object.entries(data).sort()[i][1]}
+            </p>`
+            div98.innerHTML = div98.innerHTML + el2;
+            d++;
+        }
+    }
+    div98.innerHTML = div98.innerHTML + eltotalP + elbyer + el54;
+    let div54 = document.createElement('div');
+    div54.setAttribute('id', data.uid)
+    div54.setAttribute('class', 'card')
+    div54.style.width = '18rem'
+    div54.appendChild(div98)
+    accepted2.appendChild(div54)
 }
 
 function deliverorder(data) {
     let deliverorder = {
-        Dish: data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue,
-        Price: data.parentNode.parentNode.childNodes[0].childNodes[3].childNodes[1].nodeValue,
-        Deliverytype: data.parentNode.parentNode.childNodes[0].childNodes[4].childNodes[1].nodeValue,
-        Quantity: data.parentNode.parentNode.childNodes[0].childNodes[5].childNodes[1].nodeValue,
-        RestaurantName: data.parentNode.parentNode.childNodes[0].childNodes[6].childNodes[1].nodeValue
+        RestaurantName: data.parentNode.parentNode.firstChild.children[1].innerText.split(':')[1].replace(' ', ""),
+        TotalPrice: data.previousSibling.previousSibling.innerText.split(':')[1].replace(' ', ""),
+        BuyerName_Address: data.previousSibling.innerText.split(':')[1].replace(' ', ""),
     }
-    let db = firebase.firestore();
-    deliverorder.uid = uuidv4();
-    deliverorder.usernameAddress = localStorage.getItem("userlogin");
-    db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);
-    db.collection("acceptedorders").doc(data.parentNode.parentNode.id).delete().then(() => {
-        alert('Order Delivered')
-    });
+
+    let d = 1
+    for (i = 0; i < data.parentNode.parentNode.children[0].children.length; i++) {
+        if (data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[0] == `DishName${d}`) {
+            deliverorder[data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[0]] = data.parentNode.parentNode.firstChild.children[i].innerText.split(':')[1].replace(" ", "")
+            d++;
+        }
+    }
+    try {
+        let db = firebase.firestore();
+        deliverorder.uid = uuidv4();
+        db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);
+        db.collection("acceptedorders").doc(data.parentNode.parentNode.id).delete().then(() => {
+            alert('Order Delivered')
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+
+
+
+    // let deliverorder = {
+    //     Dish: data.parentNode.parentNode.childNodes[0].childNodes[2].childNodes[1].nodeValue,
+    //     Price: data.parentNode.parentNode.childNodes[0].childNodes[3].childNodes[1].nodeValue,
+    //     Deliverytype: data.parentNode.parentNode.childNodes[0].childNodes[4].childNodes[1].nodeValue,
+    //     Quantity: data.parentNode.parentNode.childNodes[0].childNodes[5].childNodes[1].nodeValue,
+    //     RestaurantName: data.parentNode.parentNode.childNodes[0].childNodes[6].childNodes[1].nodeValue
+    // }
+    // let db = firebase.firestore();
+    // deliverorder.uid = uuidv4();
+    // deliverorder.usernameAddress = localStorage.getItem("userlogin");
+    // db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);
+    // db.collection("acceptedorders").doc(data.parentNode.parentNode.id).delete().then(() => {
+    //     alert('Order Delivered')
+    // });
 }
 function fetchall3() {
     firebase.firestore().collection("Deliveredorders").onSnapshot((snapshot) => {
@@ -611,113 +593,60 @@ function fetchall3() {
                 }
 
             }
-            // if (change.type === "removed") {
-            //     let det = document.getElementById(change.doc.id);
-            //     setTimeout(function () { det.remove(); }, 2000)
-            // }
+            if (change.type === "removed") {
+                let det = document.getElementById(change.doc.id);
+                setTimeout(function () { det.remove(); }, 2000)
+            }
         })
     });
 }
 
 function showindomdeliverorders(data) {
-    // console.log(data);
-    let delivered = document.getElementById('delivered')
+    let div98 = document.createElement('div')
+    div98.setAttribute('class', 'card-body')
+    let el1 = `<h5 class="card-title">
+    Delivered Orders
+    </h5>`
 
-    let doc = document.createElement('div')
-    doc.setAttribute("class", 'card')
-    doc.setAttribute("id", data.uid)
-    doc.style.width = '18rem';
-    let div = document.createElement('div')
-    div.setAttribute("class", 'card-body')
-    let h5 = document.createElement('h5')
-    h5.setAttribute('class', "card-title")
-    let h5text = document.createTextNode("Delivered ORderS")
-    h5.appendChild(h5text)
-    div.appendChild(h5)
+    let el2 = `<p class="card-text">
+    <span style="font-weight: 600;">
+    RestaurantName:
+    </span>
+    ${data.RestaurantName}
+    </p>`
+    div98.innerHTML = el1 + el2;
 
-    let span11 = document.createElement("span")
-    let spantext = document.createTextNode("Dish: ")
-    span11.appendChild(spantext)
+    let elbyer = `<p class="card-text">
+    <span style="font-weight: 600;">
+    Buyer-Name:
+    </span>
+    ${data.BuyerName_Address}
+    </p>`
 
-    let p = document.createElement('p')
-    p.setAttribute('class', "card-text")
-    let ptext = document.createTextNode(data.Dish)
-    p.appendChild(span11)
-    p.appendChild(ptext)
+    let eltotalP = `<p class="card-text">
+    <span style="font-weight: 600;">
+    Total Price:
+    </span>${data.TotalPrice}
+    </p>`
 
-
-    let span12 = document.createElement("span")
-    let spantext2 = document.createTextNode("Price: ")
-    span12.appendChild(spantext2)
-    // let span13 = document.createElement("span")
-    // let spantext3 = document.createTextNode("PKR")
-    // span13.appendChild(spantext3)
-
-    let p2 = document.createElement('p')
-    p2.setAttribute('class', "card-text")
-    let p2text = document.createTextNode(data.Price)
-    p2.appendChild(span12)
-    p2.appendChild(p2text)
-    // p2.appendChild(span13)
-
-    let span10 = document.createElement("span")
-    let spantext0 = document.createTextNode("Buyer-Name:  ")
-    span10.appendChild(spantext0)
-    let p1 = document.createElement('p')
-    p1.setAttribute('class', "card-text")
-    let ptext1 = document.createTextNode(data.usernameAddress)
-    p1.appendChild(span10)
-    p1.appendChild(ptext1)
-
-
-    let span14 = document.createElement("span")
-    let spantext4 = document.createTextNode("Deliverytype:  ")
-    span14.appendChild(spantext4)
-
-    let p3 = document.createElement('p')
-    p3.setAttribute('class', "card-text")
-    let p3text = document.createTextNode(data.Deliverytype)
-    p3.appendChild(span14)
-    p3.appendChild(p3text)
-
-
-    let span15 = document.createElement("span")
-    let spantext5 = document.createTextNode("Quantity: ")
-    span15.appendChild(spantext5)
-
-    let p4 = document.createElement('p')
-    p4.setAttribute('class', "card-text")
-    let p4text = document.createTextNode(data.Quantity)
-    p4.appendChild(span15)
-    p4.appendChild(p4text)
-
-    let span16 = document.createElement("span")
-    let spantext6 = document.createTextNode("RestaurantName: ")
-    span16.appendChild(spantext6)
-
-    let p5 = document.createElement('p')
-    p5.setAttribute('class', "card-text")
-    let p5text = document.createTextNode(data.RestaurantName)
-    p5.appendChild(span16)
-    p5.appendChild(p5text)
-
-    div.appendChild(p1)
-    div.appendChild(p)
-    div.appendChild(p2)
-    div.appendChild(p3)
-    div.appendChild(p4)
-    div.appendChild(p5)
-
-    // let span = document.createElement('span')
-    // let atext = document.createTextNode("Deliver ORder")
-    // span.appendChild(atext)
-    // span.setAttribute('class', "btn btn-primary")
-    // span.setAttribute('onclick', "deliverorder(this)")
-
-
-
-
-    // div.appendChild(span)
-    doc.appendChild(div)
-    delivered.appendChild(doc)
+    let d = 1
+    for (var i = 0; i < Object.entries(data).sort().length; i++) {
+        if (Object.entries(data).sort()[i][0] === `DishName${[d]}`) {
+            // console.log(Object.entries(data).sort()[i][0] + ' : ' + Object.entries(data).sort()[i][1]);
+            let el2 = `<p class="card-text">
+            <span style="font-weight: 600;">
+            ${Object.entries(data).sort()[i][0]}:
+            </span>${Object.entries(data).sort()[i][1]}
+            </p>`
+            div98.innerHTML = div98.innerHTML + el2;
+            d++;
+        }
+    }
+    div98.innerHTML = div98.innerHTML + eltotalP + elbyer;
+    let div54 = document.createElement('div');
+    div54.setAttribute('id', data.uid)
+    div54.setAttribute('class', 'card')
+    div54.style.width = '18rem'
+    div54.appendChild(div98)
+    delivered.appendChild(div54)
 }
