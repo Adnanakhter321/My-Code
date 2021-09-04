@@ -144,32 +144,31 @@
                         Price
                     </div>
                 </div>
-
                 <div class="container"
                     style="font-size: 19px; min-height: 20rem;max-height: 510px;overflow-y: auto; overflow-x: hidden;z-index: 100;"
                     id="cartitem">
 
                 </div>
 
-                <button class="btn btn-primary" onclick="cartsendorder()">Send Order</button>
+                <button class="btn btn-primary" onclick="cartsendorder(this)" id="cartsendorder">Send Order</button>
                 <button class="btn btn-primary" onclick="closecart()">Close</button>
                 <div style="display: inline-block;">
                     Total Price :
                     <span id="totalprice">0PKR</span>
                 </div>
 
-            </div>
+                </div>
 
 
         </div>
 <!-- ----------------------------- Overlay Cart End  --------------------------- ---->
-        <div onclick="viewcart()">Your Cart: <span id="yourcart">0</span></div><button id="sendorder"
-            class="btn btn-primary" type="button" onclick="sendorder2()">Send Order</button>
-    </div>
+        <div>Your Cart: <span id="yourcart">0</span></div>
+
+        </div>
 
 
-    <!--           Resturant Name Cards             -->
-    <div class="container" id="resdata">
+    <!-----------------Resturant Name Cards-------------------->
+    <div id="resdata">
 
     </div>
     <!-- --------------------------------------------------- -->

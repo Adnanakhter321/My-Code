@@ -204,24 +204,24 @@ firebase.auth().onAuthStateChanged((user) => {
     });
 });
 var nameget;
-function getthename() {
-    console.log(user1);
-    var uid46;
-    firebase.auth().onAuthStateChanged((user) => {
-        uid46 = user.uid;
-        console.log(uid46);
-    });
-    firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-                // console.log("New city: ", change.doc.data());
-                if (change.doc.data().uid == uid46) {
-                    nameget = change.doc.data().RestaurantName;
-                }
-            }
-        })
-    });
-}
+// function getthename() {
+//     console.log(user1);
+//     var uid46;
+//     firebase.auth().onAuthStateChanged((user) => {
+//         uid46 = user.uid;
+//         console.log(uid46);
+//     });
+//     firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
+//         snapshot.docChanges().forEach((change) => {
+//             if (change.type === "added") {
+//                 // console.log("New city: ", change.doc.data());
+//                 if (change.doc.data().uid == uid46) {
+//                     nameget = change.doc.data().RestaurantName;
+//                 }
+//             }
+//         })
+//     });
+// }
 
 function fetchall() {
     console.log(user1);
@@ -230,17 +230,16 @@ function fetchall() {
         uid46 = user.uid;
         console.log(uid46);
     });
-    firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
+    firebase.firestore().collection("dataadmin").where('uid', '==', uid46).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                // console.log("New city: ", change.doc.data());
-                if (change.doc.data().uid == uid46) {
-                    nameget = change.doc.data().RestaurantName;
-                }
+                nameget = change.doc.data().RestaurantName;
             }
         })
     });
 }
+
+
 window.addEventListener('load', function () {
     document.querySelector('input[type="file"]').addEventListener('change', function () {
         if (this.files && this.files[0]) {
@@ -317,26 +316,24 @@ function changeimage() {
 }
 
 
-function fetchall() {
+async function fetchall() {
     fetchall2()
+
+    let onlygetfood;
+    await firebase.firestore().collection("dataadmin").where("uid", "==", uid45).onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+                onlygetfood = change.doc.data().RestaurantName;
+            }
+        })
+    });
+
     firebase.firestore().collection("ordersbyuser").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                let onlygetfood;
-                firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
-                    snapshot.docChanges().forEach((change) => {
-                        if (change.type === "added") {
-                            if (uid45 == change.doc.data().uid) {
-                                onlygetfood = change.doc.data().RestaurantName;
-                            }
-                        }
-                    })
-                    if (change.doc.data().RestaurantName == onlygetfood) {
-                        pendingdata(change.doc.data())
-                    }
-                });
-
-
+                if (change.doc.data().RestaurantName == onlygetfood) {
+                    pendingdata(change.doc.data())
+                }
             }
             if (change.type === "removed") {
                 console.log("Removed city: ", change.doc.id);
@@ -345,8 +342,9 @@ function fetchall() {
             }
         })
     });
-
 }
+
+
 let pending2 = document.getElementById('pending');
 
 function pendingdata(data) {
@@ -409,13 +407,13 @@ function pendingdata(data) {
 
 function fetchall2() {
     fetchall3();
-    firebase.firestore().collection("acceptedorders").onSnapshot((snapshot) => {
+    let db = firebase.firestore();
+    db.collection("acceptedorders").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-                if (change.doc.data().RestaurantName == nameget) {
+                  if(change.doc.data().RestaurantName == nameget){
                     showinaccept(change.doc.data())
-                }
-
+                  }
             }
             if (change.type === "removed") {
                 let det = document.getElementById(change.doc.id);
@@ -428,6 +426,7 @@ function fetchall2() {
 
 let accepted2 = document.getElementById('accepted')
 function acceptorder(data) {
+    data.style.display = 'none'
     let acceptedorder = {
         RestaurantName: data.parentNode.parentNode.firstChild.children[1].innerText.split(':')[1].replace(' ', ""),
         TotalPrice: data.previousSibling.previousSibling.innerText.split(':')[1].replace(' ', ""),
@@ -447,7 +446,7 @@ function acceptorder(data) {
         acceptedorder.uid = uuidv4();
         db.collection('acceptedorders').doc(acceptedorder.uid).set(acceptedorder);
         db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
-            alert('Order Accepted , Sended To Accepted Section')
+            // alert('Order Accepted , Sended To Accepted Section')
         });
     }
     catch (error) {
@@ -456,8 +455,7 @@ function acceptorder(data) {
 
 }
 function rejectorder(data) {
-    console.log(data.previousSibling);
-    console.log(data.previousSibling.previousSibling.previousSibling);
+    data.style.display = 'none'
     let rejectorder = {
         RestaurantName: data.parentNode.parentNode.firstChild.children[1].innerText.split(':')[1].replace(' ', ""),
         TotalPrice: data.previousSibling.previousSibling.previousSibling.previousSibling.innerText.split(':')[1].replace(' ', ""),
@@ -476,7 +474,7 @@ function rejectorder(data) {
         rejectorder.uid = uuidv4();
         db.collection('Rejectedorders').doc(rejectorder.uid).set(rejectorder);
         db.collection("ordersbyuser").doc(data.parentNode.parentNode.id).delete().then(() => {
-            alert('Order Rejected')
+            // alert('Order Rejected')
         });
     }
     catch (error) {
@@ -544,6 +542,7 @@ function showinaccept(data) {
 }
 
 function deliverorder(data) {
+    data.style.display = 'none'
     let deliverorder = {
         RestaurantName: data.parentNode.parentNode.firstChild.children[1].innerText.split(':')[1].replace(' ', ""),
         TotalPrice: data.previousSibling.previousSibling.innerText.split(':')[1].replace(' ', ""),
@@ -560,10 +559,10 @@ function deliverorder(data) {
     try {
         let db = firebase.firestore();
         deliverorder.uid = uuidv4();
-        db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);
         db.collection("acceptedorders").doc(data.parentNode.parentNode.id).delete().then(() => {
-            alert('Order Delivered')
+            // alert('Order Delivered')
         });
+        db.collection('Deliveredorders').doc(deliverorder.uid).set(deliverorder);
     }
     catch (error) {
         console.log(error);
@@ -574,10 +573,8 @@ function fetchall3() {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
                 if (change.doc.data().RestaurantName == nameget) {
-                    // console.log(change.doc.data());
                     showindomdeliverorders(change.doc.data())
                 }
-
             }
             if (change.type === "removed") {
                 let det = document.getElementById(change.doc.id);
@@ -591,7 +588,7 @@ function showindomdeliverorders(data) {
     let div98 = document.createElement('div')
     div98.setAttribute('class', 'card-body')
     let el1 = `<h5 class="card-title">
-    Delivered Orders
+    Delivered Orders(${data.uid.slice(0, 7)})
     </h5>`
 
     let el2 = `<p class="card-text">

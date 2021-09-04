@@ -24,7 +24,11 @@ firebase.auth().onAuthStateChanged((user) => {
     }
     uid46 = user.uid;
     console.log(user.email);
-    if (yourcart.innerHTML == 0) { sendorder.style.display = 'none' }
+    if (cartdish1.children.length == 0) {
+        let btnorder = document.getElementById('cartsendorder');
+        btnorder.style.display = 'none'
+    }
+
     firebase.firestore().collection("userdetails").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
@@ -111,6 +115,7 @@ function logout() {
 //         })
 //     });
 // }
+
 function fetchall() {
     firebase.firestore().collection("dataadmin").onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
@@ -119,18 +124,15 @@ function fetchall() {
             }
             // if (change.type === "removed") {
             //     console.log("Removed city: ", change.doc.id);
-            //     deleteindom(change.doc.id)
             // }
             // if (change.type === "modified") {
             //     console.log("Modified city: ", change.doc.data());
-            //     let tasksObj = change.doc.data();
-            //     console.log(change.doc.data());
-            //     tasksObj.id = change.doc.id;
-            //     updateindom(tasksObj);
             // }
         })
     });
 }
+
+
 {/* <div class="card" style="width: 18rem;">
 <img src="https://source.unsplash.com/500x300/?restuarants,food" class="card-img-top" alt="...">
 <div class="card-body">
@@ -183,7 +185,7 @@ if (uid46) {
 }
 
 let order;
-function showdishes(get) {
+async function showdishes(get) {
     if (order) {
         order = null;
     }
@@ -192,23 +194,10 @@ function showdishes(get) {
     console.log(get.parentNode.firstChild.innerHTML);
     localStorage.setItem('RestaurantName', get.parentNode.firstChild.innerHTML)
 
-
-
-    firebase.firestore().collection("resturantdish").onSnapshot((snapshot) => {
+    firebase.firestore().collection("resturantdish").where('RestaurantName', '==', get.parentNode.firstChild.innerHTML).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-
-
-                if (change.doc.data().RestaurantName == get.parentNode.firstChild.innerHTML) {
-                    showdishes2(change.doc.data());
-                }
-
-                // console.log("New city: ",   change.doc.data());
-                // console.log(change.doc.data());
-                // let taskobj = change.doc.data()
-                // taskobj.id = change.doc.data() 
-                // getthelist(change.doc.data(), change.doc.id)
-                // showindom(change.doc.data())
+                showdishes2(change.doc.data());
             }
         })
     });
@@ -328,11 +317,16 @@ var quan = 1;
 function deletethis(el) {
     el.parentNode.parentNode.parentNode.remove();
     updatecart();
+    if (cartdish1.children.length == 0) {
+        let btnorder = document.getElementById('cartsendorder');
+        btnorder.style.display = 'none'
+    }
 }
 
 let totalp = document.getElementById('totalprice');
 
-async function cartsendorder() {
+async function cartsendorder(data) {
+    data.style.display = 'none';
     let num = 1;
     let num2 = 1;
     let num3 = 1;
@@ -362,33 +356,34 @@ async function cartsendorder() {
             document.getElementById("overlay").style.display = "none";
             yourcart.innerHTML = 0;
             order = null;
+            alert("Your Order HAs been Placed")
+            for (let i = 0; i < cartdish1.children.length; i++) {
+                cartdish1.childNodes[i].nextElementSibling.remove();
+                cartdish1.childNodes[0].nextElementSibling.remove();
+                updatecart();
+            }
         })
-        alert("Your Order HAs been Placed")
-        for (let i = 0; i < cartdish1.children.length; i++) {
-            cartdish1.children[i].remove();
-        }
     }
     catch (error) {
         console.log(error);
     }
 }
 function updatecart() {
-    totalp.innerText = '0PKR'
+    totalp.innerText = '0PKR';
     for (i = 0; i < cartdish1.children.length; i++) {
         totalp.innerText = parseFloat(totalp.innerText.replace("PKR", "")) + parseFloat(cartdish1.children[i].children[1].children[0].children[0].value) * parseFloat(cartdish1.children[i].children[2].children[0].children[0].innerText.replace("PKR", "")) + "PKR"
     }
 }
 
 function addtocart(data) {
-
-
+    
     if (cartdish1.children.length == 0) {
         var div = document.createElement("div")
         div.setAttribute("id", "row")
         div.style.display = 'flex'
         div.style.flexDirection = 'row'
         let el = `<div class="col">
-    <ul>
+        <ul>
     <li>${data.parentNode.childNodes[1].childNodes[1].nodeValue}</li>
     </ul>
     </div>
@@ -402,30 +397,36 @@ function addtocart(data) {
     <li>${data.parentNode.childNodes[2].childNodes[1].nodeValue + 'PKR'}</li>
     </ul>
     </div>
-
+    
     <div class="col">
     <ul>
     <button class="btn btn-primary btn-sm" onclick='deletethis(this)'>Delete</button>
     </ul>
     </div>
     `
-        div.innerHTML = el;
-        cartdish1.appendChild(div);
-        yourcart.innerHTML++;
-        updatecart();
-        return
-    }
-    // console.log(cartdish1.childNodes[0].childNodes[1].childNodes[1].childNodes[1].innerText);
-
-    for (var i = 0; i < cartdish1.children.length; i++) {
-        if (cartdish1.children[i].children[0].children[0].children[0].innerText == data.parentNode.childNodes[1].childNodes[1].nodeValue) {
-            alert(`You Have already Added "${data.parentNode.childNodes[1].childNodes[1].nodeValue}" in Your Cart`)
-            return
+    div.innerHTML = el;
+    cartdish1.appendChild(div);
+    yourcart.innerHTML++;
+    updatecart();
+    if (cartdish1.children.length > 0) {
+        let btnorder = document.getElementById('cartsendorder');
+        if (btnorder.style.display !== 'inline') {
+            btnorder.style.display = 'inline';
         }
     }
-    yourcart.innerHTML++;
-    var div = document.createElement("div")
-    div.setAttribute("id", "row")
+    return
+}
+// console.log(cartdish1.childNodes[0].childNodes[1].childNodes[1].childNodes[1].innerText);
+
+for (var i = 0; i < cartdish1.children.length; i++) {
+    if (cartdish1.children[i].children[0].children[0].children[0].innerText == data.parentNode.childNodes[1].childNodes[1].nodeValue) {
+        alert(`You Have already Added "${data.parentNode.childNodes[1].childNodes[1].nodeValue}" in Your Cart`)
+        return
+    }
+}
+yourcart.innerHTML++;
+var div = document.createElement("div")
+div.setAttribute("id", "row")
     div.style.display = 'flex'
     div.style.flexDirection = 'row'
     let el = `<div class="col">
@@ -451,6 +452,8 @@ function addtocart(data) {
     div.innerHTML = el;
     cartdish1.appendChild(div);
     updatecart();
+
+
 }
 
 function uuidv4() {
