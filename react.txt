@@ -1,3 +1,7 @@
 GLOBALLY - npm install -g create-react-app
 
        npx create-react-app reactapp
+
+
+
+sfc /scannow ( for windows corrupt files repair)
