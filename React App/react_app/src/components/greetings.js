@@ -11,17 +11,14 @@ import React from 'react';
 //   return React.createElement('div', null , h1, p)
 // }
 
- function Greeting() {
-    return <div>
-      <h1>
-        Hello react
-      </h1>
-      <p>
-        Welcome to this react app
-      </p>
-      <h3>
-        Created By Adnan
-      </h3>
-    </div>
-  }
+function Greeting({ userName, Country }) {
+  return (
+     <>
+     <h1>My Name is {userName}</h1>
+     <h2>My country IS {Country}</h2>
+     </>
+
+  );
+}
+
 export default Greeting;

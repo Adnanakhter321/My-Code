@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import React from 'react';
+
 import './App.css';
+import Greetings from './components/greetings';
 
-function App() {
+// function App() {
+//   return (
+//    <h1 className='Heading'>hello</h1>
+//   );
+// }
+
+
+function Greeting() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Greetings userName="Adnan" Country="Pakistan" />
+      <Greetings userName = 'Bilal' Country= 'Pak' />
+      {/* <Greetings userName="Ali" rollNumber="2644" />
+      <Greetings userName="Akram" rollNumber="2233" />
+      <Greetings userName="Umar" rollNumber="5555" />
+      <Greetings userName="Sarim" rollNumber="9113" /> */}
     </div>
-  );
+  )
 }
-
-export default App;
+// export default App;
+export default Greeting;
