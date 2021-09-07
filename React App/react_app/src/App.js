@@ -2,25 +2,43 @@
 import React from 'react';
 
 import './App.css';
-import Greetings from './components/greetings';
+// import Greetings from './components/greetings';
 
 // function App() {
 //   return (
-//    <h1 className='Heading'>hello</h1>
+//    <h1 classNameName='Heading'>hello</h1>
 //   );
 // }
 
 
 function Greeting() {
   return (
-    <div>
-      <Greetings userName="Adnan" Country="Pakistan" />
-      <Greetings userName = 'Bilal' Country= 'Pak' />
-      {/* <Greetings userName="Ali" rollNumber="2644" />
-      <Greetings userName="Akram" rollNumber="2233" />
-      <Greetings userName="Umar" rollNumber="5555" />
-      <Greetings userName="Sarim" rollNumber="9113" /> */}
-    </div>
+    <>
+    
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/">Adnan Website</a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">Link</a>
+              </li>
+            </ul>
+            <form className="d-flex">
+              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+              <button className="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    </>
   )
 }
 // export default App;
