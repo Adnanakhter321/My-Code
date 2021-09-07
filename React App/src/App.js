@@ -1,7 +1,8 @@
 import './App.css';
 
 import Navbar from './components/Navbar'
-import Pricing from './components/Pricing'
+import Pricing from './components/TextForm'
+import Class from './components/Class'
 
 export default function Greeting() {
   return (
@@ -11,18 +12,11 @@ export default function Greeting() {
 
 
       {/* passing components  */}
-      <Pricing />
+      <Pricing heading='Enter The Text To Analyze' />
       {/* passing components  */}
 
+      <Class />
 
     </>
   )
 }
-
-// export function Price(){
-//   return (
-//     <>
-//     <Pricing/>
-//     </>
-//   )
-// }
