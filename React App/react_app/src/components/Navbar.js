@@ -25,7 +25,7 @@ export default function Greeting(prop) {
           </div>
         </div>
       </nav>
-
+  
     </>
 
   );
