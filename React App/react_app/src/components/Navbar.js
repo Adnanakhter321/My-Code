@@ -32,11 +32,10 @@ export default function Greeting(prop) {
 }
 Greeting.propTypes = {
   title: PropTypes.string,
-  hd: PropTypes.string,
+  hd: PropTypes.string
 }
 
 Greeting.defaultProps = {
   title: 'Stranger',
   hd: "About"
 };
-  
