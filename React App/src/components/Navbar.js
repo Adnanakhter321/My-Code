@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 export default function Greeting(prop) {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className={`navbar navbar-expand-lg navbar-${prop.mode} bg-${prop.mode}`}>
         <div className="container-fluid">
           <a className="navbar-brand" href="/">{prop.title}</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,13 +19,15 @@ export default function Greeting(prop) {
               </li>
             </ul>
             <form className="d-flex">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
+              <div className="form-check form-switch">
+                <input className="form-check-input" onClick={prop.theme} type="checkbox" id="flexSwitchCheckChecked" />
+                <label className ={`form-check-label text-${prop.mode === 'light' ? 'dark' : 'white'}`} htmlFor="flexSwitchCheckChecked">Enable Dark Mode</label>
+              </div>
             </form>
           </div>
         </div>
       </nav>
-  
+
     </>
 
   );
