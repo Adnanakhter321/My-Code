@@ -4,4 +4,4 @@
 
 -------------------------------------------------
 
-2. TO STOP NPM APP SERVER - "n"
+2. TO STOP NPM APP SERVER - "taskkill -F -IM node.exe"
