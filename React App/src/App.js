@@ -16,10 +16,21 @@ export default function Greeting() {
       document.body.style.backgroundColor = 'white'
     }
   }
+  
+  let yellowdark = ()=>{
+    if(mode === 'light'){
+      document.body.style.backgroundColor = '#98920d'
+      setmode('yellow')
+    }
+    else{
+      document.body.style.backgroundColor = 'white'
+      setmode('light')
+    }
+  }
 
   return (
     <>
-      <Navbar title='GeTServices' hd='Contact Us' theme={theme} mode={mode} />
+      <Navbar title='GeTServices' hd='Contact Us' yellowdark={yellowdark} theme={theme} mode={mode} />
       {/* <Navbar title='GeTServices'/> */}
 
 
