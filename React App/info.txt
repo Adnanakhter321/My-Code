@@ -1,7 +1,0 @@
-------------------------Extensions Name----------
-
-1. Auto Rename Tag 
-
--------------------------------------------------
-
-2. TO STOP NPM APP SERVER - "taskkill -F -IM node.exe"
