@@ -1,0 +1,8 @@
+------------------------Extensions Name----------
+
+1. Auto Rename Tag 
+2. ES7 React/Redux/GraphQL/React-Native snippets
+
+-------------------------------------------------
+
+2. TO STOP NPM APP SERVER - "taskkill -F -IM node.exe"
