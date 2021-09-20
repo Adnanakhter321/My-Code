@@ -1,4 +1,4 @@
-------------------------Extensions Name----------
+------------------------Extensions Name-----------
 
 1. Auto Rename Tag 
 2. ES7 React/Redux/GraphQL/React-Native snippets
