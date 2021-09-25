@@ -6,3 +6,5 @@
 -------------------------------------------------
 1. Create React App "npx create-react-app my-app"
 2. TO STOP NPM APP SERVER - "taskkill -F -IM node.exe"
+3. npm i react-router-dom
+4. npm i axios
