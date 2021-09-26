@@ -17,14 +17,12 @@ function FreeAPI() {
     }, []);
 
     return (
-        animalData.map(({ Category, Description, Link }, keys) => {
+        animalData.map(({ Category, Description, Link }, index) => {
             return (
-                <>
-                    <div key={Category + keys}>
-                        <h1>{Category}</h1>
+                    <div key={Category+index}>
+                        <h1 key={index}>{Category}</h1>
                         <h3> <a href={Link} target='_blank' rel="noreferrer">{Description}</a></h3>
                     </div>
-                </>
             )
         })
     )
