@@ -1,11 +1,8 @@
-import ContextApi from './components/contextApi';
-import StateContext from './context/stateContext';
+import Snacks from './components/snacks.js/snacks';
 
 function App() {
   return (
-    <StateContext>
-      <ContextApi />
-    </StateContext>
+   <Snacks />
   );
 }
 
