@@ -7,6 +7,7 @@ import Users from './users'
 
 
 export default function Signup() {
+  let history = useHistory()
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -14,7 +15,6 @@ export default function Signup() {
   const { dispatch } = useContext(GlobalContext);
 
   const Data = () => {
-    let history = useHistory()
     if (username !== "" && email !== "" && password !== "" && Role !== "") {
       let User = {
         userName: username,
