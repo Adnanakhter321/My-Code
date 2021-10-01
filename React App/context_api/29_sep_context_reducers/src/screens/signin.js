@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { useHistory } from 'react-router'
@@ -8,16 +8,26 @@ import { GlobalContext } from '../context/context'
 const Signin = () => {
 
     let history = useHistory()
-    let { state } = useContext(GlobalContext)
+    let { state, dispatch } = useContext(GlobalContext)
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
+    useEffect(() => {
+      if(state.authUser.email && state.authUser.password){
+          history.push("/homePage")
+      }
+    })
 
     const Login = () => {
         state.users.map((el, keys) => {
             if (email === el.email && pass === el.password) {
+                let userlogin = {
+                    email: email,
+                    password: pass
+                }
                 history.push('./homePage')
+                dispatch({ type: "USER_LOGIN", payload: userlogin })
             }
-            else if ((keys+1) === state.users.length  && (el.email !== email || el.password !== pass)) {
+            else if ((keys + 1) === state.users.length && (el.email !== email || el.password !== pass)) {
                 console.log("Email Or Pass Wrong");
             }
             return null;

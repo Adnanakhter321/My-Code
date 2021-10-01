@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { GlobalContext } from '../context/context'
 import Users from './users'
-
 
 
 
@@ -11,8 +10,16 @@ export default function Signup() {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const {state} = useContext(GlobalContext)
   const [Role, setRole] = useState("Student")
   const { dispatch } = useContext(GlobalContext);
+
+
+  useEffect(() => {
+    if(state.authUser.email && state.authUser.password){
+        history.push("/homePage")
+    }
+  })
 
   const Data = () => {
     if (username !== "" && email !== "" && password !== "" && Role !== "") {

@@ -45,6 +45,13 @@ export function reducer(state, action) {
                 users: UserClone
             }
         }
+        case "USER_LOGIN":{
+            state.authUser = action.payload
+            return{
+                ...state,
+                authUser: state.authUser,
+            }
+        }
         default:
             return state;
 
