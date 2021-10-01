@@ -18,12 +18,12 @@ export default function Signup() {
     if (username !== "" && email !== "" && password !== "" && Role !== "") {
       let User = {
         userName: username,
-        Email: email,
-        Password: password,
-        Role: Role
+        email: email,
+        password: password,
+        role: Role
       }
       dispatch({ type: "UPDATE_USER", payload: User });
-      history.push('/signin')
+        history.push('/signin')
     }
     else {
       alert('Some Field is missing..! please fill it and try again')

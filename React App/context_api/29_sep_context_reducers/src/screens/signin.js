@@ -1,24 +1,44 @@
 import React from 'react'
+import { useState } from 'react'
+import { useContext } from 'react'
+import { useHistory } from 'react-router'
+import { GlobalContext } from '../context/context'
 
-const signin = () => {
+
+const Signin = () => {
+
+    let history = useHistory()
+    let { state } = useContext(GlobalContext)
+    const [email, setEmail] = useState("")
+    const [pass, setPass] = useState("")
+
+    const Login = () => {
+        state.users.map((el, keys) => {
+            if (email === el.email && pass === el.password) {
+                history.push('./homePage')
+            }
+            else if ((keys+1) === state.users.length  && (el.email !== email || el.password !== pass)) {
+                console.log("Email Or Pass Wrong");
+            }
+            return null;
+        })
+    }
     return (
         <div className="container">
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
-                <small id="emailHelp" className ="form-text text-muted">We'll never share your email with anyone else.</small>
+                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(ev) => { setEmail(ev.target.value) }} />
+                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
+                    value={pass} onChange={(ev) => { setPass(ev.target.value) }}
+                />
             </div>
-            <div className="form-group form-check">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                <label className ="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-            </div>
-            <button  className="btn btn-primary">Submit</button>
+            <button onClick={Login} className="btn btn-primary">Login</button>
         </div>
     )
 }
 
-export default signin
+export default Signin

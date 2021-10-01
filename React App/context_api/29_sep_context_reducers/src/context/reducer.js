@@ -7,7 +7,7 @@ export let data = {
         {
             userName: 'haider',
             email: 'haider@gmail.com',
-            password: '123sss555',
+            password: '123',
             role: 'trainer'
         },
         {

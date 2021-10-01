@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Nav from '../components/navbar';
 // import FreeAPI from '../screens/free-api';
-import AnimalAPI from '../screens/animal-api-name';
+import AnimalAPI from '../screens/homePage';
 import Snacks from '../screens/snacks';
 import Signup from "../screens/signup";
 import Signin from "../screens/signin";
@@ -20,7 +20,7 @@ export default function App() {
                     <Route path="/signup">
                         <Signup />
                     </Route>
-                    <Route path="/animal-api">
+                    <Route path="/homePage">
                         <AnimalAPI />
                     </Route>
                     <Route path="/snacks">
