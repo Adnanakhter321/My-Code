@@ -52,6 +52,12 @@ export function reducer(state, action) {
                 authUser: state.authUser,
             }
         }
+        case "LOGOUT_USER":{
+            return{
+                ...state,
+                authUser: {},
+            }
+        }
         default:
             return state;
 

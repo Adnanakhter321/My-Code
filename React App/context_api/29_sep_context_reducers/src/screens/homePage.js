@@ -1,25 +1,20 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { GlobalContext } from '../context/context'
+import { GlobalContext } from '../context/context';
 
 function AnimalAPI() {
     let history = useHistory()
-    const {state} = useContext(GlobalContext)
-    const Logout = ()=>{
-        state.authUser = {}
-        return{
-            ...state,
-            authUser : state.authUser,
-        }
-        
+    const { state , dispatch } = useContext(GlobalContext)
+    const Logout = () => {
+        dispatch({type : "LOGOUT_USER"})
     }
+
     useEffect(() => {
         console.log(state.authUser);
-        if(state.authUser.email=== {}){
-            history.push('/signin')
+        if (!state.authUser.email && !state.authUser.password) {
+            history.push('/signin');
         }
-    })
-
+    }, [history, state.authUser])
 
     return (
         <div>

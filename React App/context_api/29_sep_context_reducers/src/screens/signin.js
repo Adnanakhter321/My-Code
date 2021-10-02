@@ -7,7 +7,7 @@ import { GlobalContext } from '../context/context'
 
 const Signin = () => {
 
-    let history = useHistory()
+    let history = useHistory();
     let { state, dispatch } = useContext(GlobalContext)
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
@@ -15,7 +15,7 @@ const Signin = () => {
       if(state.authUser.email && state.authUser.password){
           history.push("/homePage")
       }
-    })
+    }, [history, state.authUser])
 
     const Login = () => {
         state.users.map((el, keys) => {
@@ -26,6 +26,7 @@ const Signin = () => {
                 }
                 history.push('./homePage')
                 dispatch({ type: "USER_LOGIN", payload: userlogin })
+                return null;
             }
             else if ((keys + 1) === state.users.length && (el.email !== email || el.password !== pass)) {
                 console.log("Email Or Pass Wrong");
@@ -34,13 +35,13 @@ const Signin = () => {
         })
     }
     return (
-        <div className="container">
+        <div className="container" style={{display:'flex' , justifyContent: 'center',maxWidth:'35rem', flexDirection:"column" , height: "70vh"}}>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(ev) => { setEmail(ev.target.value) }} />
                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
-            <div className="form-group">
+            <div className="form-group py-3">
                 <label htmlFor="exampleInputPassword1">Password</label>
                 <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
                     value={pass} onChange={(ev) => { setPass(ev.target.value) }}
