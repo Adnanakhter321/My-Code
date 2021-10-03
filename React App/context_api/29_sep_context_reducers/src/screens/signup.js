@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { GlobalContext } from '../context/context'
-import Users from './users'
 
 
 
@@ -66,7 +65,7 @@ export default function Signup() {
         </div>
       </div>
       <button onClick={Data} className="btn btn-primary">SignUp</button>
-      <Users />
+      
     </div>
   )
 }

@@ -30,6 +30,12 @@ function Nav() {
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/signin">SignIn</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/allstudents">All Students</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/addstudents">Add Students</Link>
+              </li>
             </ul>
             <div className="d-flex">
               <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>

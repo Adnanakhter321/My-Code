@@ -3,10 +3,11 @@ export let data = {
     snacks: 'Rio',
     drink: 'Coffee',
     authUser:{},
+    allStudents:[],
     users: [
         {
-            userName: 'haider',
-            email: 'haider@gmail.com',
+            userName: 'Adnan',
+            email: 'a@gmail.com',
             password: '123',
             role: 'trainer'
         },
@@ -56,6 +57,14 @@ export function reducer(state, action) {
             return{
                 ...state,
                 authUser: {},
+            }
+        }
+        case "ADD_STUDENT":{
+            let UserClone=state.allStudents.slice(0);
+            UserClone.push(action.payload);
+            return{
+                ...state,
+                allStudents: UserClone,
             }
         }
         default:
