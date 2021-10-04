@@ -5,7 +5,7 @@ export let data = {
     authUser:{},
     allStudents:[],
     users: [
-        {
+        { 
             userName: 'Adnan',
             email: 'a@gmail.com',
             password: '123',
@@ -19,9 +19,9 @@ export let data = {
         },
         {
             userName: 'Samid',
-            email: 'samid@gmail.com',
-            password: 'xse32sss555',
-            role: 'Trainer'
+            email: 'a2@gmail.com',
+            password: '123',
+            role: 'Student'
         },
     ]
     

@@ -10,15 +10,14 @@ function AnimalAPI() {
     }
 
     useEffect(() => {
-        console.log(state.authUser);
         if (!state.authUser.email && !state.authUser.password) {
             history.push('/signin');
         }
     }, [history, state.authUser])
 
     return (
-        <div>
-            <h3>Hello Home API</h3>
+        <div className='container my-5' style={{display:'flex' ,flexDirection:'column', justifyContent:'center' ,alignItems:'center'}}>
+            <h3>Hello {state.authUser.userName}</h3>
             <button className="btn btn-primary" onClick={Logout}>Logout</button>
         </div>
     );

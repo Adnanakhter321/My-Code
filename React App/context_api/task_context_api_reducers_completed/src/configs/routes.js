@@ -11,6 +11,7 @@ import Signup from "../screens/signup";
 import Signin from "../screens/signin";
 import Allstudents from "../screens/AllStudents"
 import AddStudents from "../screens/AddStudents";
+import MyDetails from "../screens/MyDetails";
 
 export default function App() {
     return (
@@ -35,6 +36,9 @@ export default function App() {
                     </Route>
                     <Route path="/addstudents">
                         <AddStudents />
+                    </Route>
+                    <Route path="/mydetails">
+                        <MyDetails />
                     </Route>
 
                 </Switch>

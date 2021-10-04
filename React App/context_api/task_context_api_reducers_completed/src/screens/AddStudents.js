@@ -1,13 +1,20 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router';
 import { GlobalContext } from '../context/context'
 
 const AddStudents = () => {
+    const { state, dispatch } = useContext(GlobalContext)
+    let history = useHistory();
+    useEffect(() => {
+        if(!state.authUser.role || state.authUser.role !== 'trainer' ){
+            history.goBack();
+        }
+    });
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [rollno, setRollno] = useState("")
     const [totalmarks, setTotalMarks] = useState("")
     const [feedback, setFeedback] = useState("")
-    const { dispatch } = useContext(GlobalContext)
 
     const AddStudent = () => {
         let data = {
@@ -21,7 +28,7 @@ const AddStudents = () => {
     }
 
     return (
-        <div className="container" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "70vh" }}>
+        <div className="container my-5" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "70vh" }}>
             <div className="form-group py-3">
                 <label htmlFor="exampleInputEmail1">Name</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" value={name} onChange={(ev) => { setName(ev.target.value) }} />

@@ -1,10 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useHistory } from 'react-router';
 import { GlobalContext } from '../context/context'
 
-
 const Users = () => {
+    let history = useHistory();
+    useEffect(() => {
+        if (!state.authUser.role || state.authUser.role !== 'trainer') {
+            history.goBack();
+        }
+    });
+
     const { state } = useContext(GlobalContext)
-        return (
+    return (
         <table className="table table-striped container my-5">
             <thead>
                 <tr>
@@ -29,7 +36,7 @@ const Users = () => {
                 })}
             </tbody>
         </table>
-       
+
     )
 }
 export default Users;

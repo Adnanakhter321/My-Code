@@ -22,9 +22,16 @@ const Signin = () => {
             if (email === el.email && pass === el.password) {
                 let userlogin = {
                     email: email,
-                    password: pass
+                    password: pass,
+                    userName: el.userName,
+                    role : el.role,
                 }
-                history.push('./homePage')
+                if(el.role === 'trainer'){
+                    history.push('./allstudents')
+                }
+                else if (el.role === 'student'){
+                    history.push('./mydetails')
+                }
                 dispatch({ type: "USER_LOGIN", payload: userlogin })
                 return null;
             }
