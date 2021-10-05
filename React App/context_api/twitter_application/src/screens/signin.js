@@ -13,7 +13,7 @@ const Signin = () => {
     const [pass, setPass] = useState("")
     useEffect(() => {
       if(state.authUser.email && state.authUser.password){
-          history.push("/homePage")
+          history.push("/home")
       }
     }, [history, state.authUser])
 
@@ -26,12 +26,12 @@ const Signin = () => {
                     userName: el.userName,
                     role : el.role,
                 }
-                if(el.role === 'trainer'){
-                    history.push('./allstudents')
-                }
-                else if (el.role === 'student'){
-                    history.push('./mydetails')
-                }
+                history.push('./home')
+                // if(el.role === 'trainer'){
+                // }
+                // else if (el.role === 'student'){
+                //     history.push('./home')
+                // }
                 dispatch({ type: "USER_LOGIN", payload: userlogin })
                 return null;
             }
