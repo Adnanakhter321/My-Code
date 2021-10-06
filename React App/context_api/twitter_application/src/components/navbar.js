@@ -7,7 +7,7 @@ function Nav() {
   const { state } = useContext(GlobalContext)
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
-      <div className="container-fluid">
+      <div className="container-fluid ">
         <Link className="navbar-brand text-white" to="/home">Twitter</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

@@ -14,7 +14,7 @@ export let data = {
         {
             userName: 'akram',
             email: 'akram@gmail.com',
-            password: '123',
+            password: 'adnan',
             role: 'student'
         },
         {
