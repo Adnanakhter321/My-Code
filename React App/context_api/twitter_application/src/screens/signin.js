@@ -12,40 +12,51 @@ const Signin = () => {
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
     useEffect(() => {
-      if(state.authUser.email && state.authUser.password){
-          history.push("/home")
-      }
+        if (state.authUser.email && state.authUser.password) {
+            history.push("/home")
+        }
     }, [history, state.authUser])
 
     const Login = () => {
-        state.users.map((el, keys ,allel) => {
-            if (email === el.email && pass === el.password) {
-                let userlogin = {
-                    email: email,
-                    password: pass,
-                    userName: el.userName,
-                    role : el.role,
+        for (let i = 0; i < state.users.length; i++) {
+            const el = state.users[i];
+            if (email !== "" && pass !== "") {
+                console.log('run');
+                if (el.email === email) {
+                    if (el.password === pass) {
+                        let userlogin = {
+                            email: email,
+                            password: pass,
+                            userName: el.userName,
+                            role: el.role,
+                        }
+                        history.push('./home')
+                        dispatch({ type: "USER_LOGIN", payload: userlogin })
+                        return;
+                    }
+                    else {
+                        if (i === state.users.length - 1 && state.users[state.users.length - 1].password !== pass) {
+                            console.log('Passxword is Wrong');
+                        }
+                    }
                 }
-                history.push('./home')
-                // if(el.role === 'trainer'){
-                // }
-                // else if (el.role === 'student'){
-                //     history.push('./home')
-                // }
-                dispatch({ type: "USER_LOGIN", payload: userlogin })
-                return null;
-            }
-            else if (keys + 1 === state.users.length) {
-                let Bac = state.users.length
-                if( allel[Bac - 1].email !== email && allel[Bac - 1].password !== pass){
-                    console.log("Email Or Pass Wrong");
+                else {
+                    if (i === state.users.length - 1 && state.users[state.users.length - 1].email !== email) {
+                        console.log('Email Does Not Exist OR Email Is Wrong');
+                        return;
+                    }
                 }
+
             }
-            return null;
-        })
+            else {
+                console.log("Some Field is Missing Fill It and Try Again");
+                return;
+            }
+
+        }
     }
     return (
-        <div className="container" style={{display:'flex' , justifyContent: 'center',maxWidth:'35rem', flexDirection:"column" , height: "70vh"}}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "70vh" }}>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(ev) => { setEmail(ev.target.value) }} />
