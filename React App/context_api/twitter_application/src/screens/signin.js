@@ -45,7 +45,7 @@ const Signin = () => {
     }
 
     return (
-        <div className="container my-5" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "55vh", backgroundColor: '#3083fd', color: 'white',borderRadius : '10px'  }}>
+        <div className="container my-5" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "21rem", backgroundColor: '#3083fd', color: 'white',borderRadius : '10px'  }}>
             <h1 className='mb-4'>Sign In For Twitter</h1>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>

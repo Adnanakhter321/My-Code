@@ -15,7 +15,7 @@ const MyTweets = () => {
 
     return (
         <div>
-            Hello My Tweets
+            Hello wow nice Tweets
         </div>
     )
 }

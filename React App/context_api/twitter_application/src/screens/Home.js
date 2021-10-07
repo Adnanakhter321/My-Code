@@ -9,7 +9,7 @@ function AnimalAPI() {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (!user) {
-                history.push('/signin')
+                history.goBack()
             }
         })
 

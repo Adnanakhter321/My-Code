@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
-import { auth, createUserWithEmailAndPassword , onAuthStateChanged} from '../configs/firebase'
+import { auth, createUserWithEmailAndPassword , onAuthStateChanged , signOut} from '../configs/firebase'
 
 export default function Signup() {
   let history = useHistory()
@@ -11,7 +11,6 @@ export default function Signup() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log('hi signup');
       try {
         if (user) {
           history.push('/home')
@@ -31,6 +30,7 @@ export default function Signup() {
     if (username !== "" && email !== "" && password !== "" && Role !== "") {
       try {
         await createUserWithEmailAndPassword(auth, email, password)
+       await signOut(auth)
         history.push("/signin")
       }
       catch (er) {
@@ -40,7 +40,7 @@ export default function Signup() {
   }
 
   return (
-    <div className='container  d-flex justify-content-center flex-column my-5 py-5' style={{ maxWidth: '35rem', height: '70vh', backgroundColor: '#3083fd', color: 'white', borderRadius: '10px' }}>
+    <div className='container  d-flex justify-content-center flex-column my-5 py-5' style={{ maxWidth: '35rem', height: '32rem', backgroundColor: '#3083fd', color: 'white', borderRadius: '10px' }}>
       <h1 className='mb-4'>Sign Up For Twitter</h1>
       <div className="form-group">
         <label htmlFor="exampleInputsEmail1">Username</label>

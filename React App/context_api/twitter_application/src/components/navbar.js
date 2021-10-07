@@ -52,7 +52,7 @@ function Nav() {
           </ul>
           <div className="d-flex">
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success bg-dark bg-gradient">Search</button>
+            <button className="btn btn-outline-success" style={{backgroundColor:'#2745bf' , color :'#00d2e3'}}>Search</button>
           </div>
         </div>
       </div>
