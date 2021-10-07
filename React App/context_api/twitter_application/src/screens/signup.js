@@ -1,45 +1,50 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
-import { GlobalContext } from '../context/context'
-
-
+// import { GlobalContext } from '../context/context'
+import { auth, createUserWithEmailAndPassword , onAuthStateChanged} from '../configs/firebase'
+// import {App} from "../configs/routes"
 
 export default function Signup() {
   let history = useHistory()
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { state } = useContext(GlobalContext)
-  const [Role, setRole] = useState("Student")
-  const { dispatch } = useContext(GlobalContext);
-
+ 
 
   useEffect(() => {
-    if (state.authUser.email && state.authUser.password) {
-      history.push("/home")
-    }
+    onAuthStateChanged(auth, (user) => {
+      try {
+        if (user) {
+          history.push('/home')
+        }
+      }
+      catch (er) {
+        console.log(er.message);
+      }
+    })
   })
 
-  const Data = () => {
+  // const { state } = useContext(GlobalContext)
+  const [Role, setRole] = useState("Student")
+
+
+  const Data = async () => {
+
     if (username !== "" && email !== "" && password !== "" && Role !== "") {
-      let User = {
-        userName: username,
-        email: email,
-        password: password,
-        role: Role
+      try {
+        await createUserWithEmailAndPassword(auth, email, password)
+        history.push("/signin")
       }
-      dispatch({ type: "UPDATE_USER", payload: User });
-      history.push('/signin')
-    }
-    else {
-      alert('Some Field is missing..! please fill it and try again')
+      catch (er) {
+        console.log(er.message);
+      }
     }
   }
 
   return (
-    <div className='container  d-flex justify-content-center flex-column my-5 py-5' style={{ maxWidth: '35rem', height: '70vh', backgroundColor : '#3083fd' ,color:'white' }}>
+    <div className='container  d-flex justify-content-center flex-column my-5 py-5' style={{ maxWidth: '35rem', height: '70vh', backgroundColor: '#3083fd', color: 'white', borderRadius: '10px' }}>
       <h1 className='mb-4'>Sign Up For Twitter</h1>
-      <div className="form-group" st>
+      <div className="form-group">
         <label htmlFor="exampleInputEmail1">Username</label>
         <input type="text" value={username} onChange={(event) => { setUsername(event.target.value) }} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
       </div>
@@ -70,3 +75,4 @@ export default function Signup() {
     </div>
   )
 }
+

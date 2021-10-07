@@ -4,59 +4,51 @@ import { useContext } from 'react'
 import { useHistory } from 'react-router'
 import { GlobalContext } from '../context/context'
 
-
+import { auth, signInWithEmailAndPassword,onAuthStateChanged } from '../configs/firebase'
 const Signin = () => {
+    
+    useEffect(() => {
+        onAuthStateChanged(auth , (user) =>{
+            try{
+                if(user){
+                    history.push('/home')
+                }
+            }
+            catch(er){
+                console.log(er.message);
+            }
+    })
+    })
+    
 
     let history = useHistory();
-    let { state, dispatch } = useContext(GlobalContext)
+    let {  dispatch } = useContext(GlobalContext)
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
-    useEffect(() => {
-        if (state.authUser.email && state.authUser.password) {
-            history.push("/home")
-        }
-    }, [history, state.authUser])
+   
 
-    const Login = () => {
-        for (let i = 0; i < state.users.length; i++) {
-            const el = state.users[i];
-            if (email !== "" && pass !== "") {
-                console.log('run');
-                if (el.email === email) {
-                    if (el.password === pass) {
-                        let userlogin = {
-                            email: email,
-                            password: pass,
-                            userName: el.userName,
-                            role: el.role,
-                        }
-                        history.push('./home')
-                        dispatch({ type: "USER_LOGIN", payload: userlogin })
-                        return;
-                    }
-                    else {
-                        if (i === state.users.length - 1 && state.users[state.users.length - 1].password !== pass) {
-                            console.log('Passxword is Wrong');
-                        }
-                    }
-                }
-                else {
-                    if (i === state.users.length - 1 && state.users[state.users.length - 1].email !== email) {
-                        console.log('Email Does Not Exist OR Email Is Wrong');
-                        return;
-                    }
-                }
+    const Login = async () => {
 
+        if (email !== "" && pass !== "") {
+            try {
+                await signInWithEmailAndPassword(auth, email, pass)
+                let userlogin = {
+                    email: email,
+                    password: pass
+                }
+                history.push('./home')
+                dispatch({ type: "USER_LOGIN", payload: userlogin })
             }
-            else {
-                console.log("Some Field is Missing Fill It and Try Again");
-                return;
+            catch (er) {
+                console.log(er.message);
             }
+
 
         }
     }
+
     return (
-        <div className="container my-5" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "55vh" , backgroundColor : '#3083fd' ,color:'white'  }}>
+        <div className="container my-5" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "55vh", backgroundColor: '#3083fd', color: 'white',borderRadius : '10px'  }}>
             <h1 className='mb-4'>Sign In For Twitter</h1>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
