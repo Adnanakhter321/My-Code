@@ -1,21 +1,26 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link
 } from "react-router-dom";
-import { GlobalContext } from '../context/context'
 import { auth, onAuthStateChanged } from "../configs/firebase";
+
+
+
 function Nav() {
-  const {  dispatch } = useContext(GlobalContext)
+  const [Useer, setUseer] = useState(undefined)
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch({ type: "AUTH_USER", payload: user });
+        setUseer(user)
       }
       else {
-        console.log('user not found');
+        setUseer(undefined)
       }
     })
-  });
+  }, [Useer]);
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
       <div className="container-fluid ">
@@ -26,23 +31,23 @@ function Nav() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
-          
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link active text-white" aria-current="page" to="/signup">SignUp</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link active text-white" aria-current="page" to="/signin">SignIn</Link>
-                </li>
-              </> 
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link active text-white" aria-current="page" to="/home"> HOME </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link active text-white" aria-current="page" to="/mytweets">My Tweets</Link>
-                  </li>
-                </> 
+
+            {!Useer ? <>
+              <li className="nav-item">
+                <Link className="nav-link active text-white" aria-current="page" to="/signup">SignUp</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active text-white" aria-current="page" to="/signin">SignIn</Link>
+              </li>
+            </> : Useer ? <>
+              <li className="nav-item">
+                <Link className="nav-link active text-white" aria-current="page" to="/home"> HOME </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active text-white" aria-current="page" to="/mytweets">My Tweets</Link>
+              </li>
+            </> : null}
+
 
           </ul>
           <div className="d-flex">

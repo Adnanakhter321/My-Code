@@ -1,13 +1,13 @@
 export let data = {
-    authUser: {},
+    authUser: {value : "none"},
 }
 
 export function reducer(state, action) {
     switch (action.type) {
         case "AUTH_USER": {
-            return(
+            return (
                 state.authUser = action.payload
-                )
+            )
         }
         default:
             return state;

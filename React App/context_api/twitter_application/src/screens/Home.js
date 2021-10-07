@@ -1,37 +1,31 @@
-import React, { useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import { useHistory } from 'react-router';
-// import { GlobalContext } from '../context/context';
-import {auth , signOut ,onAuthStateChanged} from '../configs/firebase'
+import { auth, signOut, onAuthStateChanged } from '../configs/firebase'
 function AnimalAPI() {
 
-// if user logout they cant switch home page 
+    // if user logout they cant switch home page 
+    let history = useHistory()
+    
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            try {
-              if (!user) {
-                history.goBack()
-              }
+            if (!user) {
+                history.push('/signin')
             }
-            catch (er) {
-              console.log(er.message);
-            }
-          })
-    })
- //------------------------------------------------
-    let history = useHistory()
+        })
 
-
+    }, [history])
+    //------------------------------------------------
 
     //LOGOut FUnctions
     const Logout = async () => {
-     try{
-        await signOut(auth);
-        console.log('LogOUt Succesful');
-        history.push("/signin")
-     }
-     catch(er){
-         console.log(er.message);
-     }
+        try {
+            await signOut(auth);
+            console.log('LogOUt Succesful');
+            history.push("/signin")
+        }
+        catch (er) {
+            console.log(er.message);
+        }
     }
 
     return (

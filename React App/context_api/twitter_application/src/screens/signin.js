@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import { useContext } from 'react'
 import { useHistory } from 'react-router'
-import { GlobalContext } from '../context/context'
 
 import { auth, signInWithEmailAndPassword,onAuthStateChanged } from '../configs/firebase'
+
 const Signin = () => {
+    
+        let history = useHistory();
+        const [email, setEmail] = useState("")
+        const [pass, setPass] = useState("")
     
     useEffect(() => {
         onAuthStateChanged(auth , (user) =>{
@@ -20,11 +23,6 @@ const Signin = () => {
     })
     })
     
-
-    let history = useHistory();
-    let {  dispatch } = useContext(GlobalContext)
-    const [email, setEmail] = useState("")
-    const [pass, setPass] = useState("")
    
 
     const Login = async () => {
@@ -32,12 +30,11 @@ const Signin = () => {
         if (email !== "" && pass !== "") {
             try {
                 await signInWithEmailAndPassword(auth, email, pass)
-                let userlogin = {
-                    email: email,
-                    password: pass
-                }
+                // let userlogin = {
+                //     email: email,
+                //     password: pass
+                // }
                 history.push('./home')
-                dispatch({ type: "USER_LOGIN", payload: userlogin })
             }
             catch (er) {
                 console.log(er.message);
@@ -53,6 +50,7 @@ const Signin = () => {
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(ev) => { setEmail(ev.target.value) }} />
+               
                 <small id="emailHelp" className="form-text text-white">We'll never share your email with anyone else.</small>
             </div>
             <div className="form-group py-3">

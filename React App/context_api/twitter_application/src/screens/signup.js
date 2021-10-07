@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
-// import { GlobalContext } from '../context/context'
 import { auth, createUserWithEmailAndPassword , onAuthStateChanged} from '../configs/firebase'
-// import {App} from "../configs/routes"
 
 export default function Signup() {
   let history = useHistory()
@@ -13,6 +11,7 @@ export default function Signup() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log('hi signup');
       try {
         if (user) {
           history.push('/home')
@@ -22,9 +21,8 @@ export default function Signup() {
         console.log(er.message);
       }
     })
-  })
+  },[history])
 
-  // const { state } = useContext(GlobalContext)
   const [Role, setRole] = useState("Student")
 
 
@@ -45,7 +43,7 @@ export default function Signup() {
     <div className='container  d-flex justify-content-center flex-column my-5 py-5' style={{ maxWidth: '35rem', height: '70vh', backgroundColor: '#3083fd', color: 'white', borderRadius: '10px' }}>
       <h1 className='mb-4'>Sign Up For Twitter</h1>
       <div className="form-group">
-        <label htmlFor="exampleInputEmail1">Username</label>
+        <label htmlFor="exampleInputsEmail1">Username</label>
         <input type="text" value={username} onChange={(event) => { setUsername(event.target.value) }} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
       </div>
       <div className="form-group py-2">
