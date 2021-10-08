@@ -1,37 +1,43 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import { GlobalContext } from '../context/context'
-import { auth, createUserWithEmailAndPassword } from '../configs/firebase'
+import { auth, createUserWithEmailAndPassword, doc, setDoc, getFirestore, signOut } from '../configs/firebase'
 
 
 export default function Signup() {
   let history = useHistory()
+  let location = useLocation();
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { state } = useContext(GlobalContext)
+  const { state ,dispatch } = useContext(GlobalContext)
   const [Role, setRole] = useState("Student")
-  // const { dispatch } = useContext(GlobalContext);
 
 
   useEffect(() => {
-    if (state.authUser.email) {
-      history.push("/home")
+    if (state.authUser.email && location.pathname === '/signup') {
+      history.goBack();
     }
-  })
+  }, [history, location, state.authUser.email])
 
   const Register = () => {
+    let db = getFirestore()
     if (username !== "" && email !== "" && password !== "" && Role !== "") {
-      // let User = {
-      //   userName: username,
-      //   email: email,
-      //   password: password,
-      //   role: Role
-      // }
-      createUserWithEmailAndPassword(auth, email, password).then(() => {
-        console.log("Registered");
-        history.push('/signin')
+      let User = {
+        userName: username,
+        email: email,
+        password: password,
+        role: Role
+      }
+      createUserWithEmailAndPassword(auth, email, password).then(async (ev) => {
+        await signOut(auth)
 
+        await setDoc(doc(db, "Users", ev.user.uid), User)
+        console.log("Registered");
+        setTimeout(() => {
+          dispatch({ type: "USER_LOGIN"  ,payload : {value:'undef'}})
+          history.push("/signin")
+        }, 1)
       }).catch((er) => {
         console.log(er.message);
       })

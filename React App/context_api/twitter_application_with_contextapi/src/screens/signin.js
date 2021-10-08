@@ -1,28 +1,25 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import { GlobalContext } from '../context/context'
 import { auth, signInWithEmailAndPassword } from '../configs/firebase'
 
 const Signin = () => {
 
+    let location = useLocation()
     let history = useHistory();
     let { state, dispatch } = useContext(GlobalContext)
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
     useEffect(() => {
-        if (state.authUser.email) {
-            history.push("/home")
+        if (state.authUser.email && location.pathname === '/signin') {
+            history.goBack();
         }
-    }, [history, state.authUser])
+    }, [history,location,  state.authUser])
 
     const Login = () => {
         if (email !== "" && pass !== "") {
-            // let userlogin = {
-            //     email: email,
-            //     password: pass,
-            // }
             signInWithEmailAndPassword(auth, email, pass).then((ev) => {
                 history.push('./home')
                 console.log(ev.user.email);
@@ -32,7 +29,7 @@ const Signin = () => {
         }
     }
     return (
-        <div className="container my-5" style={{ display: 'flex', justifyContent: 'center', maxWidth: '35rem', flexDirection: "column", height: "21rem", backgroundColor: '#3083fd', color: 'white', borderRadius: '10px' }}>
+        <div className="container my-5" style={{ display: 'flex', justifyContent: 'center',position:'relative' ,top:'4.5rem', maxWidth: '35rem', flexDirection: "column", height: "24rem", backgroundColor: '#3083fd', color: 'white', borderRadius: '10px' }}>
             <h1 className='mb-4'>Sign In For Twitter</h1>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
