@@ -37,7 +37,7 @@ export default function Signup() {
         setTimeout(() => {
           dispatch({ type: "USER_LOGIN"  ,payload : {value:'undef'}})
           history.push("/signin")
-        }, 1)
+        },0.1)
       }).catch((er) => {
         console.log(er.message);
       })
