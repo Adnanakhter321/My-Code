@@ -3,27 +3,35 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { GlobalContext } from '../context/context';
 // import { auth, signOut, collection, getDoc,getDocs,  db, doc, setDoc} from '../configs/firebase'
-import { auth, signOut, collection, getDocs, db, addDoc} from '../configs/firebase'
+import { auth, signOut, collection, getDocs, db, addDoc, doc, onSnapshot } from '../configs/firebase'
 
 function AnimalAPI() {
     // const [Users, setUsers] = useState()
     const [textf, settextf] = useState('')
+    const tweets = [];
     const tweetDone = async () => {
         const collec = collection(db, "Users")
         const querySnapshot = await getDocs(collec);
-        querySnapshot.forEach( async (doc) => {
-          if(doc.data().uid === state.authUser.uid){
-              let {email , uid , userName} = doc.data()
-            let user ={email, userUID: uid , userName ,Tweet :  textf}
-            console.log(user);
-            let tweet = collection(db, 'Tweets');
-           let ad = await addDoc(tweet, user);
-           console.log(ad);
-          }
+        querySnapshot.forEach(async (doc) => {
+            if (doc.data().uid === state.authUser.uid) {
+                let { email, uid, userName } = doc.data()
+                let user = { email, userUID: uid, userName, Tweet: textf }
+                console.log(user);
+                let tweet = collection(db, 'Tweets');
+                let ad = await addDoc(tweet, user);
+                console.log(ad);
+            }
+        });
+        const q = collection(db, "Tweets")
+        onSnapshot(q, (querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                tweets.push(doc.data())
+            });
+            console.log(tweets);
         });
         settextf('')
     }
-    
+
     let history = useHistory()
     const { state, dispatch } = useContext(GlobalContext)
     const Logout = () => {
@@ -78,13 +86,29 @@ function AnimalAPI() {
                     <button style={{ borderRadius: '20px' }} onClick={tweetDone} className="btn btn-primary btn-lg mt-4" >Tweet</button>
                 </div>
             </div>
-            <div className='my-5 container' style={{ borderTop: '1px grey solid', margin:'0 auto', maxWidth:'50rem' }}>
-               <div className='my-4 navbar-light bg-primary bg-gradient h-50'>
-                    <h1>sad</h1>
-                    <h1>sad</h1>
-                    <h1>sad</h1>
-                    <h1>sad</h1>
-               </div>
+            <div className='my-5 container' style={{ borderTop: '1px grey solid', borderLeft: '1px grey solid', borderRight: '1px grey solid', margin: '0 auto', maxWidth: '50rem' }}>
+                <h1 style={{ display: 'flex', justifyContent: 'center' }}>Tweets</h1>
+                {
+                        tweets.map((doc)=>{
+                            return(
+                                <div className='my-4 navbar-light h-50' style={{backgroundColor:'#b8d0e3' , borderRadius:'1rem', borderBottom:'1px solid grey'}}>
+                                <div className="mt-4 " style={{padding:'0.5rem 0.5rem 0.1rem 0.8rem'}}>
+                                    <h4>{doc.data().userName}<span> - </span> <span className='h6 text-muted'>22:22PM</span></h4>
+                                    <p>hello my name is adnan and i m your freind so please follow mesx </p>
+                                    <h6 style={{border:'1px solid grey' , display:'inline-flex',padding:'1px 2px 1px 2px'}}>Like 1</h6>
+                                </div>
+                           </div>  
+                            )
+                        })
+
+                }
+                {/* <div className='my-4 navbar-light h-50' style={{backgroundColor:'#b8d0e3' , borderRadius:'1rem', borderBottom:'1px solid grey'}}>
+                    <div className="mt-4 " style={{padding:'0.5rem 0.5rem 0.1rem 0.8rem'}}>
+                        <h4>Adnan Akhter<span> - </span> <span className='h6 text-muted'>22:22PM</span></h4>
+                        <p>hello my name is adnan and i m your freind so please follow mesx </p>
+                        <h6 style={{border:'1px solid grey' , display:'inline-flex',padding:'1px 2px 1px 2px'}}>Like 1</h6>
+                    </div>
+               </div> */}
             </div>
 
         </div>
