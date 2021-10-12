@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { GlobalContext } from '../context/context';
@@ -11,7 +12,7 @@ const MyTweets = () => {
         if (!state.authUser.email || state.authUser.value === "undef") {
             history.push('/signin');
         }
-    }, [history, state.authUser])
+    }, [])
 
     return (
         <div>

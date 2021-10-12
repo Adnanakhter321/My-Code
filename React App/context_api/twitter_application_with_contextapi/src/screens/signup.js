@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router'
 import { GlobalContext } from '../context/context'
@@ -10,34 +11,44 @@ export default function Signup() {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { state ,dispatch } = useContext(GlobalContext)
+  const { state, dispatch } = useContext(GlobalContext)
   const [Role, setRole] = useState("Student")
+  // const [Users, setUsers] = useState([])
+
+//  useEffect( async () => {
+//    const collec = collection(db, "Users")
+//   const querySnapshot = await getDocs(collec);
+//       querySnapshot.forEach((doc)=>{
+//           console.log(doc.data())
+//       })
+//  }, [])
 
 
   useEffect(() => {
-    if (state.authUser.email && location.pathname === '/signup') {
-      history.goBack();
+    if (state.authUser.email && (location.pathname === '/signup' || location.pathname === '/' || location.pathname === '/My-Code') ) {
+      history.push('/home')
     }
-  }, [history, location, state.authUser.email])
+  })
 
   const Register = () => {
     let db = getFirestore()
     if (username !== "" && email !== "" && password !== "" && Role !== "") {
-      let User = {
-        userName: username,
-        email: email,
-        password: password,
-        role: Role
-      }
       createUserWithEmailAndPassword(auth, email, password).then(async (ev) => {
+        let User = {
+          userName: username,
+          email: email,
+          password: password,
+          role: Role,
+          uid:ev.user.uid,
+        }
         await signOut(auth)
 
         await setDoc(doc(db, "Users", ev.user.uid), User)
         console.log("Registered");
         setTimeout(() => {
-          dispatch({ type: "USER_LOGIN"  ,payload : {value:'undef'}})
+          dispatch({ type: "USER_LOGIN", payload: { value: 'undef' } })
           history.push("/signin")
-        },0.1)
+        }, 0.1)
       }).catch((er) => {
         console.log(er.message);
       })
