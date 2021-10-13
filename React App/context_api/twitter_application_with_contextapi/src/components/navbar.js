@@ -6,7 +6,7 @@ import { GlobalContext } from '../context/context'
 function Nav() {
   const { state } = useContext(GlobalContext)
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient">
+    <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-gradient" >
       <div className="container-fluid">
         <Link className="navbar-brand text-white" to="/home">Twitter</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,11 @@ function Nav() {
           </ul>
           <div className="d-flex">
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success"  style={{backgroundColor:'#2745bf' , color :'#00d2e3'}}>Search</button>
+            <button className="btn btn-outline-success"  style={{
+                  backgroundColor: "#44abf7",
+                  color: "rgb(221 238 239)",
+                  border: "none"
+            }}>Search</button>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged , signOut} from "firebase/auth";
-import { doc, setDoc ,getFirestore , getDocs ,collection, getDoc,addDoc , onSnapshot} from "firebase/firestore"; 
+import { doc, setDoc ,getFirestore , getDocs ,collection, getDoc,addDoc , onSnapshot ,query ,where} from "firebase/firestore"; 
 
 initializeApp({
     apiKey: "AIzaSyBRs6pgp8KPqK8iZyvSTvfuvs_-QVQI0Xk",
@@ -28,5 +28,6 @@ export {
     getDocs,
     db,
     getDoc,addDoc
-    ,onSnapshot
+    ,onSnapshot,
+    query,where
 };
