@@ -14,7 +14,7 @@ import MyTweets from "../screens/MyTweets";
 
 
 export default function App() {
-    const { dispatch } = useContext(GlobalContext)
+    const { dispatch ,state } = useContext(GlobalContext)
 
   useEffect(() => {
     onAuthStateChanged( auth, (user) => {
@@ -34,12 +34,16 @@ export default function App() {
                     <Route exact path="/signin">
                         <Signin />
                     </Route>
-                    <Route exact path="/home">
-                        <Home />
-                    </Route>
-                    <Route exact path="/mytweets">
-                        <MyTweets />
-                    </Route>
+                   {state.authUser.email?
+                        <>
+                        <Route exact path="/home">
+                            <Home />
+                        </Route>
+                        <Route exact path="/mytweets">
+                            <MyTweets />
+                        </Route>
+                       </>
+                   : null}
                     <Route path="/">
                         <Signup />
                     </Route>

@@ -3,28 +3,50 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { GlobalContext } from '../context/context';
 // import { auth, signOut, collection, getDoc,getDocs,  db, doc, setDoc} from '../configs/firebase'
-import { auth, signOut, doc,collection, getDocs, db, setDoc, onSnapshot } from '../configs/firebase'
+import { auth, signOut, doc, collection, getDocs, db, setDoc, updateDoc, onSnapshot } from '../configs/firebase'
 
 function AnimalAPI() {
     // Creating Unique Key
-        var crypto = require("crypto");
-        var uKey = crypto.randomBytes(15).toString('hex');
+    var crypto = require("crypto");
+    var uKey = crypto.randomBytes(15).toString('hex');
     // -------------------------------------------------------
     const [textf, settextf] = useState('')
     const [Tweets, setTweets] = useState([])
+    const [Ref, setRef] = useState('hi')
     const tweetDone = async () => {
         const collec = collection(db, "Users")
         const querySnapshot = await getDocs(collec);
         querySnapshot.forEach(async (doc2) => {
             if (doc2.data().uid === state.authUser.uid) {
                 let { email, uid, userName } = doc2.data()
-                let user = { email, userUID: uid,postKey:uKey,Time: date(new Date()), userName, Tweet: textf }
-                let tweet = doc(db, 'Tweets',uKey );
+                let user = { email, Likes: 0, userUID: uid, postKey: uKey, Time: date(new Date()), userName, Tweet: textf }
+                let tweet = doc(db, 'Tweets', uKey);
                 await setDoc(tweet, user);
+
+                // rerender component 
+                setRef('')
+                console.log(Ref);
+                setTimeout(() => {
+                    setRef('hi')
+                }, 500);
             }
         });
         settextf('')
     }
+    const Refresh = () => {
+
+        history.push('nopagexxxxxxx')
+        setTimeout(() => {
+            history.push('home')
+        }, 0);
+        // forceUpdate()
+        // setRef('')
+        // console.log(Ref);
+        // setTimeout(() => {
+        //     setRef('hi')
+        // }, 500);
+    }
+
     function date(dat) {
         let time = new Date().toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
         let date2 = dat.toString(dat)
@@ -51,20 +73,33 @@ function AnimalAPI() {
         }
     }, [])
     let Clone = Tweets.slice(0)
-    useEffect( () => {
+    useEffect(() => {
         const q = collection(db, "Tweets")
         onSnapshot(q, (snapshot) => {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
+
+                    // rerendring Page
+                    setRef('')
+                    setTimeout(() => {
+                        setRef('hi')
+                    }, 500);
+
+
                     Clone.push(change.doc.data())
-                  
+                }
+                if (change.type === "modified") {
+                   // rerendring Page
+                    setRef('')
+                    setTimeout(() => {
+                        setRef('hi')
+                    }, 500);
                 }
             });
             setTweets(Clone)
         });
-        console.log('hi effect');
     }, [])
-    
+
 
     return (
         <div className='container my-3' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -93,15 +128,21 @@ function AnimalAPI() {
                 </div>
             </div>
             <div className='my-5 container' style={{ borderTop: '1px grey solid', margin: '0 auto', maxWidth: '50rem' }}>
-                <h1 style={{ display: 'flex', justifyContent: 'center', marginTop:'1rem' }}>Tweets</h1>
+                <h1 style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>Tweets</h1> <button className="btn btn-primary btn-lg mt-4 mx-3" onClick={Refresh}>Hard Refresh</button>
                 {
 
-                    Tweets.map((doc, index) => (
-                        <div key={index} id={doc.postKey} className='my-4 navbar-light h-50' style={{ backgroundColor: '#b8d0e3', borderRadius: '1rem', borderBottom: '1px solid grey' }}>
+                    Tweets.map((docc, index) => (
+                        <div key={index} id={docc.postKey} className='my-4 navbar-light h-50' style={{ backgroundColor: '#f2faff', borderRadius: '1rem', borderBottom: '1px solid grey' }}>
                             <div className="mt-4 " style={{ padding: '0.5rem 0.5rem 0.1rem 0.8rem' }}>
-                                <h4>{doc.userName}<span className='h6 text-muted'> - {doc.Time}</span></h4>
-                                <p>{doc.Tweet}</p>
-                                <h6 style={{ border: '1px solid grey', display: 'inline-flex', padding: '1px 2px 1px 2px' }}>Like 2</h6>
+                                <h4>{docc.userName}<span className='h6 text-muted'> - {docc.Time}</span></h4>
+                                <h2 className='my-4'>{docc.Tweet}</h2>
+                                <h5 style={{ border: '1px solid grey', display: 'inline-flex', padding: '1px 2px 1px 2px', cursor: 'pointer', borderRadius: '3rem', userSelect: 'none' }} onClick={ async(ev) => {
+                                    let compID = ev.target.parentNode.parentNode.id
+                                    const washingtonRef = doc(db, "Tweets", compID);
+                                  await  updateDoc(washingtonRef, {
+                                        "Likes": docc.Likes++
+                                    });
+                                }}>Like {docc.Likes}</h5>
                             </div>
                         </div>
                     ))
