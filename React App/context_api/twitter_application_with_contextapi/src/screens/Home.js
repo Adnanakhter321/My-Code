@@ -3,15 +3,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { GlobalContext } from '../context/context';
 // import { auth, signOut, collection, getDoc,getDocs,  db, doc, setDoc} from '../configs/firebase'
-import { auth, signOut, doc, collection, getDocs, db, setDoc, updateDoc, onSnapshot } from '../configs/firebase'
+import { auth, signOut, doc, collection, getDocs, db, setDoc, onSnapshot, updateDoc} from '../configs/firebase'
 
 function AnimalAPI() {
+    const { state, dispatch } = useContext(GlobalContext)
     // Creating Unique Key
     var crypto = require("crypto");
     var uKey = crypto.randomBytes(15).toString('hex');
     // -------------------------------------------------------
     const [textf, settextf] = useState('')
     const [Tweets, setTweets] = useState([])
+    // const [Like, setLike] = useState([])
     const [Ref, setRef] = useState('hi')
     const tweetDone = async () => {
         const collec = collection(db, "Users")
@@ -56,7 +58,6 @@ function AnimalAPI() {
     }
 
     let history = useHistory()
-    const { state, dispatch } = useContext(GlobalContext)
     const Logout = () => {
         signOut(auth).then((ev) => {
             console.log('signout done');
@@ -83,23 +84,87 @@ function AnimalAPI() {
                     setRef('')
                     setTimeout(() => {
                         setRef('hi')
-                    }, 500);
+                    }, 0);
 
 
                     Clone.push(change.doc.data())
                 }
                 if (change.type === "modified") {
-                   // rerendring Page
+                    // rerendring Page
                     setRef('')
                     setTimeout(() => {
                         setRef('hi')
-                    }, 500);
+                    }, 1);
                 }
             });
             setTweets(Clone)
         });
     }, [])
 
+    //Like function
+    const Likes = async (ev) => {
+        let postID = ev.target.parentNode.parentNode.id
+        let obj = {
+            postID,
+            userUid: state.authUser.uid,
+            Like: true,
+            likeid: uKey,
+        }
+        // let likePost= collection(db , 'likeData')
+        // await addDoc(likePost , obj)
+        for (let i = 0; i < state.likeData.length; i++) {
+            const element = state.likeData[i];
+            console.log(element);
+            console.log(postID);
+            console.log(element.Like);
+            console.log(element.postID === postID && element.Like === true);
+            console.log(element.postID === postID && element.Like === false);
+            if (element.postID === postID && element.Like === true) {
+                const washingtonRef = doc(db, "likeData", element.likeid);
+               try{
+                await updateDoc(washingtonRef, {
+                    "Like": false
+                });
+              
+                    console.log('LIke false');
+               }catch(er){
+                   console.log(er.message);
+               }
+                return
+            }
+            else if (element.postID === postID && element.Like === false){
+                const washingtonRef = doc(db, "likeData", element.likeid);
+                try{
+                    await updateDoc(washingtonRef, {
+                        "Like": true
+                    });
+                   
+                    console.log('Like True');
+                }catch(er){
+                       console.log(er.message);
+                   }
+                return
+            }
+            else {
+                let likePost = doc(db, 'likeData', uKey)
+                await setDoc(likePost, obj)
+                console.log('data send like');
+                return;
+            }
+
+        }
+
+    }
+    useEffect(() => {
+        const a = collection(db, "likeData");
+        onSnapshot(a, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    dispatch({ type: "LIKE_DATA", payload: change.doc.data() })
+                }
+            });
+        });
+    }, [])
 
     return (
         <div className='container my-3' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -136,13 +201,7 @@ function AnimalAPI() {
                             <div className="mt-4 " style={{ padding: '0.5rem 0.5rem 0.1rem 0.8rem' }}>
                                 <h4>{docc.userName}<span className='h6 text-muted'> - {docc.Time}</span></h4>
                                 <h2 className='my-4'>{docc.Tweet}</h2>
-                                <h5 style={{ border: '1px solid grey', display: 'inline-flex', padding: '1px 2px 1px 2px', cursor: 'pointer', borderRadius: '3rem', userSelect: 'none' }} onClick={ async(ev) => {
-                                    let compID = ev.target.parentNode.parentNode.id
-                                    const washingtonRef = doc(db, "Tweets", compID);
-                                  await  updateDoc(washingtonRef, {
-                                        "Likes": docc.Likes++
-                                    });
-                                }}>Like {docc.Likes}</h5>
+                                <h5 style={{ border: '1px solid grey', display: 'inline-flex', padding: '1px 2px 1px 2px', cursor: 'pointer', borderRadius: '3rem', userSelect: 'none' }} onClick={Likes}>Like {docc.Likes}</h5>
                             </div>
                         </div>
                     ))

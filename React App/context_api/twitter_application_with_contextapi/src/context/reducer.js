@@ -2,6 +2,7 @@
 export let data = {
     authUser:{},
     tweets:[],
+    likeData:[],
 }
 
 
@@ -21,6 +22,14 @@ export function reducer(state, action) {
             return{
                 ...state,
                 tweets:usersClone
+            }
+        }
+        case "LIKE_DATA":{
+            let usersClone = state.likeData.slice(0);
+            usersClone.push(action.payload);
+            return{
+                ...state,
+                likeData:usersClone
             }
         }
         default:
