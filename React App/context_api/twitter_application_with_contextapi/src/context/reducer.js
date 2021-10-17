@@ -32,6 +32,13 @@ export function reducer(state, action) {
                 likeData:usersClone
             }
         }
+        case "DELETE_LIKE":{
+            let usersClone = state.likeData.splice(0 , state.likeData.length)
+            return{
+                ...state,
+                likeData:usersClone
+            }
+        }
         default:
             return state;
 

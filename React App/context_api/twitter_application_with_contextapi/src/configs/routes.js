@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,10 +11,48 @@ import Home from "../screens/Home";
 import { auth, onAuthStateChanged } from "./firebase";
 import { GlobalContext } from '../context/context'
 import MyTweets from "../screens/MyTweets";
+import {  collection, db , onSnapshot} from '../configs/firebase'
 
 
 export default function App() {
     const { dispatch } = useContext(GlobalContext)
+    const [Ref, setRef] = useState('hi')
+
+    useEffect(() => {
+        const q = collection(db, "Tweets")
+        onSnapshot(q, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+
+                    dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
+                    // rerendring Page
+                    setRef('')
+                    setTimeout(() => {
+                        setRef('hi')
+                    }, 0);
+
+                }
+                if (change.type === "modified") {
+                    console.log('new');
+                    // rerendring Page
+                    setRef('')
+                    setTimeout(() => {
+                        setRef('hi')
+                    }, 1);
+                }
+            });
+        });
+
+          const a = collection(db, "likeData");
+        onSnapshot(a, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    dispatch({ type: "LIKE_DATA", payload: change.doc.data() })
+                }
+            });
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
   useEffect(() => {
     onAuthStateChanged( auth, (user) => {

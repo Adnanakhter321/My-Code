@@ -8,5 +8,6 @@
 2. TO STOP NPM APP SERVER - "taskkill -F -IM node.exe"
 3. npm i react-router-dom
 4. npm i axios
+5. npm i firebase
 --------------------------------------------------
 1. Window Files Recovery "SFC /scannow"
