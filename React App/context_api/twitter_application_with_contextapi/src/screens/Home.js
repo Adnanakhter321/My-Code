@@ -12,7 +12,7 @@ function AnimalAPI() {
     var uKey = crypto.randomBytes(15).toString('hex');
     // -------------------------------------------------------
     const [textf, settextf] = useState('')
-    const [Ref, setRef] = useState('hi')
+    // const [Ref, setRef] = useState('hi')
     const tweetDone = async () => {
         const collec = collection(db, "Users")
         const querySnapshot = await getDocs(collec);
@@ -22,13 +22,6 @@ function AnimalAPI() {
                 let user = { email, Likes: 0, userUID: uid, postKey: uKey, Time: date(new Date()), userName, Tweet: textf }
                 let tweet = doc(db, 'Tweets', uKey);
                 await setDoc(tweet, user);
-
-                // rerender component 
-                setRef('')
-                console.log(Ref);
-                setTimeout(() => {
-                    setRef('hi')
-                }, 500);
             }
         });
         settextf('')
@@ -71,32 +64,6 @@ function AnimalAPI() {
             history.push('/signin');
         }
     }, [])
-    // useEffect(() => {
-    //     const q = collection(db, "Tweets")
-    //     onSnapshot(q, (snapshot) => {
-    //         snapshot.docChanges().forEach((change) => {
-    //             if (change.type === "added") {
-
-    //                 dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
-    //                 console.log(state.tweets);
-    //                 // rerendring Page
-    //                 setRef('')
-    //                 setTimeout(() => {
-    //                     setRef('hi')
-    //                 }, 0);
-
-    //             }
-    //             if (change.type === "modified") {
-    //                 // rerendring Page
-    //                 setRef('')
-    //                 setTimeout(() => {
-    //                     setRef('hi')
-    //                 }, 1);
-    //             }
-    //         });
-    //     });
-    // }, [])
-
     //Like function
     const Likes = async (ev) => {
         let postID = ev.target.parentNode.parentNode.id
@@ -106,8 +73,6 @@ function AnimalAPI() {
             Like: true,
             likeid: uKey,
         }
-        // let likePost= collection(db , 'likeData')
-        // await addDoc(likePost , obj)
         for (let i = 0; i < state.likeData.length; i++) {
             const element = state.likeData[i];
 
@@ -117,8 +82,10 @@ function AnimalAPI() {
                 await updateDoc(washingtonRef, {
                     "Like": false
                 });
-                dispatch({ type: "DELETE_LIKE"})
-                addlikeData();
+                const washingtonRef2 = doc(db, "Tweets", element.postID);
+                await updateDoc(washingtonRef2, {
+                    "Likes": getLikenum(postID)-1
+                });
                     console.log('LIke false');
                }catch(er){
                    console.log(er.message);
@@ -131,8 +98,10 @@ function AnimalAPI() {
                     await updateDoc(washingtonRef, {
                         "Like": true
                     });
-                    dispatch({ type: "DELETE_LIKE"})
-                    addlikeData();
+                    const washingtonRef2 = doc(db, "Tweets", element.postID);
+                    await updateDoc(washingtonRef2, {
+                        "Likes": getLikenum(postID)+1
+                    });
                     console.log('Like True');
                 }catch(er){
                        console.log(er.message);
@@ -142,21 +111,17 @@ function AnimalAPI() {
             else if(i === state.likeData.length - 1){
                 let likePost = doc(db, 'likeData', uKey)
                 await setDoc(likePost, obj)
-                dispatch({ type: "DELETE_LIKE"})
-                addlikeData();
-                // const washingtonRef = doc(db, "Tweets", element.postID);
-                // await updateDoc(washingtonRef, {
-                //     "Likes": element.postID
-                //   });
+                const washingtonRef = doc(db, "Tweets", element.postID);
+                await updateDoc(washingtonRef, {
+                    "Likes": getLikenum(postID)+1
+                });
                 console.log('data send like');
                 return;
             }
         }
-        console.log(state.tweets , 'tweets');
-        console.log(state.likeData , 'like');
     }
     let addlikeData = () =>{
-
+        dispatch({ type: "DELETE_LIKE"})
         const a = collection(db, "likeData");
         onSnapshot(a, (snapshot) => {
             snapshot.docChanges().forEach((change) => {
@@ -165,16 +130,29 @@ function AnimalAPI() {
                 }
             });
         });
-        // onSnapshot(b, (snapshot) => {
-        //     snapshot.docChanges().forEach((change) => {
-        //         if (change.type === "added") {
-        //             dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
-        //         }
-        //     });
-        // });
+        
     }
-
-    return (
+    let addTweetData = () =>{
+        dispatch({ type: "DELETE_TWEET"})
+        const a = collection(db, "Tweets");
+        onSnapshot(a, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
+                }
+            });
+        });
+    }
+    let getLikenum = (postID) =>{
+        for (let i = 0; i < state.tweets.length; i++) {
+            const element = state.tweets[i];
+            if(postID === element.postKey){
+                console.log(element.Likes);
+                return element.Likes
+            }
+        }
+    }
+    return (    
         <div className='container my-3' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ marginLeft: 'auto' }}>
                 <button className="btn btn-primary" onClick={Logout}>Logout</button></div>
@@ -221,4 +199,3 @@ function AnimalAPI() {
 }
 
 export default AnimalAPI;
-

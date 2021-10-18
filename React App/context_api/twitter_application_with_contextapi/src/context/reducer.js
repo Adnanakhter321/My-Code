@@ -39,6 +39,13 @@ export function reducer(state, action) {
                 likeData:usersClone
             }
         }
+        case "DELETE_TWEET":{
+            let usersClone = state.tweets.splice(0 , state.tweets.length)
+            return{
+                ...state,
+                tweets:usersClone
+            }
+        }
         default:
             return state;
 

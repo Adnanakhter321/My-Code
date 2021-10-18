@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -13,33 +13,22 @@ import { GlobalContext } from '../context/context'
 import MyTweets from "../screens/MyTweets";
 import {  collection, db , onSnapshot} from '../configs/firebase'
 
-
 export default function App() {
-    const { dispatch } = useContext(GlobalContext)
-    const [Ref, setRef] = useState('hi')
+    const {  dispatch } = useContext(GlobalContext)
 
     useEffect(() => {
         const q = collection(db, "Tweets")
         onSnapshot(q, (snapshot) => {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
-
-                    dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
-                    // rerendring Page
-                    setRef('')
-                    setTimeout(() => {
-                        setRef('hi')
-                    }, 0);
-
+                   dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
                 }
                 if (change.type === "modified") {
-                    console.log('new');
-                    // rerendring Page
-                    setRef('')
-                    setTimeout(() => {
-                        setRef('hi')
-                    }, 1);
+                    addTweetData()
                 }
+                // if (change.type === "removed") {
+                //     console.log(change.doc.data());
+                // }
             });
         });
 
@@ -49,10 +38,50 @@ export default function App() {
                 if (change.type === "added") {
                     dispatch({ type: "LIKE_DATA", payload: change.doc.data() })
                 }
+                if (change.type === "modified") {
+                    addlikeData();
+                }
             });
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    let addlikeData = () =>{
+        dispatch({ type: "DELETE_LIKE"})
+        const a = collection(db, "likeData");
+        onSnapshot(a, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    dispatch({ type: "LIKE_DATA", payload: change.doc.data() })
+                }
+            });
+        });
+        
+    }
+    let addTweetData = () =>{
+        dispatch({ type: "DELETE_TWEET"})
+        const a = collection(db, "Tweets");
+        onSnapshot(a, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
+                }
+            });
+        });
+    }
+
+
+  
+
+
+
+    
+    // let reRender = () =>{
+    //     setRef('')
+    //     setTimeout(() => {
+    //         setRef('hi')
+    //     }, 0);
+    // }
 
   useEffect(() => {
     onAuthStateChanged( auth, (user) => {
