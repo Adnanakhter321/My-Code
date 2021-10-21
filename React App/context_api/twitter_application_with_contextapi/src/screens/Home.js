@@ -53,7 +53,9 @@ function AnimalAPI() {
         signOut(auth).then((ev) => {
             console.log('signout done');
             history.push('/signin');
+            console.log(state.authUser);
             dispatch({ type: "USER_LOGIN", payload: { value: 'undef' } })
+            console.log(state.authUser);
         }).catch((er) => {
             console.log(er.message);
         })
@@ -152,6 +154,13 @@ function AnimalAPI() {
             }
         }
     }
+    let checkIt = async () => {
+        const collec = collection(db, "Tweets")
+        const querySnapshot = await getDocs(collec);
+        querySnapshot.forEach(async (doc2) => {
+           console.log(doc2.data());
+        });
+    }
     return (    
         <div className='container my-3' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ marginLeft: 'auto' }}>
@@ -189,6 +198,7 @@ function AnimalAPI() {
                                 <h2 className='my-4'>{docc.Tweet}</h2>
                                 <h5 style={{ border: '1px solid grey', display: 'inline-flex', padding: '1px 2px 1px 2px', cursor: 'pointer', borderRadius: '3rem', userSelect: 'none' }} onClick={Likes}>Like {docc.Likes}</h5>
                             </div>
+                            <button onClick={checkIt}>hi</button>
                         </div>
                     ))
                 }

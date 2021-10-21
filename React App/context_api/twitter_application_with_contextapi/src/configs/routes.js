@@ -13,8 +13,9 @@ import { GlobalContext } from '../context/context'
 import MyTweets from "../screens/MyTweets";
 import {  collection, db , onSnapshot} from '../configs/firebase'
 
+
 export default function App() {
-    const {  dispatch } = useContext(GlobalContext)
+    const {state,   dispatch } = useContext(GlobalContext)
 
     useEffect(() => {
         const q = collection(db, "Tweets")
@@ -26,13 +27,10 @@ export default function App() {
                 if (change.type === "modified") {
                     addTweetData()
                 }
-                // if (change.type === "removed") {
-                //     console.log(change.doc.data());
-                // }
             });
         });
-
-          const a = collection(db, "likeData");
+        
+        const a = collection(db, "likeData");
         onSnapshot(a, (snapshot) => {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
