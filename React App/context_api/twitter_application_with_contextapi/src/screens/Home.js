@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { GlobalContext } from '../context/context';
 // import { auth, signOut, collection, getDoc,getDocs,  db, doc, setDoc} from '../configs/firebase'
-import { auth, signOut, doc, collection, getDocs, db, setDoc, updateDoc, onSnapshot } from '../configs/firebase'
+import { auth, signOut, doc, collection, getDocs, db, setDoc, updateDoc } from '../configs/firebase'
 
 function AnimalAPI() {
     const { state, dispatch } = useContext(GlobalContext)
@@ -122,29 +122,29 @@ function AnimalAPI() {
             }
         }
     }
-    let addlikeData = () =>{
-        dispatch({ type: "DELETE_LIKE"})
-        const a = collection(db, "likeData");
-        onSnapshot(a, (snapshot) => {
-            snapshot.docChanges().forEach((change) => {
-                if (change.type === "added") {
-                    dispatch({ type: "LIKE_DATA", payload: change.doc.data() })
-                }
-            });
-        });
+    // let addlikeData = () =>{
+    //     dispatch({ type: "DELETE_LIKE"})
+    //     const a = collection(db, "likeData");
+    //     onSnapshot(a, (snapshot) => {
+    //         snapshot.docChanges().forEach((change) => {
+    //             if (change.type === "added") {
+    //                 dispatch({ type: "LIKE_DATA", payload: change.doc.data() })
+    //             }
+    //         });
+    //     });
         
-    }
-    let addTweetData = () =>{
-        dispatch({ type: "DELETE_TWEET"})
-        const a = collection(db, "Tweets");
-        onSnapshot(a, (snapshot) => {
-            snapshot.docChanges().forEach((change) => {
-                if (change.type === "added") {
-                    dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
-                }
-            });
-        });
-    }
+    // }
+    // let addTweetData = () =>{
+    //     dispatch({ type: "DELETE_TWEET"})
+    //     const a = collection(db, "Tweets");
+    //     onSnapshot(a, (snapshot) => {
+    //         snapshot.docChanges().forEach((change) => {
+    //             if (change.type === "added") {
+    //                 dispatch({ type: "ADD_TWEET", payload: change.doc.data() })
+    //             }
+    //         });
+    //     });
+    // }
     let getLikenum = (postID) =>{
         for (let i = 0; i < state.tweets.length; i++) {
             const element = state.tweets[i];
@@ -155,11 +155,13 @@ function AnimalAPI() {
         }
     }
     let checkIt = async () => {
+        let array = []
         const collec = collection(db, "Tweets")
         const querySnapshot = await getDocs(collec);
         querySnapshot.forEach(async (doc2) => {
-           console.log(doc2.data());
+            array.push(doc2.data())
         });
+        console.log(array);
     }
     return (    
         <div className='container my-3' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
