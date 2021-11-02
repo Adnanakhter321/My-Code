@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import AddSub from "./todoReducer";
+import todoReducer from "./todoReducer";
 const Data = combineReducers({
-  AddSub
+    todoReducer
 })
 export default Data;
