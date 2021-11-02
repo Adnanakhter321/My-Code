@@ -17,6 +17,19 @@ const AddSub = (state = initialState , action) => {
                             }
                     ]
                 }
+            case "DELETE_EACH":
+                 const updateList = state.list.filter((elem) => {
+                     return elem.id !== action.id
+                 })
+                return {
+                    ...state,
+                    list:updateList
+                }
+            case "DELETE_ALL":
+                return {
+                    ...state,
+                    list:[]
+                }
             default : return state;
         }
 }

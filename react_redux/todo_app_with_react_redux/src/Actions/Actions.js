@@ -1,19 +1,19 @@
-export const Add = (data) =>{
+export const Add = (data) => {
     return {
-        type:'ADD_ALL',
-        payload:{
-            id:new Date().getTime().toString(),
-            data:data,
+        type: 'ADD_ALL',
+        payload: {
+            id: new Date().getTime().toString(),
+            data: data,
         }
     }
 }
-export const Delete = () =>{
+export const Delete = (id) => {
     return {
-        type:'DELETE_EACH'
+        type: 'DELETE_EACH', id
     }
 }
-export const DeleteAll = () =>{
+export const DeleteAll = () => {
     return {
-        type:'DELETE_ALL'
+        type: 'DELETE_ALL'
     }
 }
