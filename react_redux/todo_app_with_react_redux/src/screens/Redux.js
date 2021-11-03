@@ -30,7 +30,7 @@ const Redux = () => {
                     <div className="items">
                         {list.map((elem) => {
                             return (
-                                <div key={elem.id} id={elem.id}>
+                                <div key={elem.id} id={elem.id} >
                                     <h1>{elem.data}
                                         <button onClick={() => {
                                             dispatch(Delete(elem.id))
