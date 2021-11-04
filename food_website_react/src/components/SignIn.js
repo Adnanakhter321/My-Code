@@ -13,7 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Redirect } from 'react-router-dom'
-
+import { auth, signInWithEmailAndPassword } from "../configs/Firebase";
+import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -30,14 +32,20 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [Email, setEmail] = useState('')
+  const [password, setpassword] = useState('')
+  let history = useHistory()
+  const SignIN = (event) => {
+    event.target.innerText = 'Signing In...!'
+    signInWithEmailAndPassword(auth, Email, password)
+      .then((userCredential) => {
+        // const user = userCredential.user;
+        event.target.innerText = 'SIGN UP'
+        history.push('/userinterface')
+        // setTimeout(() => {
+        // }, 1000);
+      })
+      .catch((error) =>alert(error.message),setTimeout(()=>event.target.innerText = 'SIGN UP',1000));
   };
 
   return (
@@ -57,12 +65,12 @@ export default function SignIn() {
             }}
           >
             <div>
-          <img style={{width:100}} src="https://mydeliveryappadnan.web.app/images/logo2.png" alt="F" />
-          </div>
+              <img style={{ width: 100 }} src="https://mydeliveryappadnan.web.app/images/logo2.png" alt="F" />
+            </div>
             <Typography component="h1" variant="h5">
-              Sign in For FoodHub
+              Sign in For FooDHuB
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -72,6 +80,8 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={Email}
+                onChange={(ev) => setEmail(ev.target.value) }
               />
               <TextField
                 margin="normal"
@@ -82,13 +92,15 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(ev) => setpassword(ev.target.value) }
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
               <Button
-                type="submit"
+                onClick={SignIN}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}

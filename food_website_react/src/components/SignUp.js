@@ -1,4 +1,6 @@
-import * as React from 'react';
+import * as React  from 'react';
+import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 // import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +17,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Redirect } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // import { logRoles } from '@testing-library/dom';
-import {  doc, setDoc, getFirestore} from "firebase/firestore"
+import {  doc, setDoc, db} from "../configs/Firebase"
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,18 +34,18 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-    let User;
-    const handleSubmit = (event) => {
-        let db = getFirestore()
-        const data = new FormData(event.currentTarget);
-        event.preventDefault();
-        console.log('hi');
-        // eslint-disable-next-line no-console
-        User = {
-            firstName : data.get('firstName'),
-            lastName:data.get('lastName') ,
-            Email : data.get('email'),
-            password : data.get('password'),
+    let history = useHistory()
+    const [firstName, setfirstName] = useState('')
+    const [lastName, setlastName] = useState('')
+    const [Email, setEmail] = useState('')
+    const [password, setpassword] = useState('')
+    const handleSubmit = (ev) => {
+        ev.target.innerText = 'Signing Up...!'
+      const  User = {
+            firstName,
+            lastName,
+            Email,
+            password,
         }
         const auth = getAuth();
         
@@ -51,8 +53,8 @@ export default function SignUp() {
           .then( async (userCredential) => {
             const user = userCredential.user.uid;
             User.uid = user;
-            await setDoc(doc(db, "Users", User.uid), User);
-        })
+            await setDoc(doc(db, "Users", User.uid), User).then(()=>history.push('/signin') , alert('You Have Succesfully Registered, Redirecting To Login Page'), setTimeout(()=>ev.target.innerText = 'SIGN UP',1000));
+        }).catch((er)=>alert(er.message), setTimeout(()=>ev.target.innerText = 'SIGN UP',1000))
     };
     
 
@@ -78,7 +80,7 @@ return (
                 <Typography component="h1" variant="h5">
                     Sign up For FooDHuB
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Box component="form" noValidate  sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -89,6 +91,8 @@ return (
                                 id="firstName"
                                 label="First Name"
                                 autoFocus
+                                value={firstName}
+                                onChange={(ev) => setfirstName(ev.target.value) }
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -99,6 +103,8 @@ return (
                                 label="Last Name"
                                 name="lastName"
                                 autoComplete="family-name"
+                                value={lastName}
+                                onChange={(ev) => setlastName(ev.target.value) }
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -109,6 +115,8 @@ return (
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                value={Email}
+                                onChange={(ev) => setEmail(ev.target.value) }
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -120,6 +128,8 @@ return (
                                 type="password"
                                 id="password"
                                 autoComplete="new-password"
+                                value={password}
+                                onChange={(ev) => setpassword(ev.target.value) }
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -130,16 +140,16 @@ return (
                         </Grid>
                     </Grid>
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        onClick={handleSubmit}
                     >
                         Sign Up
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Redirect to='/SignIn'>
+                            <Redirect to='/signin'>
                                 <Link variant="body2">
                                     Already have an account? Sign in
                                 </Link></Redirect>
@@ -147,7 +157,6 @@ return (
                     </Grid>
                 </Box>
             </Box>
-            <Copyright sx={{ mt: 5 }} />
         </Container>
     </ThemeProvider>
 );

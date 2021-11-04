@@ -11,12 +11,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import LoginIcon from '@mui/icons-material/Login';
 // import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
-import { Link as Redirect } from 'react-router-dom';
+import { Link as Redirect, useHistory } from 'react-router-dom';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -58,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+    let history = useHistory()
     // const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -65,7 +67,7 @@ export default function PrimarySearchAppBar() {
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     // const handleProfileMenuOpen = (event) => {
-        // setAnchorEl(event.currentTarget);
+    // setAnchorEl(event.currentTarget);
     // };
 
     const handleMobileMenuClose = () => {
@@ -73,8 +75,8 @@ export default function PrimarySearchAppBar() {
     };
 
     // const handleMenuClose = () => {
-        // setAnchorEl(null);
-        // handleMobileMenuClose();
+    // setAnchorEl(null);
+    // handleMobileMenuClose();
     // };
 
     const handleMobileMenuOpen = (event) => {
@@ -106,9 +108,7 @@ export default function PrimarySearchAppBar() {
                         <MailIcon />
                     </Badge>
                 </IconButton> */}
-                <Redirect to='/SignIn'>
-                <Button size="small">Login</Button>
-                </Redirect>
+                <Button variant='contained' onClick={() => history.push("/signin")} size="small">Login</Button>
             </MenuItem>
 
             <MenuItem>
@@ -121,9 +121,7 @@ export default function PrimarySearchAppBar() {
                         <NotificationsIcon />
                     </Badge>
                 </IconButton> */}
-                <Redirect to='/'>
-                <Button size="small">Register</Button>
-                </Redirect>
+                <Button onClick={() => history.push("/")} variant='outlined' size="small">Register</Button>
             </MenuItem>
         </Menu>
     );
@@ -159,14 +157,9 @@ export default function PrimarySearchAppBar() {
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
-                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Redirect to='/SignIn'>
-                   <Button style={{outline:'none'}} variant="contained">Login</Button>
-                   </Redirect>
-                   <Redirect to='/'>
-                   <Button variant="contained">Register</Button>
-                   </Redirect>
-          </Box>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Button onClick={() => history.push("/signin")} style={{ outline: 'none' ,marginRight:10 }} variant="contained" size="medium" startIcon={<LoginIcon />}>Login</Button>
+                    <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button> </Box>
 
 
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
