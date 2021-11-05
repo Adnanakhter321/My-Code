@@ -1,23 +1,24 @@
 import * as React  from 'react';
-import { useState } from 'react';
-import { useHistory } from "react-router-dom";
-// import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import { useState, useEffect } from 'react';
+import { useHistory, useLocation } from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Redirect } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-// import { logRoles } from '@testing-library/dom';
 import {  doc, setDoc, db} from "../configs/Firebase"
+import { useSelector } from 'react-redux';
+// import Avatar from '@mui/material/Avatar';
+// import { logRoles } from '@testing-library/dom';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // function Copyright(props) {
 //     return (
 //         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,8 +34,15 @@ import {  doc, setDoc, db} from "../configs/Firebase"
 
 const theme = createTheme();
 
-export default function SignUp() {
-    let history = useHistory()
+export default function SignUp() {  
+    const location = useLocation()
+    const history = useHistory()
+    const currentUser = useSelector((State) => State.todoReducer.user)
+    useEffect(() => {
+        if(currentUser[0] === 'userExists' && location.pathname !== '/userinterface'){
+            history.push('/userinterface')
+        }
+    }, [currentUser, history, location.pathname])
     const [firstName, setfirstName] = useState('')
     const [lastName, setlastName] = useState('')
     const [Email, setEmail] = useState('')

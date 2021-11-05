@@ -9,7 +9,7 @@ import InputBase from '@mui/material/InputBase';
 // import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';

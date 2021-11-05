@@ -15,7 +15,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Redirect } from 'react-router-dom'
 import { auth, signInWithEmailAndPassword } from "../configs/Firebase";
 import { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -30,11 +32,17 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-
 export default function SignIn() {
   const [Email, setEmail] = useState('')
   const [password, setpassword] = useState('')
-  let history = useHistory()
+  const history = useHistory()
+  const location = useLocation();
+  const currentUser = useSelector((State) => State.todoReducer.user)
+  useEffect(() => {
+    if(currentUser[0] === 'userExists' && location.pathname !== '/userinterface'){
+        history.push('/userinterface')
+    }
+}, [currentUser, history, location.pathname])
   const SignIN = (event) => {
     event.target.innerText = 'Signing In...'
     signInWithEmailAndPassword(auth, Email, password)

@@ -1,41 +1,44 @@
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
 } from "react-router-dom";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import UserInterface from "../components/UserInterface";
 import Navbar from '../screens/Navbar';
 import { auth, onAuthStateChanged } from "../configs/Firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CheckUser } from "../Actions/Actions";
-const Routes = () => {
-    let dispatch = useDispatch();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const uid = user.uid;
-            if(user){
-                dispatch(CheckUser("userExists", uid))
+import { useEffect } from 'react'
+import { useHistory } from "react-router";
+const Routess = () => {
+    const history = useHistory()
+    const dispatch = useDispatch();
+    const currentUser = useSelector((State) => State.todoReducer.user)
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                if (user) {
+                    dispatch(CheckUser("userExists", uid))
+                }
+            } else {
+                dispatch(CheckUser('nouser', 'null'))
             }
-        } else {
-            dispatch(CheckUser('nouser', 'null'))
-        }
-      });
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
-      
         <Router>
             <Navbar />
             <Switch>
-                <Route exact path='/'  component={SignUp} />
-                <Route  path='/signin' component={SignIn} />
-                <Route  path='/userinterface' component={UserInterface} />
-                {/* <Route  path="/about" component={About} />
-                <Route  path="/student" component={Student} />
-                <Route  path="/student-details/:rollNumber" component={studentdetails} /> */}
+                <Route path='/userinterface' component={UserInterface} />
+                <Route exact path='/' component={SignUp} />
+                <Route path='/signin' component={SignIn} />
             </Switch>
         </Router>
     )
 }
 
-export default Routes;
+export default Routess;
