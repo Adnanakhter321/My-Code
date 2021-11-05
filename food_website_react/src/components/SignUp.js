@@ -18,18 +18,18 @@ import { Link as Redirect } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // import { logRoles } from '@testing-library/dom';
 import {  doc, setDoc, db} from "../configs/Firebase"
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit">
-                FooDHuB
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+// function Copyright(props) {
+//     return (
+//         <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//             {'Copyright © '}
+//             <Link color="inherit">
+//                 FooDHuB
+//             </Link>{' '}
+//             {new Date().getFullYear()}
+//             {'.'}
+//         </Typography>
+//     );
+// }
 
 const theme = createTheme();
 
@@ -40,7 +40,7 @@ export default function SignUp() {
     const [Email, setEmail] = useState('')
     const [password, setpassword] = useState('')
     const handleSubmit = (ev) => {
-        ev.target.innerText = 'Signing Up...!'
+        ev.target.innerText = 'Signing Up...'
       const  User = {
             firstName,
             lastName,

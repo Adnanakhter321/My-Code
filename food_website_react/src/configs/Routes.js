@@ -6,8 +6,22 @@ import {
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import UserInterface from "../components/UserInterface";
-import Navbar from '../screens/Navbar'
+import Navbar from '../screens/Navbar';
+import { auth, onAuthStateChanged } from "../configs/Firebase";
+import { useDispatch } from "react-redux";
+import { CheckUser } from "../Actions/Actions";
 const Routes = () => {
+    let dispatch = useDispatch();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const uid = user.uid;
+            if(user){
+                dispatch(CheckUser("userExists", uid))
+            }
+        } else {
+            dispatch(CheckUser('nouser', 'null'))
+        }
+      });
     return (
       
         <Router>

@@ -36,16 +36,16 @@ export default function SignIn() {
   const [password, setpassword] = useState('')
   let history = useHistory()
   const SignIN = (event) => {
-    event.target.innerText = 'Signing In...!'
+    event.target.innerText = 'Signing In...'
     signInWithEmailAndPassword(auth, Email, password)
       .then((userCredential) => {
         // const user = userCredential.user;
-        event.target.innerText = 'SIGN UP'
+        event.target.innerText = 'SIGN In'
         history.push('/userinterface')
         // setTimeout(() => {
         // }, 1000);
       })
-      .catch((error) =>alert(error.message),setTimeout(()=>event.target.innerText = 'SIGN UP',1000));
+      .catch((error) =>alert(error.message),setTimeout(()=>event.target.innerText = 'SIGN In',1000));
   };
 
   return (

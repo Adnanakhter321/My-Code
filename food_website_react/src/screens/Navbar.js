@@ -12,12 +12,16 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
+import Button from '@mui/material/Button';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MoreIcon from '@mui/icons-material/MoreVert';
 // import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import Button from '@mui/material/Button';
-import { Link as Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { CheckUser } from '../Actions/Actions';
+import { auth, signOut } from '../configs/Firebase';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -57,9 +61,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
-
 export default function PrimarySearchAppBar() {
+    let dispatch = useDispatch();
     let history = useHistory()
+    let Logout = () => {
+        signOut(auth).then(() => {
+            dispatch(CheckUser('nouser', 'null'))
+            history.push('/signin')
+        })
+    }
+    let currentUser = useSelector((State) => State.todoReducer.user)
     // const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -102,27 +113,27 @@ export default function PrimarySearchAppBar() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton> */}
-                <Button variant='contained' onClick={() => history.push("/signin")} size="small">Login</Button>
-            </MenuItem>
+            {currentUser[0] === 'userExists' ?
+                <>
+                    <Box style={{display:'flex',
+                flexDirection:'column',
+                padding:7,
+                }}>
+                    <Button b={4} startIcon={<LogoutIcon />} variant='contained' onClick={Logout} size="small">Logout</Button>
+                    </Box>
+                </>
+                : currentUser[0] === 'nouser' ?
+                    <>
+                        <MenuItem>
 
-            <MenuItem>
-                {/* <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton> */}
-                <Button onClick={() => history.push("/")} variant='outlined' size="small">Register</Button>
-            </MenuItem>
+                            <Button variant='contained' onClick={() => history.push("/signin")} size="small">Login</Button>
+                        </MenuItem>
+
+                        <MenuItem>
+                            <Button onClick={() => history.push("/")} variant='outlined' size="small">Register</Button>
+                        </MenuItem>
+                    </> : null
+            }
         </Menu>
     );
 
@@ -130,15 +141,6 @@ export default function PrimarySearchAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <Typography
                         variant="h6"
                         noWrap
@@ -156,10 +158,23 @@ export default function PrimarySearchAppBar() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <Button onClick={() => history.push("/signin")} style={{ outline: 'none' ,marginRight:10 }} variant="contained" size="medium" startIcon={<LoginIcon />}>Login</Button>
-                    <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button> </Box>
+        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {currentUser[0] === 'userExists' ?
+                <>
+                <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
+                </> : currentUser[0] === 'nouser' ?
+                <>
+                 <Button onClick={() => history.push("/signin")} style={{ outline: 'none', marginRight: 10 }} variant="contained" size="medium" startIcon={<LoginIcon />}>Login</Button>
+                 
+
+                 <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button>
+                 </>
+                : null
+            }
+
+
+        </Box>
 
 
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
