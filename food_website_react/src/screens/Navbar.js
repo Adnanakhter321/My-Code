@@ -114,16 +114,14 @@ export default function PrimarySearchAppBar() {
             onClose={handleMobileMenuClose}
         >
             {currentUser[0] === 'userExists' ?
-                <>
-                    <Box style={{display:'flex',
-                flexDirection:'column',
-                padding:7,
-                }}>
-                    <Button b={4} startIcon={<LogoutIcon />} variant='contained' onClick={Logout} size="small">Logout</Button>
-                    </Box>
-                </>
+                <div>
+                    
+                        <MenuItem>
+                        <Button b={4} startIcon={<LogoutIcon />} variant='contained' onClick={Logout} size="small">Logout</Button>
+                        </MenuItem>
+                </div>
                 : currentUser[0] === 'nouser' ?
-                    <>
+                    <div>
                         <MenuItem>
 
                             <Button variant='contained' onClick={() => history.push("/signin")} size="small">Login</Button>
@@ -132,7 +130,7 @@ export default function PrimarySearchAppBar() {
                         <MenuItem>
                             <Button onClick={() => history.push("/")} variant='outlined' size="small">Register</Button>
                         </MenuItem>
-                    </> : null
+                    </div> : null
             }
         </Menu>
     );
@@ -158,23 +156,23 @@ export default function PrimarySearchAppBar() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {currentUser[0] === 'userExists' ?
-                <>
-                <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
-                </> : currentUser[0] === 'nouser' ?
-                <>
-                 <Button onClick={() => history.push("/signin")} style={{ outline: 'none', marginRight: 10 }} variant="contained" size="medium" startIcon={<LoginIcon />}>Login</Button>
-                 
-
-                 <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button>
-                 </>
-                : null
-            }
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        {currentUser[0] === 'userExists' ?
+                           <div>
+                                <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
+                            </div> : currentUser[0] === 'nouser' ?
+                                <div>
+                                    <Button onClick={() => history.push("/signin")} style={{ outline: 'none', marginRight: 10 }} variant="contained" size="medium" startIcon={<LoginIcon />}>Login</Button>
 
 
-        </Box>
+                                    <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button>
+                                </div>
+                                : null
+                        }
+
+
+                    </Box>
 
 
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

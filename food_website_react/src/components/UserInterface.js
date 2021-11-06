@@ -23,18 +23,23 @@ const UserInterface = () => {
         event.target.parentNode.parentNode.childNodes[1].nodeValue = file.name
     }
     const Upload = (ev) => {
+        ev.target.style.cursor ='not-allowed'
         ev.target.innerText = 'Uploading.....'
+        ev.target.disabled = true;
         let storageRef = ref(storage, `userimages/${File.name}`)
         uploadBytes(storageRef, File).then((snapshot) => {
             ev.target.innerText = 'Uploaded'
             setTimeout(() => {
+                setFile('')
+                ev.target.disabled = false;
                 ev.target.innerText = 'Upload'
+                ev.target.style.cursor ='pointer'
             }, 2000);
         });
     }
     return (
         <div>
-            <h1>Hello User</h1>
+            <h1 style={{cursor:''}}>Hello User</h1>
             <label htmlFor='file'> <Button startIcon={<UploadIcon />}>
                 No File Selected
             <Input type='file' id='file' onChange={fileChangedHandler}/>
