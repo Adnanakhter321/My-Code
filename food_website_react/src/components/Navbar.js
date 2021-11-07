@@ -15,6 +15,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import HomeIcon from '@mui/icons-material/Home';
 // import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -80,7 +81,9 @@ export default function PrimarySearchAppBar() {
     // const handleProfileMenuOpen = (event) => {
     // setAnchorEl(event.currentTarget);
     // };
-
+    const goHome = () => {
+        currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
+    }
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
@@ -115,10 +118,11 @@ export default function PrimarySearchAppBar() {
         >
             {currentUser[0] === 'userExists' ?
                 <div>
-                    
-                        <MenuItem>
-                        <Button b={4} startIcon={<LogoutIcon />} variant='contained' onClick={Logout} size="small">Logout</Button>
-                        </MenuItem>
+
+                    <MenuItem>
+                        <Button style={{marginRight:'1rem'}} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={() =>currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')} size="medium">Home</Button>
+                        <Button b={4} startIcon={<LogoutIcon />} variant='outlined' onClick={Logout} size="medium">Logout</Button>
+                    </MenuItem>
                 </div>
                 : currentUser[0] === 'nouser' ?
                     <div>
@@ -159,7 +163,8 @@ export default function PrimarySearchAppBar() {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {currentUser[0] === 'userExists' ?
-                           <div>
+                            <div>
+                                <Button startIcon={<HomeIcon />} style={{marginRight:'1rem'}} onClick={goHome} variant="contained" size="medium" >Home</Button>
                                 <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
                             </div> : currentUser[0] === 'nouser' ?
                                 <div>

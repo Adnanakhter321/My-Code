@@ -3,7 +3,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import { doc, setDoc ,getFirestore , getDocs ,collection, getDoc,addDoc , onSnapshot ,query ,where,updateDoc } from "firebase/firestore"; 
 import { getStorage,ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 
-const App = initializeApp({
+initializeApp({
   apiKey: "AIzaSyBPzzBEOz9ek3xxSNpJvVLSG_-dNWsvwPg",
   authDomain: "foodappreact-a4c53.firebaseapp.com",
   projectId: "foodappreact-a4c53",

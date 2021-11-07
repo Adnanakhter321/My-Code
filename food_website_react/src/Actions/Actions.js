@@ -7,3 +7,11 @@ export const CheckUser = (user,uid) => {
         }
     }
 }
+export const AddRestaurants = (data) => {
+    return {
+        type: 'ADD_RESTAURANTS',
+        payload: {
+            data2: data,
+        }
+    }
+}

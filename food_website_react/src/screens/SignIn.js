@@ -57,7 +57,6 @@ export default function SignIn() {
   };
 
   return (
-    <div>
       <ThemeProvider theme={theme} >
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -72,9 +71,7 @@ export default function SignIn() {
               borderRadius: '2rem',
             }}
           >
-            <div>
               <img style={{ width: 100 }} src="https://mydeliveryappadnan.web.app/images/logo2.png" alt="F" />
-            </div>
             <Typography component="h1" variant="h5">
               Sign in For FooDHuB
             </Typography>
@@ -134,6 +131,5 @@ export default function SignIn() {
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
-    </div>
   );
 }
