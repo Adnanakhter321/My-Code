@@ -1,6 +1,7 @@
 const initialState = {
     user:[],
-    AllRestaurants : []
+    AllRestaurants : [],
+    Dishes : [],
 }
 
 
@@ -19,6 +20,15 @@ const todoReducer = (state = initialState , action) => {
                     AllRestaurants:[
                         ...state.AllRestaurants ,
                         data2
+                    ]
+                }
+            case "ADD_DISHES":
+                const {data3} = action.payload
+                return {
+                    ...state,
+                    Dishes:[
+                        ...state.Dishes ,
+                        data3
                     ]
                 }
             default : return state;

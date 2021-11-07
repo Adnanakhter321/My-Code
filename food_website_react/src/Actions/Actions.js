@@ -15,3 +15,11 @@ export const AddRestaurants = (data) => {
         }
     }
 }
+export const AddDishes = (data) => {
+    return {
+        type: 'ADD_DISHES',
+        payload: {
+            data3: data,
+        }
+    }
+}

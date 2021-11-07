@@ -4,37 +4,36 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import { useHistory } from 'react-router';
-
-const MuiRestaurants = ({restaurantName , description,urlimage, uid, deliveryfee }) => {
-    let history = useHistory()
+const Dishes = ({restaurantName, uid, Price, Itemname, imageurl}) => {
     return(
         <div  style={{marginLeft:'2rem', marginTop:'2rem' ,display:'inline-block'}}>
             <Card id={uid} sx={{ maxWidth: 300}}>
-        <CardActionArea onClick={() => history.push(`/dishes/${restaurantName}`)}>
+        <CardActionArea>
           <CardMedia
             component="img"
             height="140"
-            image={urlimage}
-            alt="green iguana"
+            image={imageurl}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {restaurantName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-            {description}
+           Itemname: {Itemname}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+            Price: {Price}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
         <Button size="small" color="primary">
-          Delivery Fee: {deliveryfee}
+          Delivery Fee: 50PKR
           </Button>
         </CardActions>
         <CardActions>
-          <Button size="small" color="primary" variant='contained' onClick={() => history.push(`/dishes/${restaurantName}`)}>
-            Check Dishes
+          <Button size="small" color="primary" variant='contained' >
+            Add To Cart
           </Button>
         </CardActions>
       </Card>
@@ -43,4 +42,4 @@ const MuiRestaurants = ({restaurantName , description,urlimage, uid, deliveryfee
     )
 }
 
-export default MuiRestaurants
+export default Dishes;

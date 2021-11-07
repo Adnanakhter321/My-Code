@@ -8,27 +8,39 @@ import SignUp from "../screens/SignUp";
 import UserInterface from "../screens/UserInterface";
 import Navbar from '../components/Navbar';
 import { auth, onAuthStateChanged } from "../configs/Firebase";
-import { CheckUser } from "../Actions/Actions";
 import { useEffect } from 'react'
 import ReactBones from "../screens/ReactBones";
 import Dishes from "../screens/Dishes";
-import {db,  collection, query, onSnapshot } from "../configs/Firebase";
-import { AddRestaurants } from "../Actions/Actions";
-import {  useSelector, useDispatch } from "react-redux";
+import { db, collection, query, onSnapshot } from "../configs/Firebase";
+import { AddRestaurants, AddDishes , CheckUser } from "../Actions/Actions";
+import { useSelector, useDispatch } from "react-redux";
 const Routess = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector((State) => State.todoReducer.user)
     const q = query(collection(db, "restaurantsData"));
     useEffect(() => {
-     onSnapshot(q, (snapshot) => {
+        onSnapshot(q, (snapshot) => {
             snapshot.docChanges().forEach((change) => {
                 if (change.type === "added") {
                     dispatch(AddRestaurants(change.doc.data()))
                 }
             });
         });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const q2 = query(collection(db, "restuarantDishes"));
+    useEffect(() => {
+        onSnapshot(q2, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    dispatch(AddDishes(change.doc.data()))
+                }
+            });
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -49,7 +61,7 @@ const Routess = () => {
                 {currentUser[0] === 'userExists' ?
                     <>
                         <Route path='/userinterface' component={UserInterface} />
-                        <Route path='/dishes' component={Dishes} />
+                        <Route path='/dishes/:nameRestaurant' component={Dishes} />
                     </> : currentUser[0] === 'nouser' ?
                         <>
                             <Route exact path='/' component={SignUp} />
