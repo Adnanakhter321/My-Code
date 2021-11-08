@@ -22,7 +22,7 @@ const MuiRestaurants = ({ restaurantName, description, urlimage, uid, deliveryfe
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {restaurantName}
+                {restaurantName} Restaurant
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {description}

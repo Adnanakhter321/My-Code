@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 // import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { CartNull } from '../Actions/Actions';
 // import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
@@ -63,6 +64,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 export default function PrimarySearchAppBar() {
+    let okbynull = () => {
+        currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
+        dispatch(CartNull())
+    }
     let dispatch = useDispatch();
     let history = useHistory()
     let Logout = () => {
@@ -83,6 +88,7 @@ export default function PrimarySearchAppBar() {
     // };
     const goHome = () => {
         currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
+        dispatch(CartNull())
     }
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
@@ -120,8 +126,8 @@ export default function PrimarySearchAppBar() {
                 <div>
 
                     <MenuItem>
-                        <Button style={{marginRight:'1rem'}} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={() =>currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')} size="medium">Home</Button>
-                        <Button b={4} startIcon={<LogoutIcon />} variant='outlined' onClick={Logout} size="medium">Logout</Button>
+            <Button style={{marginRight:'1rem'}} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={okbynull} size="medium">Home</Button>
+            <Button b={4} startIcon={<LogoutIcon />} variant='outlined' onClick={Logout} size="medium">Logout</Button>
                     </MenuItem>
                 </div>
                 : currentUser[0] === 'nouser' ?

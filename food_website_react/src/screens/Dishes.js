@@ -10,7 +10,7 @@ const Dishes = () => {
             {currentUser.map((el, index) => {
                 if (el.RestaurantName === nameRestaurant) {
                    return(
-                    <Dishes2 key={index} restaurantName={nameRestaurant} Itemname={el.Itemname} Price={el.Price} imageurl={el.imageurl} uid={el.uid} />
+                    <Dishes2 key={index} restaurantName={nameRestaurant} Itemname={el.Itemname} Price={el.Price} imageurl={el.imageurl} uid={el.uid} quantity={el.quantity} />
                    )
                 }
                 return null;

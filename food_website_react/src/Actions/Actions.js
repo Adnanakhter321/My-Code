@@ -23,3 +23,41 @@ export const AddDishes = (data) => {
         }
     }
 }
+export const AddItem = (data) => {
+    data.quantity = 1;
+    return {
+        type: 'ADD_ITEM',
+        payload: {
+            cartData: data,
+        }
+    }
+}
+export const CartNull = () => {
+    return {
+        type: 'CART_NULL',
+    }
+}
+export const cartDeleteSelected = (uid) => {
+    return {
+        type: 'CART_DELETE_SELECTED',
+        payload :{
+            uid33: uid,
+        }
+    }
+}
+export const UpdateCartSelected = (uid) => {
+    return {
+        type: 'UPDATE_CART',
+        payload :{
+            uid34: uid,
+        }
+    }
+}
+export const UpdateCartMinize = (uid) => {
+    return {
+        type: 'UPDATE_CART_MINIZE',
+        payload :{
+            uid35: uid,
+        }
+    }
+}
