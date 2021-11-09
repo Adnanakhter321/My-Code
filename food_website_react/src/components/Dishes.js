@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,13 +8,17 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddItem, UpdateCartSelected, cartDeleteSelected, UpdateCartMinize } from '../Actions/Actions';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useHistory } from 'react-router-dom'
 const Dishes = ({ restaurantName, uid, Price, Itemname, imageurl }) => {
-  const [uidElement, setuidElement] = useState('')
+  let history = useHistory()
+  const [uidElement, setuidElement] = useState(null)
   const dispatch = useDispatch()
   const [cartAdd, setcartAdd] = useState(1)
   const [styleIT, setstyleIT] = useState({ display: 'none' })
   const [styleIT2, setstyleIT2] = useState({ display: 'inline-block' })
   const currentUser = useSelector((State) => State.todoReducer.Dishes)
+
   const AddtoCart = (ev) => {
     const uid = ev.target.parentNode.parentNode.parentNode.id;
     setuidElement(uid)
@@ -24,15 +28,15 @@ const Dishes = ({ restaurantName, uid, Price, Itemname, imageurl }) => {
       }
       return null
     })
-    console.log(cartAdd);
+
     setstyleIT({ display: 'inline-block' })
     setstyleIT2({ display: 'none' })
   }
   const Addit = () => {
     setcartAdd(cartAdd + 1)
-    dispatch(UpdateCartSelected(uidElement ))
+    dispatch(UpdateCartSelected(uidElement))
   }
-  const Subit = (ev) => {
+  const Subit = () => {
     if (cartAdd === 1) {
       dispatch(cartDeleteSelected(uidElement))
       setstyleIT({ display: 'none' })
@@ -70,17 +74,21 @@ const Dishes = ({ restaurantName, uid, Price, Itemname, imageurl }) => {
           </Button>
         </CardActions>
         <CardActions>
-          <div>
-            <Button style={styleIT2} size="small" color="primary" variant='contained' onClick={AddtoCart}>
+          <div style={styleIT2}>
+            <Button size="small" color="primary" variant='contained' onClick={AddtoCart}>
               Add To Cart
             </Button>
           </div>
           <div style={styleIT} >
-             <Button size='large'  onClick={Subit} startIcon={<RemoveCircleIcon />} />
-            <h3 style={{display: 'inline-block'}}>{cartAdd}</h3>
-            <div style={{display: 'inline-block'}}  onClick={Addit}
+            <Button size='large' onClick={Subit} startIcon={<RemoveCircleIcon />} />
+            <h3 style={{
+              display: 'inline-block', margin: 0,
+              position: 'relative', top: 2, right: 5
+            }}>{cartAdd}</h3>
+            <div style={{ display: 'inline-block' }} onClick={Addit}
             ><Button size='large' startIcon={<AddCircleIcon />} /> </div>
           </div>
+          <Button onClick={() => history.push('/cart')} startIcon={<ShoppingCartIcon />}></Button>
         </CardActions>
       </Card>
     </div>

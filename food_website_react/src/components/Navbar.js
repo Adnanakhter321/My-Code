@@ -9,7 +9,6 @@ import InputBase from '@mui/material/InputBase';
 // import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { CartNull } from '../Actions/Actions';
 // import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
@@ -66,7 +65,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
     let okbynull = () => {
         currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
-        dispatch(CartNull())
     }
     let dispatch = useDispatch();
     let history = useHistory()
@@ -88,7 +86,6 @@ export default function PrimarySearchAppBar() {
     // };
     const goHome = () => {
         currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
-        dispatch(CartNull())
     }
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
@@ -140,7 +137,7 @@ export default function PrimarySearchAppBar() {
                         <MenuItem>
                             <Button onClick={() => history.push("/")} variant='outlined' size="small">Register</Button>
                         </MenuItem>
-                    </div> : null
+                    </div> :  <Button style={{marginRight:'1rem'}} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={okbynull} size="medium">Home</Button>
             }
         </Menu>
     );

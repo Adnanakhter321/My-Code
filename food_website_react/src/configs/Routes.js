@@ -14,6 +14,7 @@ import Dishes from "../screens/Dishes";
 import { db, collection, query, onSnapshot } from "../configs/Firebase";
 import { AddRestaurants, AddDishes , CheckUser } from "../Actions/Actions";
 import { useSelector, useDispatch } from "react-redux";
+import Cart from "../screens/Cart";
 const Routess = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector((State) => State.todoReducer.user)
@@ -62,6 +63,7 @@ const Routess = () => {
                     <>
                         <Route path='/userinterface' component={UserInterface} />
                         <Route path='/dishes/:nameRestaurant' component={Dishes} />
+                        <Route path='/cart' component={Cart} />
                     </> : currentUser[0] === 'nouser' ?
                         <>
                             <Route exact path='/' component={SignUp} />
