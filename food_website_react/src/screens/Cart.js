@@ -36,7 +36,8 @@ const Cart = () => {
                 CartBill,
                 BuyerName: User[1].firstName + ' ' + User[1].lastName,
                 RestaurantName: cartIn[0].RestaurantName,
-                uid: new Date().getTime().toString()
+                uid: new Date().getTime().toString(),
+                useruid: User[1].uid
             };
             ResData.map((ev) => {
                 if (cartIn[0].RestaurantName === ev.RestaurantName) {
