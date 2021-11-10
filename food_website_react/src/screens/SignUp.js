@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Redirect } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {  doc, setDoc, db} from "../configs/Firebase"
+import {  doc, setDoc, db ,auth as login , signOut } from "../configs/Firebase"
 import { useSelector } from 'react-redux';
 // import Avatar from '@mui/material/Avatar';
 // import { logRoles } from '@testing-library/dom';
@@ -61,7 +61,7 @@ export default function SignUp() {
           .then( async (userCredential) => {
             const user = userCredential.user.uid;
             User.uid = user;
-            await setDoc(doc(db, "Users", User.uid), User).then(()=>history.push('/signin') , alert('You Have Succesfully Registered, Redirecting To Login Page'), setTimeout(()=>ev.target.innerText = 'SIGN UP',1000));
+            await setDoc(doc(db, "Users", User.uid), User).then(()=>history.push('/signin') , alert('You Have Succesfully Registered, Redirecting To Login Page'), setTimeout(()=>ev.target.innerText = 'SIGN UP',1000),signOut(login));
         }).catch((er)=>alert(er.message), setTimeout(()=>ev.target.innerText = 'SIGN UP',1000))
     };
     

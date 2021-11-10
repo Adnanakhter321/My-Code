@@ -39,7 +39,7 @@ const Dishes = ({ restaurantName, uid, Price, Itemname, imageurl }) => {
         setstyleIT({ display: 'inline-block' })
         setstyleIT2({ display: 'none' })
       }
-
+      
       if (el.RestaurantName !== currentElementRes) {
         alert('Since You have Added New Restaurant Dish your Previous Cart Of Previous Restaurant Has Been Cleared')
         dispatch(CartNull());
