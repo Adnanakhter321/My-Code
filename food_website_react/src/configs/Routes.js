@@ -12,7 +12,7 @@ import { useEffect } from 'react'
 import ReactBones from "../screens/ReactBones";
 import Dishes from "../screens/Dishes";
 import { db, collection, query, onSnapshot } from "../configs/Firebase";
-import { AddRestaurants, AddDishes , CheckUser } from "../Actions/Actions";
+import { AddRestaurants, AddDishes, CheckUser } from "../Actions/Actions";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "../screens/Cart";
 const Routess = () => {
@@ -29,7 +29,7 @@ const Routess = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
+    
     const q2 = query(collection(db, "restuarantDishes"));
     useEffect(() => {
         onSnapshot(q2, (snapshot) => {
@@ -41,14 +41,21 @@ const Routess = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
+    
     useEffect(() => {
+        const q3 = query(collection(db, "Users"));
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
-                if (user) {
-                    dispatch(CheckUser("userExists", uid))
-                }
+                onSnapshot(q3, (snapshot) => {
+                    snapshot.docChanges().forEach((change) => {
+                        if (change.type === "added") {
+                            if(change.doc.data().uid === uid){
+                                dispatch(CheckUser("userExists",change.doc.data()))
+                            }
+                        }
+                    });
+                });
             } else {
                 dispatch(CheckUser('nouser', 'null'))
             }

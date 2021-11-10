@@ -21,8 +21,9 @@ import HomeIcon from '@mui/icons-material/Home';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { CheckUser } from '../Actions/Actions';
+import { CheckUser, CartNull } from '../Actions/Actions';
 import { auth, signOut } from '../configs/Firebase';
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -70,6 +71,7 @@ export default function PrimarySearchAppBar() {
     let history = useHistory()
     let Logout = () => {
         signOut(auth).then(() => {
+            dispatch(CartNull())
             dispatch(CheckUser('nouser', 'null'))
             history.push('/signin')
         })

@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,27 +10,54 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AddItem, UpdateCartSelected, cartDeleteSelected, UpdateCartMinize } from '../Actions/Actions';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useHistory } from 'react-router-dom'
+import { CartNull } from '../Actions/Actions';
 const Dishes = ({ restaurantName, uid, Price, Itemname, imageurl }) => {
-  let history = useHistory()
-  const [uidElement, setuidElement] = useState(null)
-  const dispatch = useDispatch()
-  const [cartAdd, setcartAdd] = useState(1)
+  let history = useHistory();
+  const [uidElement, setuidElement] = useState(null);
+  const dispatch = useDispatch();
+  const [cartAdd, setcartAdd] = useState(1);
   const [styleIT, setstyleIT] = useState({ display: 'none' })
   const [styleIT2, setstyleIT2] = useState({ display: 'inline-block' })
   const currentUser = useSelector((State) => State.todoReducer.Dishes)
-
+  const currentUser2 = useSelector((State) => State.todoReducer.Cart)
   const AddtoCart = (ev) => {
+    let currentElementRes;
+    let doit = true;
     const uid = ev.target.parentNode.parentNode.parentNode.id;
     setuidElement(uid)
     currentUser.map((el) => {
-      if (uid === el.uid) {
-        dispatch(AddItem(el))
+      if (el.uid === uid) {
+        currentElementRes = el.RestaurantName;
+      }
+      return null
+    })
+    currentUser2.map((el) => {
+      if (el.uid === uid) {
+        doit = false;
+        alert('This Dish is Already in Cart')
+        setcartAdd(el.quantity)
+        setstyleIT({ display: 'inline-block' })
+        setstyleIT2({ display: 'none' })
+      }
+
+      if (el.RestaurantName !== currentElementRes) {
+        alert('Since You have Added New Restaurant Dish your Previous Cart Of Previous Restaurant Has Been Cleared')
+        dispatch(CartNull());
       }
       return null
     })
 
-    setstyleIT({ display: 'inline-block' })
-    setstyleIT2({ display: 'none' })
+    if (doit === true) {
+      currentUser.map((el) => {
+        if (uid === el.uid) {
+          dispatch(AddItem(el))
+        }
+        return null
+      })
+
+      setstyleIT({ display: 'inline-block' })
+      setstyleIT2({ display: 'none' })
+    }
   }
   const Addit = () => {
     setcartAdd(cartAdd + 1)
@@ -85,8 +112,10 @@ const Dishes = ({ restaurantName, uid, Price, Itemname, imageurl }) => {
               display: 'inline-block', margin: 0,
               position: 'relative', top: 2, right: 5
             }}>{cartAdd}</h3>
-            <div style={{ display: 'inline-block' }} onClick={Addit}
-            ><Button size='large' startIcon={<AddCircleIcon />} /> </div>
+
+            <div style={{ display: 'inline-block' }} onClick={Addit}>
+              <Button size='large' startIcon={<AddCircleIcon />} />
+            </div>
           </div>
           <Button onClick={() => history.push('/cart')} startIcon={<ShoppingCartIcon />}></Button>
         </CardActions>
