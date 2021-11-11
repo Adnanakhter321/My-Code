@@ -16,7 +16,7 @@ const UserInterface = () => {
        {currentUser.map((el, index)=>{
            return(
             <MuiRestaurants key={index} description='Choose From Amazing Deals Of Premium Beef And Chicken Burgers, Fries, Wings And More. Delivered Hot & Fresh. Fast Delivery.
-            ' restaurantName={el.RestaurantName}  urlimage ={el.urlimage} uid = {el.uid} deliveryfee={el.deliveryfee} />
+            ' restaurantName={el.RestaurantName} Des={el.Description} urlimage ={el.urlimage} uid = {el.uid} deliveryfee={el.deliveryfee} />
            )
        })}
        </>

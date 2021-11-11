@@ -15,6 +15,7 @@ import { db, collection, query, onSnapshot } from "../configs/Firebase";
 import { AddRestaurants, AddDishes, CheckUser } from "../Actions/Actions";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "../screens/Cart";
+import SignUpRestaurant from "../screens/SignUpRestaurant";
 const Routess = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector((State) => State.todoReducer.user)
@@ -29,7 +30,7 @@ const Routess = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
+
     const q2 = query(collection(db, "restuarantDishes"));
     useEffect(() => {
         onSnapshot(q2, (snapshot) => {
@@ -41,7 +42,7 @@ const Routess = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
+
     useEffect(() => {
         const q3 = query(collection(db, "Users"));
         onAuthStateChanged(auth, (user) => {
@@ -50,8 +51,8 @@ const Routess = () => {
                 onSnapshot(q3, (snapshot) => {
                     snapshot.docChanges().forEach((change) => {
                         if (change.type === "added") {
-                            if(change.doc.data().uid === uid){
-                                dispatch(CheckUser("userExists",change.doc.data()))
+                            if (change.doc.data().uid === uid) {
+                                dispatch(CheckUser("userExists", change.doc.data()))
                             }
                         }
                     });
@@ -73,7 +74,9 @@ const Routess = () => {
                         <Route path='/cart' component={Cart} />
                     </> : currentUser[0] === 'nouser' ?
                         <>
+
                             <Route exact path='/' component={SignUp} />
+                            <Route exact path='/restaurantsignup' component={SignUpRestaurant} />
                             <Route path='/signin' component={SignIn} />
                         </> :
                         <>

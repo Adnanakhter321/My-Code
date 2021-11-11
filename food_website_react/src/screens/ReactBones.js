@@ -19,6 +19,12 @@ const ReactBones = () => {
                 //     history.push('/userinterface')
                 // }
             }
+            else if (location.pathname === '/restaurantsignup') {
+                history.push('/restaurantsignup')
+            }
+            else if (location.pathname === '/') {
+                history.push('/')
+            }
             else {
                 history.push('/signin')
             }

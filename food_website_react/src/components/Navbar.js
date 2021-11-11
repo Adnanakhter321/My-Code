@@ -5,20 +5,15 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-// import Badge from '@mui/material/Badge';
+// import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-// import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import HomeIcon from '@mui/icons-material/Home';
-// import AccountCircle from '@mui/icons-material/AccountCircle';
-// import MailIcon from '@mui/icons-material/Mail';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckUser, CartNull } from '../Actions/Actions';
@@ -40,29 +35,28 @@ const Search = styled('div')(({ theme }) => ({
     },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
+// const SearchIconWrapper = styled('div')(({ theme }) => ({
+//     padding: theme.spacing(0, 2),
+//     height: '100%',
+//     position: 'absolute',
+//     pointerEvents: 'none',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+// }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
-    },
-}));
+// const StyledInputBase = styled(InputBase)(({ theme }) => ({
+//     color: 'inherit',
+//     '& .MuiInputBase-input': {
+//         padding: theme.spacing(1, 1, 1, 0),
+//         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//         transition: theme.transitions.create('width'),
+//         width: '100%',
+//         [theme.breakpoints.up('md')]: {
+//             width: '20ch',
+//         },
+//     },
+// }));
 export default function PrimarySearchAppBar() {
     let okbynull = () => {
         currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
@@ -77,15 +71,11 @@ export default function PrimarySearchAppBar() {
         })
     }
     let currentUser = useSelector((State) => State.todoReducer.user)
-    // const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    // const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    // const handleProfileMenuOpen = (event) => {
-    // setAnchorEl(event.currentTarget);
-    // };
+    
     const goHome = () => {
         currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
     }
@@ -93,16 +83,11 @@ export default function PrimarySearchAppBar() {
         setMobileMoreAnchorEl(null);
     };
 
-    // const handleMenuClose = () => {
-    // setAnchorEl(null);
-    // handleMobileMenuClose();
-    // };
+  
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
-
-    // const menuId = 'primary-search-account-menu';
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -157,13 +142,14 @@ export default function PrimarySearchAppBar() {
                         FooDHuB
                     </Typography>
                     <Search>
-                        <SearchIconWrapper>
+                        {/* <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
-                        />
+                            style={{maxWidth:170}}
+                        /> */}
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -177,6 +163,8 @@ export default function PrimarySearchAppBar() {
 
 
                                     <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button>
+                                    <Button onClick={() => history.push("/restaurantsignup")} variant="contained" size="medium" startIcon={<LoginIcon />}>Restaurant Signup</Button>
+                                    <Button onClick={() => history.push("/restaurantlogin")} variant="contained" size="medium" startIcon={<LoginIcon />}>Restaurant Login</Button>
                                 </div>
                                 : null
                         }

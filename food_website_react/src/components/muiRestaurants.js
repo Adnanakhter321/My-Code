@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { useHistory } from 'react-router';
 
-const MuiRestaurants = ({ restaurantName, description, urlimage, uid, deliveryfee }) => {
+const MuiRestaurants = ({ restaurantName, description, urlimage, uid, deliveryfee, Des}) => {
   let history = useHistory()
   
   return (
@@ -25,7 +25,7 @@ const MuiRestaurants = ({ restaurantName, description, urlimage, uid, deliveryfe
                 {restaurantName} Restaurant
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {description}
+                {Des?Des:description}
               </Typography>
             </CardContent>
           </CardActionArea>

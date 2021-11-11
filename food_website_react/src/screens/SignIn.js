@@ -12,7 +12,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as Redirect } from 'react-router-dom'
 import { auth, signInWithEmailAndPassword } from "../configs/Firebase";
 import { useState } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
@@ -119,11 +118,9 @@ export default function SignIn() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Redirect to='/' variant="body2">
-                    <Link variant="body2">
+                    <Link onClick={()=> history.push('/')} variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
-                  </Redirect >
                 </Grid>
               </Grid>
             </Box>
