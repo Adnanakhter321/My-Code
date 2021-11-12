@@ -11,7 +11,7 @@ const MuiRestaurants = ({ restaurantName, description, urlimage, uid, deliveryfe
   
   return (
     <>
-      <div style={{ marginLeft: '2rem', marginTop: '2rem', display: 'inline-block' }}>
+      <div style={{ marginLeft: '1rem', marginTop: '2rem', display: 'inline-block' }}>
         <Card id={uid} sx={{ maxWidth: 300 }}>
           <CardActionArea onClick={() => history.push(`/dishes/${restaurantName}`)}>
             <CardMedia

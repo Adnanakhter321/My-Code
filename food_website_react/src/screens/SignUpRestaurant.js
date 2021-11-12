@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { doc, setDoc, db, auth, signOut } from "../configs/Firebase"
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Input } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,14 +20,14 @@ import Select from '@mui/material/Select';
 import { uploadBytes, ref, storage, getDownloadURL, createUserWithEmailAndPassword } from '../configs/Firebase';
 const theme = createTheme();
 export default function SignUp() {
-    const location = useLocation()
+    // const location = useLocation()
     const history = useHistory()
-    const currentUser = useSelector((State) => State.todoReducer.user)
-    useEffect(() => {
-        if (currentUser[0] === 'userExists' && location.pathname !== '/userinterface') {
-            history.push('/userinterface')
-        }
-    }, [currentUser, history, location.pathname])
+    // const currentUser = useSelector((State) => State.todoReducer.user)
+    // useEffect(() => {
+    //     if (currentUser[0] === 'userExists' && location.pathname !== '/userinterface') {
+    //         history.push('/userinterface')
+    //     }
+    // }, [currentUser, history, location.pathname])
     const [RestaurantName, setRestaurantName] = useState('')
     const [Description, setDescription] = useState('')
     const [Email, setEmail] = useState('')
@@ -50,44 +50,32 @@ export default function SignUp() {
         if (File !== '' && RestaurantName !== '' && Email !== '' && password !== '' && Description !== '' && deliveryfee !== '') {
             ev.target.innerText = 'Signing Up...'
             createUserWithEmailAndPassword(auth, User.Email, User.password).then(()=>{
+                signOut(auth).then(()=>history.push('/restaurantlogin'))
                 uploadBytes(storageRef, File).then(() => {
                     setTimeout(() => {
                         setFile('')
                     }, 2000);
-                    getDownloadURL(ref(storage, `userimages/${File.name}`)).then(async(url) => {
+                    getDownloadURL(ref(storage, `userimages/${File.name}`)).then((url) => {
                         User[`urlimage`] = url
-                        await setDoc(doc(db, "restaurantsData", User.uid), User).then(()=>{
-                            alert('You Have Succesfully Registered, Redirecting To Restaurant Login Page')
+                         setDoc(doc(db, "restaurantsData", User.uid), User).then(()=>{
                             setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
-                            history.push('/restaurantsignin')
-                            signOut(auth).then(()=>history.push('/restaurantsignin'))
                         }).catch((er)=>{
                             alert(er.message)
                             setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
                         })
                     })
-                });
+                }).catch((er)=>{
+                    setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
+                    alert(er.message)
+                })
             }).catch((er)=>{
                 setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
                 alert(er.message)
             })
-            // uploadBytes(storageRef, File).then(() => {
-                //     setTimeout(() => {
-                    //         setFile('')
-                    //     }, 2000);
-                    //     getDownloadURL(ref(storage, `userimages/${File.name}`)).then((url) => {
-                        //         User[`urlimage`] = url
-                        //         createUserWithEmailAndPassword(auth, User.Email, User.password)
-                        //             .then(async () => {
-                            //                 await setDoc(doc(db, "restaurantsData", User.uid), User).then(() => history.push('/restaurantsignin'), alert('You Have Succesfully Registered, Redirecting To Restaurant Login Page'), setTimeout(() => ev.target.innerText = 'SIGN UP', 1000), signOut(auth));
-                            //             }).catch((er) => alert(er.message), setTimeout(() => ev.target.innerText = 'SIGN UP', 1000))
-                            //     })
-            // });
         }
         else {
             alert('Please Fill All fields And try again')
         }
-        setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
     };
     const fileChangedHandler = (event) => {
         const file = event.target.files[0]
@@ -204,7 +192,7 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link style={{ cursor: 'pointer' }} onClick={() => history.push('/restaurantsignin')} variant="body2">
+                                <Link style={{ cursor: 'pointer' }} onClick={() => history.push('/restaurantlogin')} variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

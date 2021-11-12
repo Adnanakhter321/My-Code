@@ -1,10 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import Dishes2 from '../components/Dishes'
 const Dishes = () => {
     const currentUser = useSelector((State) => State.todoReducer.Dishes)
     const { nameRestaurant } = useParams()
+   
     return (
         <>
             {currentUser.map((el, index) => {

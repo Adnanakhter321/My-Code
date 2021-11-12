@@ -22,11 +22,11 @@ const Cart = () => {
     const cartIn = useSelector((State) => State.todoReducer.Cart)
     const User = useSelector((State) => State.todoReducer.user)
     const ResData = useSelector((State) => State.todoReducer.AllRestaurants)
-    const placeOrder = async () => {
+    const placeOrder =  () => {
         info[`Flat/Unit`] = flatUnit
         info[`BuyerAddress`] = Address
         const Ref = doc(db, "UserOrders", info.uid)
-        await setDoc(Ref, info).then(()=> alert('Your Order Has Been Placed'), dispatch(CartNull()) , history.push('/userinterface'))
+         setDoc(Ref, info).then(()=> alert('Your Order Has Been Placed'), dispatch(CartNull()) , history.push('/userinterface'))
     }
     const submitCart = (ev) => {
         let num = 1

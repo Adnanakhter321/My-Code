@@ -16,6 +16,8 @@ import { AddRestaurants, AddDishes, CheckUser } from "../Actions/Actions";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "../screens/Cart";
 import SignUpRestaurant from "../screens/SignUpRestaurant";
+import SignInRestaurant from "../screens/SignInRestaurant";
+import HomeRestaurant from "../screens/HomeRestaurant";
 const Routess = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector((State) => State.todoReducer.user)
@@ -30,7 +32,6 @@ const Routess = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
     const q2 = query(collection(db, "restuarantDishes"));
     useEffect(() => {
         onSnapshot(q2, (snapshot) => {
@@ -42,46 +43,65 @@ const Routess = () => {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
     useEffect(() => {
-        const q3 = query(collection(db, "Users"));
+        let checkif = true;
+        const q1 = query(collection(db, "Users"));
+        const q2 = query(collection(db, "restaurantsData"));
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
-                onSnapshot(q3, (snapshot) => {
+                onSnapshot(q1, (snapshot) => {
                     snapshot.docChanges().forEach((change) => {
                         if (change.type === "added") {
                             if (change.doc.data().uid === uid) {
                                 dispatch(CheckUser("userExists", change.doc.data()))
+                                checkif = false
                             }
                         }
                     });
                 });
-            } else {
+                if (checkif === true) {
+                    onSnapshot(q2, (snapshot) => {
+                        snapshot.docChanges().forEach((change) => {
+                            if (change.type === "added") {
+                                if (change.doc.data().Email === user.email) {
+                                    dispatch(CheckUser("userRestaurant", change.doc.data()))
+
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+            else {
                 dispatch(CheckUser('nouser', 'null'))
             }
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [dispatch])
     return (
         <Router>
             <Navbar />
             <Switch>
                 {currentUser[0] === 'userExists' ?
                     <>
-                        <Route path='/userinterface' component={UserInterface} />
-                        <Route path='/dishes/:nameRestaurant' component={Dishes} />
-                        <Route path='/cart' component={Cart} />
-                    </> : currentUser[0] === 'nouser' ?
+                        <Route exact path='/userinterface' component={UserInterface} />
+                        <Route exact path='/dishes/:nameRestaurant' component={Dishes} />
+                        <Route exact path='/cart' component={Cart} />
+                    </> : currentUser[0] === 'userRestaurant' ?
                         <>
-
-                            <Route exact path='/' component={SignUp} />
-                            <Route exact path='/restaurantsignup' component={SignUpRestaurant} />
-                            <Route path='/signin' component={SignIn} />
-                        </> :
-                        <>
-                            <Route path='/' component={ReactBones} />
+                            <Route exact path='/restauranthome' component={HomeRestaurant} />
                         </>
+                        : currentUser[0] === 'nouser' ?
+                            <>
+
+                                <Route exact path='/' component={SignUp} />
+                                <Route exact path='/restaurantsignup' component={SignUpRestaurant} />
+                                <Route exact path='/restaurantlogin' component={SignInRestaurant} />
+                                <Route exact path='/signin' component={SignIn} />
+                            </> :
+                            <>
+                                <Route path='/' component={ReactBones} />
+                            </>
                 };
             </Switch>
         </Router>

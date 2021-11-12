@@ -37,11 +37,11 @@ export default function SignIn() {
   const history = useHistory()
   const location = useLocation();
   const currentUser = useSelector((State) => State.todoReducer.user)
-  useEffect(() => {
-    if(currentUser[0] === 'userExists' && location.pathname !== '/userinterface'){
-        history.push('/userinterface')
-    }
-}, [currentUser, history, location.pathname])
+//   useEffect(() => {
+//     if(currentUser[0] === 'userExists' && location.pathname !== '/userinterface'){
+//         history.push('/userinterface')
+//     }
+// }, [currentUser, history, location.pathname])
   const SignIN = (event) => {
     event.target.innerText = 'Signing In...'
     signInWithEmailAndPassword(auth, Email, password)

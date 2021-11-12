@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 // import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -18,7 +19,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckUser, CartNull } from '../Actions/Actions';
 import { auth, signOut } from '../configs/Firebase';
-
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -66,8 +66,14 @@ export default function PrimarySearchAppBar() {
     let Logout = () => {
         signOut(auth).then(() => {
             dispatch(CartNull())
-            dispatch(CheckUser('nouser', 'null'))
-            history.push('/signin')
+            if (currentUser[0] === 'userRestaurant') {
+                history.push('/restaurantlogin')
+                dispatch(CheckUser('nouser', 'null'))
+            }
+            else if (currentUser[0] === 'userExists') {
+                history.push('/signin')
+                dispatch(CheckUser('nouser', 'null'))
+            }
         })
     }
     let currentUser = useSelector((State) => State.todoReducer.user)
@@ -75,15 +81,23 @@ export default function PrimarySearchAppBar() {
 
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    
+
     const goHome = () => {
-        currentUser[0] === 'userExists' ? history.push('/userinterface') : history.push('/signin')
+        if (currentUser[0] === 'userExists') {
+            history.push('/userinterface')
+        }
+        else if (currentUser[0] === 'userRestaurant') {
+            history.push('/restauranthome')
+        }
+        else {
+            history.push('/signin')
+        }
     }
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
 
-  
+
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
@@ -110,21 +124,30 @@ export default function PrimarySearchAppBar() {
                 <div>
 
                     <MenuItem>
-            <Button style={{marginRight:'1rem'}} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={okbynull} size="medium">Home</Button>
-            <Button b={4} startIcon={<LogoutIcon />} variant='outlined' onClick={Logout} size="medium">Logout</Button>
+                        <Button style={{ marginRight: '1rem' }} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={okbynull} size="medium">Home</Button>
+                        <Button b={4} startIcon={<LogoutIcon />} variant='outlined' onClick={Logout} size="medium">Logout</Button>
                     </MenuItem>
                 </div>
-                : currentUser[0] === 'nouser' ?
+                :
+                currentUser[0] === 'userRestaurant' ?
                     <div>
-                        <MenuItem>
+                        <Grid>
+                            <Button startIcon={<HomeIcon />} style={{ marginRight: '1rem' }} onClick={goHome} variant="outlined" size="medium" >Home</Button>
+                            <Button onClick={Logout} variant="outlined" size="medium" startIcon={<LoginIcon />}>Logout</Button>
+                        </Grid>
+                    </div>
 
-                            <Button variant='contained' onClick={() => history.push("/signin")} size="small">Login</Button>
-                        </MenuItem>
+                    : currentUser[0] === 'nouser' ?
+                        <div>
+                            <MenuItem>
 
-                        <MenuItem>
-                            <Button onClick={() => history.push("/")} variant='outlined' size="small">Register</Button>
-                        </MenuItem>
-                    </div> :  <Button style={{marginRight:'1rem'}} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={okbynull} size="medium">Home</Button>
+                                <Button variant='contained' onClick={() => history.push("/signin")} size="small">Login</Button>
+                            </MenuItem>
+
+                            <MenuItem>
+                                <Button onClick={() => history.push("/")} variant='outlined' size="small">Register</Button>
+                            </MenuItem>
+                        </div> : <Button style={{ marginRight: '1rem' }} b={4} startIcon={<HomeIcon />} variant='outlined' onClick={okbynull} size="medium">Home</Button>
             }
         </Menu>
     );
@@ -155,18 +178,23 @@ export default function PrimarySearchAppBar() {
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {currentUser[0] === 'userExists' ?
                             <div>
-                                <Button startIcon={<HomeIcon />} style={{marginRight:'1rem'}} onClick={goHome} variant="contained" size="medium" >Home</Button>
+                                <Button startIcon={<HomeIcon />} style={{ marginRight: '1rem' }} onClick={goHome} variant="contained" size="medium" >Home</Button>
                                 <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
-                            </div> : currentUser[0] === 'nouser' ?
+                            </div> : currentUser[0] === 'userRestaurant' ?
                                 <div>
-                                    <Button onClick={() => history.push("/signin")} style={{ outline: 'none', marginRight: 10 }} variant="contained" size="medium" startIcon={<LoginIcon />}>Login</Button>
-
-
-                                    <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button>
-                                    <Button onClick={() => history.push("/restaurantsignup")} variant="contained" size="medium" startIcon={<LoginIcon />}>Restaurant Signup</Button>
-                                    <Button onClick={() => history.push("/restaurantlogin")} variant="contained" size="medium" startIcon={<LoginIcon />}>Restaurant Login</Button>
+                                    <Button startIcon={<HomeIcon />} style={{ marginRight: '1rem' }} onClick={goHome} variant="contained" size="medium" >Home</Button>
+                                    <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
                                 </div>
-                                : null
+                                : currentUser[0] === 'nouser' ?
+                                    <div>
+                                        <Button onClick={() => history.push("/signin")} style={{ outline: 'none', marginRight: 10 }} variant="contained" size="medium" startIcon={<LoginIcon />}>Login</Button>
+
+
+                                        <Button onClick={() => history.push("/")} variant="contained" size="medium" startIcon={<LoginIcon />}>Register</Button>
+                                        <Button onClick={() => history.push("/restaurantsignup")} variant="contained" size="medium" startIcon={<LoginIcon />}>Restaurant Signup</Button>
+                                        <Button onClick={() => history.push("/restaurantlogin")} variant="contained" size="medium" startIcon={<LoginIcon />}>Restaurant Login</Button>
+                                    </div>
+                                    : null
                         }
 
 
