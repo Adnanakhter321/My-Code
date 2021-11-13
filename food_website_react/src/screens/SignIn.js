@@ -14,9 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth, signInWithEmailAndPassword } from "../configs/Firebase";
 import { useState } from 'react';
-import { useHistory, useLocation } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -35,8 +33,6 @@ export default function SignIn() {
   const [Email, setEmail] = useState('')
   const [password, setpassword] = useState('')
   const history = useHistory()
-  const location = useLocation();
-  const currentUser = useSelector((State) => State.todoReducer.user)
 //   useEffect(() => {
 //     if(currentUser[0] === 'userExists' && location.pathname !== '/userinterface'){
 //         history.push('/userinterface')

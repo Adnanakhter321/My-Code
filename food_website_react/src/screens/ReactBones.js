@@ -10,7 +10,6 @@ const ReactBones = () => {
     let location = useLocation();
     
     useEffect(() => {
-        console.log(currentUser);
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // if (location.pathname === '/') {

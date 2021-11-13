@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { useHistory, useLocation } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -49,26 +49,26 @@ export default function SignUp() {
         }
         if (File !== '' && RestaurantName !== '' && Email !== '' && password !== '' && Description !== '' && deliveryfee !== '') {
             ev.target.innerText = 'Signing Up...'
-            createUserWithEmailAndPassword(auth, User.Email, User.password).then(()=>{
-                signOut(auth).then(()=>history.push('/restaurantlogin'))
+            createUserWithEmailAndPassword(auth, User.Email, User.password).then(() => {
+                signOut(auth).then(() => history.push('/restaurantlogin'))
                 uploadBytes(storageRef, File).then(() => {
                     setTimeout(() => {
                         setFile('')
                     }, 2000);
                     getDownloadURL(ref(storage, `userimages/${File.name}`)).then((url) => {
                         User[`urlimage`] = url
-                         setDoc(doc(db, "restaurantsData", User.uid), User).then(()=>{
+                        setDoc(doc(db, "restaurantsData", User.uid), User).then(() => {
                             setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
-                        }).catch((er)=>{
+                        }).catch((er) => {
                             alert(er.message)
                             setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
                         })
                     })
-                }).catch((er)=>{
+                }).catch((er) => {
                     setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
                     alert(er.message)
                 })
-            }).catch((er)=>{
+            }).catch((er) => {
                 setTimeout(() => ev.target.innerText = 'SIGN UP', 1000)
                 alert(er.message)
             })
@@ -176,7 +176,7 @@ export default function SignUp() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="h6" gutterBottom component="div">
-                                    Restaurant Image: 
+                                    Restaurant Image:
                                 </Typography>
                                 <Input type='file' id='file' onChange={fileChangedHandler} />
                             </Grid>
