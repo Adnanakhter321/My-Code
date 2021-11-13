@@ -19,6 +19,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckUser, CartNull } from '../Actions/Actions';
 import { auth, signOut } from '../configs/Firebase';
+import PublishIcon from '@mui/icons-material/Publish';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -132,6 +133,9 @@ export default function PrimarySearchAppBar() {
                 currentUser[0] === 'userRestaurant' ?
                     <div>
                         <Grid>
+                            <Button startIcon={<PublishIcon />} style={{ marginRight: '1rem' }} onClick={() => {
+                                history.push('/orders')
+                            }} variant="outlined" size="medium" >Orders</Button>
                             <Button startIcon={<HomeIcon />} style={{ marginRight: '1rem' }} onClick={goHome} variant="outlined" size="medium" >Home</Button>
                             <Button onClick={Logout} variant="outlined" size="medium" startIcon={<LoginIcon />}>Logout</Button>
                         </Grid>
@@ -182,6 +186,9 @@ export default function PrimarySearchAppBar() {
                                 <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
                             </div> : currentUser[0] === 'userRestaurant' ?
                                 <div>
+                                    <Button startIcon={<PublishIcon />} style={{ marginRight: '1rem' }} onClick={() => {
+                                        history.push('/orders')
+                                    }} variant="contained" size="medium" >Orders</Button>
                                     <Button startIcon={<HomeIcon />} style={{ marginRight: '1rem' }} onClick={goHome} variant="contained" size="medium" >Home</Button>
                                     <Button onClick={Logout} variant="contained" size="medium" startIcon={<LoginIcon />}>Logout</Button>
                                 </div>

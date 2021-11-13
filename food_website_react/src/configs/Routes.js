@@ -18,6 +18,7 @@ import Cart from "../screens/Cart";
 import SignUpRestaurant from "../screens/SignUpRestaurant";
 import SignInRestaurant from "../screens/SignInRestaurant";
 import HomeRestaurant from "../screens/HomeRestaurant";
+import CheckOrders from "../screens/CheckOrders";
 const Routess = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector((State) => State.todoReducer.user)
@@ -90,6 +91,7 @@ const Routess = () => {
                     </> : currentUser[0] === 'userRestaurant' ?
                         <>
                             <Route exact path='/restauranthome' component={HomeRestaurant} />
+                            <Route exact path='/orders' component={CheckOrders} />
                         </>
                         : currentUser[0] === 'nouser' ?
                             <>

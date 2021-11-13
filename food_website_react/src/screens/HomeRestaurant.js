@@ -24,6 +24,7 @@ export default function BasicTextFields() {
     const currentUser = useSelector((State) => State.todoReducer.user)
     const addDish = (ev) => {
         ev.target.innerText = 'Adding Dish....'
+        ev.target.disabled = true;
         let dish = {
             Itemname,
             Price: values.weight + 'PKR',
@@ -37,25 +38,28 @@ export default function BasicTextFields() {
                 setTimeout(() => {
                     setFile('')
                 }, 2000);
-                getDownloadURL(ref(storage, `dishimages/${dish.uid}/${File.name}`)).then((url) => {
+                getDownloadURL(ref(storage, `dishimages/${dish.uid}/${File?.name}`)).then((url) => {
                     dish[`imageurl`] = url
                     setDoc(doc(db, "restuarantDishes", dish.uid), dish).then(() => {
                         ev.target.innerText = 'Add Dish'
                         setFile('')
                         setitemname('')
                         setValues({ ...values, weight: ''})
-                        
+                        ev.target.disabled = false;
                     }).catch((er) => {
+                        ev.target.disabled = false;
                         ev.target.innerText = 'Add Dish'
                         alert(er.message)
                     })
                 })
             }).catch((er) => {
+                ev.target.disabled = false;
                 ev.target.innerText = 'Add Dish'
                 alert(er.message)
             })
         }
         else{
+            ev.target.disabled = false;
             ev.target.innerText = 'Add Dish'
             alert('Fill All Fields And Try Again')
         }
