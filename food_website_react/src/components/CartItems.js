@@ -18,7 +18,6 @@ const CartItems = ({ Itemname, Price, RestaurantName, imageurl, quantity, uid })
 
                             <div className="title">
                                 <h2 style={{ fontSize: 15 }}>{Itemname}</h2>
-                                {/* <p style={{fontSize:15}}>{ description}</p> */}
                             </div>
 
                             <div className="add-minus-quantity">

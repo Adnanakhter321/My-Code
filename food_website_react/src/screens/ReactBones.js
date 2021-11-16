@@ -5,30 +5,31 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router'
 import { auth, onAuthStateChanged } from "../configs/Firebase";
 const ReactBones = () => {
-    const currentUser = useSelector((State) => State.todoReducer.user)
+
+    let currentUser = useSelector((State) => State.todoReducer.AllRestaurants)
     let history = useHistory();
     let location = useLocation();
-    
+
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // if (location.pathname === '/') {
-                //     history.push('/userinterface')
-                // }
-                // else if (location.pathname === '/restauranthome') {
-                //     history.push('/restauranthome')
-                // }
-                // else if (location.pathname === '/dishes') {
-                //     history.push('/dishes')
-                // }
-                // else {
-                //     if(currentUser[0] === 'userRestaurant'){
-                //         history.push('/restauranthome')
-                //     }
-                //     else{
-                //         history.push('/userinterface')
-                //     }
-                // }
+
+                for (let i = 0; i < currentUser.length; i++) {
+                    const el = currentUser[i];
+                    if (el.Email === user.email) {
+                        if (location.pathname === '/') {
+                            history.push('/orders')
+                            return;
+                        }
+                    }
+                    else if (el.Email !== user.email) {
+                        if (location.pathname === '/') {
+                            history.push('/userinterface')
+                            return;
+                        }
+                    }
+                }
             }
             else if (location.pathname === '/restaurantsignup') {
                 history.push('/restaurantsignup')
@@ -43,7 +44,8 @@ const ReactBones = () => {
                 history.push('/signin')
             }
         });
-    }, [currentUser, history, location.pathname])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser])
     return (
         <Skeleton count={15} />
     )

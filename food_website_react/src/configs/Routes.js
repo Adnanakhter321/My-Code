@@ -19,10 +19,12 @@ import SignUpRestaurant from "../screens/SignUpRestaurant";
 import SignInRestaurant from "../screens/SignInRestaurant";
 import HomeRestaurant from "../screens/HomeRestaurant";
 import CheckOrders from "../screens/CheckOrders";
+
 const Routess = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector((State) => State.todoReducer.user)
     const q = query(collection(db, "restaurantsData"));
+   
     useEffect(() => {
         onSnapshot(q, (snapshot) => {
             snapshot.docChanges().forEach((change) => {
@@ -95,14 +97,13 @@ const Routess = () => {
                         </>
                         : currentUser[0] === 'nouser' ?
                             <>
-
                                 <Route exact path='/' component={SignUp} />
                                 <Route exact path='/restaurantsignup' component={SignUpRestaurant} />
                                 <Route exact path='/restaurantlogin' component={SignInRestaurant} />
                                 <Route exact path='/signin' component={SignIn} />
                             </> :
                             <>
-                                <Route path='/' component={ReactBones} />
+                                <Route path='/'  component={ReactBones} />
                             </>
                 };
             </Switch>

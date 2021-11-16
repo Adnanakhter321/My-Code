@@ -1,8 +1,13 @@
-import React, { useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import { collection, query, onSnapshot, db } from "../configs/Firebase";
-import CheckOrd from '../components/CheckOrd'
 import { useSelector } from 'react-redux';
+import CheckOrd from '../components/CheckOrd'
+import { Button } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import { useHistory } from 'react-router';
 const CheckOrders = () => {
+    let history = useHistory()
+    const [userOrder, setuserOrder] = useState([])
     const currentUser = useSelector((State) => State.todoReducer.user)
     let Orders = []
     const q = query(collection(db, "UserOrders"));
@@ -19,22 +24,24 @@ const CheckOrders = () => {
                     }
                 }
             });
-            console.log(Orders);
+            setuserOrder(Orders)
         });
+
     }, [])
     return (
-        // Orders.map((el)=>{
-        //     <CheckOrd {...Orders} BuyerAddress={el.BuyerAddress}  BuyerName={el.BuyerName}
-        //     CartBill={el.CartBill}
-        //     Address = {el.FlatUnit}
-        //     RestaurantName = {el.RestaurantName}
-        //     TotalBill = {el.TotalBill}
-        //     deliveryfee={el.deliveryfee}
+        <>
+            <MenuItem>
+                <Button variant='outlined' onClick={() => history.push('/restauranthome')}>GoBacK</Button>
+            </MenuItem>
+            {
+                userOrder[0] ? userOrder.map((ev) => {
+                    return (
+                        <CheckOrd {...ev} key={ev.uid} />
+                    )
 
-        //     />
-        //     return null;
-        // })
-        <h1>Orders Work pending </h1>
+                }) : <h1>No orders</h1>
+            }
+        </>
     )
 }
 

@@ -33,20 +33,12 @@ export default function SignIn() {
   const [Email, setEmail] = useState('')
   const [password, setpassword] = useState('')
   const history = useHistory()
-//   useEffect(() => {
-//     if(currentUser[0] === 'userExists' && location.pathname !== '/userinterface'){
-//         history.push('/userinterface')
-//     }
-// }, [currentUser, history, location.pathname])
   const SignIN = (event) => {
     event.target.innerText = 'Signing In...'
     signInWithEmailAndPassword(auth, Email, password)
       .then((userCredential) => {
-        // const user = userCredential.user;
         event.target.innerText = 'SIGN In'
         history.push('/userinterface')
-        // setTimeout(() => {
-        // }, 1000);
       })
       .catch((error) =>alert(error.message),setTimeout(()=>event.target.innerText = 'SIGN In',1000));
   };

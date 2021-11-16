@@ -24,7 +24,7 @@ const MuiRestaurants = ({ restaurantName, description, urlimage, uid, deliveryfe
               <Typography gutterBottom variant="h5" component="div">
                 {restaurantName} Restaurant
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="subtitle2" gutterBottom component="div">
                 {Des?Des:description}
               </Typography>
             </CardContent>

@@ -79,7 +79,7 @@ export default function BasicTextFields() {
                         padding: "1rem 1rem 1rem 1rem",
                         borderRadius: '2rem',
                         margin: '0 auto',
-                        width: 350
+                        width: 300
                     }}
                     noValidate
                     autoComplete="off">

@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { doc, setDoc, db, auth, signOut } from "../configs/Firebase"
-// import { useSelector } from 'react-redux';
 import { Input } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,14 +19,7 @@ import Select from '@mui/material/Select';
 import { uploadBytes, ref, storage, getDownloadURL, createUserWithEmailAndPassword } from '../configs/Firebase';
 const theme = createTheme();
 export default function SignUp() {
-    // const location = useLocation()
     const history = useHistory()
-    // const currentUser = useSelector((State) => State.todoReducer.user)
-    // useEffect(() => {
-    //     if (currentUser[0] === 'userExists' && location.pathname !== '/userinterface') {
-    //         history.push('/userinterface')
-    //     }
-    // }, [currentUser, history, location.pathname])
     const [RestaurantName, setRestaurantName] = useState('')
     const [Description, setDescription] = useState('')
     const [Email, setEmail] = useState('')

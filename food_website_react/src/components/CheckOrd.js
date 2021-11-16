@@ -1,66 +1,71 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { CardActionArea } from '@mui/material';
 
-const CheckOrders = ({RestaurantName}) => {
-    console.log(RestaurantName);
+const CheckOrders = (props) => {
+    const [items2, setitems2] = useState([])
+    let items = []
+    const obj = Object.entries(props).sort()
+    const [flatUnit, setflatUnit] = useState('')
+    let num = 1;
+    useEffect(() => {
+        obj.map((ev) => {
+            if (ev[0].substring(0, 4) === 'Flat') {
+                setflatUnit(ev[1])
+            }
+            if (ev[0] === `item${num}`) {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                items = [
+                    ...items,
+                    ev[1]
+                ]
+                num++;
+            }
+            setitems2(items)
+            return null
+        })
+    }, [])
     return (
-        <h1>
-            hi
-        </h1>
-    //     <div style={{ marginLeft: '2rem', marginTop: '2rem', display: 'inline-block' }}>
-    //     <Card id='hi' sx={{ maxWidth: 300 }}>
-    //       <CardActionArea>
-    //         <CardMedia
-    //           component="img"
-    //           height="140"
-    //           image='{imageurl}'
-    //         />
-    //         <CardContent>
-    //           <Typography gutterBottom variant="h5" component="div">
-    //            Restaurant
-    //           </Typography>
-    //           <Typography variant="body2" color="text.secondary">
-    //             Itemname: 
-    //           </Typography>
-    //           <Typography variant="body2" color="text.secondary">
-    //             Price:
-    //           </Typography>
-    //         </CardContent>
-    //       </CardActionArea>
-    //       <CardActions>
-    //         <Button size="small" color="primary">
-    //           Delivery Fee: 50PKR
-    //         </Button>
-    //       </CardActions>
-    //       <CardActions>
-    //         <div>
-    //           <Button size="small" color="primary" variant='contained' >
-    //             Add To Cart
-    //           </Button>
-    //         </div>
-    //         <div >
-    //           <Button size='large' startIcon={<RemoveCircleIcon />} />
-    //           <h3 style={{
-    //             display: 'inline-block', margin: 0,
-    //             position: 'relative', top: 2, right: 5
-    //           }}>'hi'</h3>
-  
-    //           <div style={{ display: 'inline-block' }} >
-    //             <Button size='large' startIcon={<AddCircleIcon />} />
-    //           </div>
-    //         </div>
-    //         <Button  startIcon={<ShoppingCartIcon />}></Button>
-    //       </CardActions>
-    //     </Card>
-    //   </div>
-  
+        <div style={{ marginLeft: '2rem', marginTop: '2rem', display: 'inline-block' }}>
+            <Card sx={{ maxWidth: 300 }}>
+                <CardActionArea>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {props.RestaurantName} Restaurant
+                        </Typography>
+                        <center>  <Typography style={{ marginBottom: 11 }} variant="subtitle2" component="div">
+                            OrderID: {props.uid}
+                        </Typography> </center>
+                        <Typography variant="subtitle2" gutterBottom component="div">
+                            BuyerName: {props.BuyerName}
+                        </Typography>
+                        <Typography variant="subtitle2" gutterBottom component="div">
+                            CartBill: {props.CartBill}
+                        </Typography>
+                        <Typography variant="subtitle2" gutterBottom component="div">
+                            Flat/Unit: {flatUnit + ' ' + props.BuyerAddress}
+                        </Typography>
+                        {
+                            items2.map((ev, index) => {
+                                return (
+                                    <h3 key={index}> ITEM : {ev}</h3>
+                                    )
+                            })
+                        }
+                        <Typography variant="subtitle2" gutterBottom component="div">
+                            Deliveryfee: {props.deliveryfee}
+                        </Typography>
+
+                        <Typography variant="h5" component="div">
+                            TotalBill: {props.TotalBill}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </div>
+
     )
 }
 
